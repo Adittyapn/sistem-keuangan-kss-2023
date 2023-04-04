@@ -20,7 +20,7 @@
   <body class="bg-light">
     <!-- Main Start  -->
     <div class="container">
-      <div class="row mt-5">
+      <div class="row mt-5 ma">
         <div class="col-12">
           <img
             class="mx-auto d-block img-kss mb-3"
@@ -29,9 +29,7 @@
           />
         </div>
         <div class="col-lg-5 bg-white rounded-2 m-auto wrapper">
-          <h2 class="text-center pt-3 mb-5">
-            <i class="fa-solid fa-key px-1"></i>User Login
-          </h2>
+          <h2 class="text-center pt-3 mb-5">Register</h2>
           <!-- Form start -->
           <form action="#">
             <div class="input-group mb-3">
@@ -40,7 +38,27 @@
                 type="text"
                 class="form-control"
                 id="exampleInputEmail1"
-                placeholder="Nama User"
+                placeholder="NIK"
+                required
+              />
+            </div>
+            <div class="input-group mb-3">
+              <span class="input-group-text"><i class="fa fa-user"></i></span>
+              <input
+                type="text"
+                class="form-control"
+                id="exampleInputEmail1"
+                placeholder="Nama Pengguna"
+                required
+              />
+            </div>
+            <div class="input-group mb-3">
+              <span class="input-group-text"><i class="fa fa-user"></i></span>
+              <input
+                type="text"
+                class="form-control"
+                id="exampleInputEmail1"
+                placeholder="Username"
                 required
               />
             </div>
@@ -54,22 +72,11 @@
                 required
               />
             </div>
-            <div class="input-group mb-3">
-              <select class="form-select" aria-label="Default select example">
-                <option selected>Tahun Anggaran</option>
-                <option value="2019">2019</option>
-                <option value="2020">2020</option>
-                <option value="2021">2021</option>
-                <option value="2022">2019</option>
-                <option value="2023">2020</option>
-                <option value="2024">2021</option>
-              </select>
-            </div>
 
             <div class="d-grid mb-3">
-              <button type="submit" class="btn btn-danger">Login</button>
+              <button type="submit" class="btn btn-danger">Daftar</button>
               <p class="text-center mt-3">
-                Belum memiliki akun ? <a href="register.html">Daftar disini</a>
+                Sudah memiliki akun ? <a href="login.html">Login disini</a>
               </p>
             </div>
           </form>

@@ -1,4 +1,9 @@
 /*? global clearing */
+:root {
+  --primary: #dc3545;
+  --secondary: #fff;
+}
+
 *,
 html,
 body {
@@ -6,3 +11,20 @@ body {
   padding: 0;
   box-sizing: border-box;
 }
+
+/* Body Start */
+.img-kss {
+  width: 100px;
+  height: 40px;
+}
+/* Body End */
+
+/* Form start */
+.wrapper {
+  border-top: 3px solid var(--primary);
+}
+.wrapper a {
+  text-decoration: none;
+  color: var(--primary);
+}
+/* Form end */
