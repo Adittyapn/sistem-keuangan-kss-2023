@@ -24,7 +24,7 @@
         <div class="col-12">
           <img
             class="mx-auto d-block img-kss mb-3"
-            src="/src/image/NEW-LOGO-KSS.png"
+            src="src/image/NEW-LOGO-KSS.png"
             alt=""
           />
         </div>
@@ -33,7 +33,7 @@
             <i class="fa-solid fa-key px-1"></i>User Login
           </h2>
           <!-- Form start -->
-          <form action="#">
+          <form action="#" autocomplete="off">
             <div class="input-group mb-3">
               <span class="input-group-text"><i class="fa fa-user"></i></span>
               <input
@@ -42,6 +42,8 @@
                 id="exampleInputEmail1"
                 placeholder="Nama User"
                 required
+                oninvalid="this.setCustomValidity('Harap Isi Username')"
+                oninput="this.setCustomValidity('')"
               />
             </div>
             <div class="input-group mb-3">

@@ -19,7 +19,20 @@ body {
 }
 /* Body End */
 
-/* Form start */
+/* Navbar Start */
+.nav-link.active {
+  color: var(--primary) !important;
+  font-weight: 700;
+}
+.dropdown-item.active {
+  background-color: transparent !important;
+  text-decoration: none;
+  color: var(--primary) !important;
+  font-weight: 700;
+}
+/* Navbar End */
+
+/* Form Login and Register start */
 .wrapper {
   border-top: 3px solid var(--primary);
 }
@@ -27,4 +40,4 @@ body {
   text-decoration: none;
   color: var(--primary);
 }
-/* Form end */
+/* Form Login and Register end */
