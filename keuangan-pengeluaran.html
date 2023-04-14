@@ -19,7 +19,7 @@
 
   <body>
     <!-- Navbar Start -->
-    <nav class="navbar navbar-expand-lg bg-body-tertiary mb-5 sticky-top">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary mb-3 sticky-top">
       <div class="container-fluid">
         <a class="navbar-brand" href="index.html"
           ><img
@@ -56,13 +56,17 @@
               </a>
               <ul class="dropdown-menu">
                 <li>
-                  <a
-                    class="dropdown-item active"
-                    href="keuangan-penerimaan.html"
+                  <a class="dropdown-item" href="keuangan-penerimaan.html"
                     >Penerimaan Kas</a
                   >
                 </li>
-                <li><a class="dropdown-item" href="#">Pengeluaran Kas</a></li>
+                <li>
+                  <a
+                    class="dropdown-item active"
+                    href="keuangan-pengeluaran.html"
+                    >Pengeluaran Kas</a
+                  >
+                </li>
               </ul>
             </li>
             <li class="nav-item dropdown">
@@ -94,103 +98,149 @@
     <section class="form-penerimaan">
       <div class="container-fluid">
         <div class="card">
-          <div class="card-header"><h4 class="text-center">Pengeluaran Kas</h4></div>
+          <div class="card-header">
+            <h4 class="text-center">Pengeluaran Kas</h4>
+          </div>
           <div class="card-body">
             <div class="row">
-              <div class="col-6 border mb-2">
+              <div class="col-6 border mb-3">
                 <form action="">
-                  <!-- <div class="d-flex">
-                    <span class="me-2">Keluar Melalui : </span>
-                    <div class="form-check">
-                      <input
-                        class="form-check-input"
-                        type="radio"
-                        name="flexRadioDefault"
-                        id="flexRadioDefault1"
-                      />
-                      <label
-                        class="form-check-label me-2"
-                        for="flexRadioDefault1"
-                      >
-                        KAS
-                      </label>
-                    </div>
-                    <div class="form-check">
-                      <input
-                        class="form-check-input"
-                        type="radio"
-                        name="flexRadioDefault"
-                        id="flexRadioDefault2"
-                        checked
-                      />
-                      <label
-                        class="form-check-label me-2"
-                        for="flexRadioDefault2"
-                      >
-                        BANK
-                      </label>
-                    </div>
+                  <div class="row align-items-center">
+                    <label for="caraBayar" class="col-sm-2 col-form-label"
+                      ><b>Diterima Melalui</b></label
+                    >
+                    <div class="p-2 col-sm-10 d-flex">
+                      <div class="form-check">
+                        <input
+                          class="form-check-input"
+                          type="radio"
+                          name="flexRadioDefault"
+                          id="flexRadioDefault1"
+                        />
+                        <label
+                          class="form-check-label me-1"
+                          for="flexRadioDefault1"
+                        >
+                          KAS
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input
+                          class="form-check-input"
+                          type="radio"
+                          name="flexRadioDefault"
+                          id="flexRadioDefault2"
+                          checked
+                        />
+                        <label
+                          class="form-check-label me-1"
+                          for="flexRadioDefault2"
+                        >
+                          BANK
+                        </label>
+                      </div>
 
-                    <div class="form-check">
-                      <input
-                        class="form-check-input"
-                        type="radio"
-                        name="flexRadioDefault"
-                        id="flexRadioDefault3"
-                      />
-                      <label
-                        class="form-check-label me-3"
-                        for="flexRadioDefault3"
-                      >
-                        GIRO
-                      </label>
+                      <div class="form-check">
+                        <input
+                          class="form-check-input"
+                          type="radio"
+                          name="flexRadioDefault"
+                          id="flexRadioDefault3"
+                        />
+                        <label
+                          class="form-check-label me-1"
+                          for="flexRadioDefault3"
+                        >
+                          GIRO
+                        </label>
+                      </div>
                     </div>
-                  </div> -->
-
-                  <div class="d-flex">
-                    <span class="me-2">No Invoice : </span>
-                    <input
-                      class="form-control form-control w-auto me-1"
-                      type="text"
-                      value="KSS-PNM-07042023"
-                      aria-label="readonly input example"
-                      readonly
-                    />
-                    <span class="me-2">Tanggal : </span>
-                    <input
-                      type="date"
-                      id="transaksi"
-                      name="transaksi"
-                      value="transaksi"
-                    />
+                  </div>
+                  <div class="row">
+                    <label for="invoice" class="col-sm-2 col-form-label">
+                      <b>No Invoice</b>
+                    </label>
+                    <div class="col-sm-4">
+                      <input
+                        class="form-control"
+                        type="text"
+                        value="KSS-PNM-07042023"
+                        aria-label="readonly input example"
+                        readonly
+                      />
+                    </div>
+                    <label for="date" class="col-sm-2 text-end col-form-label"
+                      ><b>Tanggal</b></label
+                    >
+                    <div class="col-sm-2 p-2">
+                      <input type="date" class="datepicker border rounded-1" />
+                    </div>
                   </div>
                 </form>
               </div>
-              <div class="col-6 border mb-2">
+              <div class="col-6 border mb-3">
                 <form action="">
-                  <div class="d-flex">
-                      <span class="me-2">Proyek : </span>
+                  <div class="row align-items-center">
+                    <label for="caraBayar" class="col-sm-2 col-form-label"
+                      ><b>Dibayarkan Kpd.</b></label
+                    >
+                    <div class="col-sm-4">
                       <input
-                        class="form-control form-control-sm w-auto me-1"
+                        class="form-control form-control-sm w-100"
                         type="text"
-                        value="MGL001"
+                        value="SP0003"
                         aria-label="readonly input example"
                         readonly
                       />
+                    </div>
+                    <div class="col-sm-4">
                       <input
-                        class="form-control form-control-sm w-auto me-1"
+                        class="form-control form-control-sm w-100"
                         type="text"
-                        value="Blue Land"
+                        value="ABDUL HALIM"
                         aria-label="readonly input example"
                         readonly
                       />
-                      <button type="button" class="btn border">...</button>
+                    </div>
+                    <div class="col-sm-2">
+                      <button type="button" class="btn border btn-sm">
+                        ...
+                      </button>
+                    </div>
+                  </div>
+                  <div class="row align-items-center">
+                    <label for="caraBayar" class="col-sm-2 col-form-label"
+                      ><b>Proyek</b></label
+                    >
+                    <div class="col-sm-4">
+                      <input
+                        class="form-control form-control-sm w-100"
+                        type="text"
+                        value="TB5006"
+                        aria-label="readonly input example"
+                        readonly
+                      />
+                    </div>
+                    <div class="col-sm-4">
+                      <input
+                        class="form-control form-control-sm w-100"
+                        type="text"
+                        value="Green Land"
+                        aria-label="readonly input example"
+                        readonly
+                      />
+                    </div>
+                    <div class="col-sm-2">
+                      <button type="button" class="btn border btn-sm">
+                        ...
+                      </button>
+                    </div>
                   </div>
                 </form>
               </div>
               <!-- header content end -->
               <!-- main content start -->
-              
+
               <div class="col-6 mt-2">
                 <form action="">
                   <div class="row mb-3">
@@ -233,7 +283,9 @@
                       />
                     </div>
                     <div class="col-sm-1">
-                      <button type="button" class="btn border">...</button>
+                      <button type="button" class="mt-1 btn border btn-sm">
+                        ...
+                      </button>
                     </div>
                   </div>
                   <div class="row mb-3">
@@ -319,7 +371,6 @@
                         class="text-center form-control"
                         disabled
                         readonly
-                        
                       />
                     </div>
                     <div class="col-sm-8">
@@ -361,25 +412,21 @@
                     <label for="Potongan" class="col-sm-2 col-form-label"
                       >Potongan PPH</label
                     >
-                    <div class="col-sm-1 mb-0">
-                      <select
-                        name="Potongan"
-                        id="Potongan"
-                        class="form-select"
-                      >
+                    <div class="col-sm-2 mb-0">
+                      <select name="Potongan" id="Potongan" class="form-select">
                         <option value="transfer" selected>1</option>
                         <option value="tunai" selected>2</option>
                       </select>
                     </div>
                     <div class="col-sm-2">
                       <input
-                      name="nilaiPnrm"
-                      id="nilaiPnrm"
-                      class="text-end form-control"
-                      onkeypress="return restrictAlpha(event)"
+                        name="pot"
+                        id="pot"
+                        class="text-end form-control"
+                        onkeypress="return restrictAlpha(event)"
                       />
                     </div>
-                    <div class="col-sm-1">
+                    <div class="col-sm-2">
                       <input
                         name="idr"
                         id="idr"
@@ -389,10 +436,10 @@
                         readonly
                       />
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-4">
                       <input
-                        name="nilaiPnrm"
-                        id="nilaiPnrm"
+                        name=""
+                        id=""
                         class="text-end form-control"
                         onkeypress="return restrictAlpha(event)"
                       />
@@ -414,19 +461,20 @@
                     </div>
                     <div class="col-sm-8">
                       <input
-                        id="noRek"
-                        name="noRek"
+                        id=""
+                        name=""
                         type="text"
                         value=""
                         class="text-end form-control"
                         onkeypress="return restrictAlpha(event)"
                       />
                     </div>
+                  </div>
                   <div class="pembatas"><hr /></div>
                   <div class="row mb-3">
                     <label for="kodeBank" class="col-sm-2 col-form-label"
-                      >Total Dibayarkan </label
-                    >
+                      >Total Dibayarkan
+                    </label>
                     <div class="col-sm-2">
                       <input
                         name="idr"
@@ -439,31 +487,67 @@
                     </div>
                     <div class="col-sm-8">
                       <input
-                        id="noRek"
-                        name="noRek"
+                        id=""
+                        name=""
                         type="text"
                         value=""
                         class="text-end form-control"
                         onkeypress="return restrictAlpha(event)"
                       />
-                      </div>
                     </div>
-                    <div class="row mb-3">
-                      <label for="uraian" class="col sm-2 col-form-label"
-                        >Uraian</label
+                  </div>
+                  <div class="row mb-3">
+                    <label for="uraian" class="col sm-2 col-form-label"
+                      >Uraian</label
                     >
                     <div class="col-sm-8">
                       <div class="form-group">
                         <label for="exampleFormControlTextarea1"></label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                      </div>   
+                        <textarea
+                          class="form-control"
+                          id="exampleFormControlTextarea1"
+                          rows="3"
+                        ></textarea>
+                      </div>
                     </div>
+                  </div>
                 </form>
               </div>
               <!-- main content end -->
             </div>
           </div>
-          <div class="card-footer text-body-secondary"></div>
+          <div class="card-footer text-body-secondary">
+            <div class="row">
+              <div class="col-10 offset-2">
+                <div class="row">
+                  <div class="col-sm-2 align-items-center">
+                    <button class="btn btn-danger">
+                      <span class="fa fa-file me-1"></span>Baru
+                    </button>
+                  </div>
+                  <div class="col-sm-2 align-items-center">
+                    <button class="btn btn-danger">
+                      <span class="fa fa-floppy-disk me-1"></span>Simpan
+                    </button>
+                  </div>
+                  <div class="col-sm-2 align-items-center">
+                    <button class="btn btn-danger">
+                      <span class="fa fa-xmark me-1"></span>Batal
+                    </button>
+                  </div>
+                  <div class="col-sm-2 align-items-center">
+                    <button class="btn btn-danger">
+                      <span class="fa fa-trash me-1"></span>Hapus
+                    </button>
+                  </div>
+                  <div class="col-sm-2 align-items-center">
+                    <button class="btn btn-danger">
+                      <span class="fa fa-print me-1"></span>Cetak
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -471,7 +555,7 @@
 
     <!-- Main End -->
     <!-- 👇 javascript code file 👇 -->
-    <script src="./src/js/index.js"></script>
-    <script src="./src/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="src/js/index.js"></script>
+    <script src="src/bootstrap/bootstrap.bundle.min.js"></script>
   </body>
 </html>
