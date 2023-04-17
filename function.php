@@ -21,16 +21,16 @@ function tambah($data)
     $payment = $data["payment"];
     $invoice = $data["no_invoice"];
     $tanggal = date('Y-m-d', strtotime($data["tanggal"]));
+    $caraBayar = $data["caraBayar"];
+    $kodeBank = $data["kodeBank"];
+    $noRek = $data["noRekening"];
+
     // $nama = htmlspecialchars($data["nama"]);
-    // $email = htmlspecialchars($data["email"]);
-    // $jurusan = htmlspecialchars($data["jurusan"]);
 
-    // $query = "INSERT INTO mahasiswa
-    //             VALUES
-    //             ('', '$nrp', '$nama', '$email', '$jurusan', '$gambar')
-    //             ";
-
-    $query = "INSERT INTO penerimaan_kas VALUES(NULL, '$payment', '$invoice', '$tanggal')";
+    $query = "INSERT INTO penerimaan_kas 
+                VALUES
+                (NULL, '$payment', '$invoice', '$tanggal', '$caraBayar', '$kodeBank', '$noRek')
+                ";
     mysqli_query($conn, $query);
 
     return mysqli_affected_rows($conn);
