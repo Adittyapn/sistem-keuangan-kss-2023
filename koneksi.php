@@ -9,5 +9,5 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
 if (!$conn) {
     echo "Connection gagal";
 } else {
-    echo "Koneksi berhasil";
+    // echo "Koneksi berhasil";
 }
