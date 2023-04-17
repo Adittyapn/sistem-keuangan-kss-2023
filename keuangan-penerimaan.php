@@ -132,7 +132,7 @@ if (isset($_POST["submit"])) {
                   </div>
                 </div>
               </div>
-              <div class="col-6 border mb-3">
+              <div class="col-6 border mb-3 py-3">
                 <div class="row align-items-center">
                   <label for="from" class="col-sm-2 col-form-label"><b>Diterima Dari</b></label>
                   <div class="col-sm-4">
