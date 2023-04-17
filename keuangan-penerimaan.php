@@ -46,7 +46,7 @@ if (isset($_POST["submit"])) {
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="index.html">Home</a>
+            <a class="nav-link" aria-current="page" href="index.php">Home</a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link active dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -90,7 +90,7 @@ if (isset($_POST["submit"])) {
         <form action="" method="POST">
           <div class="card-body">
             <div class="row">
-              <div class="col-6 border mb-3">
+              <div class="col-6 border mb-3 py-3">
                 <div class="row align-items-center">
                   <label for="caraBayar" class="col-sm-2 col-form-label"><b>Diterima Melalui</b></label>
                   <div class="p-2 col-sm-10 d-flex">
@@ -123,9 +123,12 @@ if (isset($_POST["submit"])) {
                     <input class="form-control" type="text" value="KSS-PNM-" name="no_invoice" id="no_invoice" aria-label="readonly input example" readonly />
                   </div>
                   <label for="" class="col-sm-2 text-end col-form-label"><b>Tanggal</b></label>
-                  <div class="col-sm-4 p-2">
+                  <div class="col-sm-4">
                     <!-- <input type="date" class="datepicker border rounded-1" name="tanggal" id="datePicker" /> -->
-                    <input type="text" id="datePicker" class="datepicker border rounded-1" name="tanggal">
+                    <div class="input-group">
+                      <input type="text text-tanggal" id="datePicker" class="form-control datepicker border rounded-1" name="tanggal" autocomplete="off">
+                      <span class="input-group-text" id="addon-wrapping"><i class="fa fa-calendar icon"></i></span>
+                    </div>
                   </div>
                 </div>
               </div>
