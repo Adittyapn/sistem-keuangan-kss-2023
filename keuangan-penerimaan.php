@@ -136,21 +136,18 @@ if (isset($_POST["submit"])) {
                 <div class="row align-items-center">
                   <label for="from" class="col-sm-2 col-form-label"><b>Diterima Dari</b></label>
                   <div class="col-sm-4">
-                    <input class="form-control form-control-sm w-100" type="text" value="TBS006/001" aria-label="readonly input example" readonly />
+                    <input class="form-control form-control-sm w-100" type="text" value="" aria-label="readonly input example" />
                   </div>
                   <div class="col-sm-4">
-                    <input class="form-control form-control-sm w-100" type="text" value="Achmad Sumartono" aria-label="readonly input example" readonly />
+                    <input class="form-control form-control-sm w-100" type="text" value="" aria-label="readonly input example" />
                   </div>
                   <div class="col-sm-2">
-                    <button type="button" class="btn border btn-sm">
-                      ...
-                    </button>
                   </div>
                 </div>
                 <div class="row align-items-center">
                   <label for="Proyek" class="col-sm-2 col-form-label"><b>Proyek</b></label>
                   <div class="col-sm-4">
-                    <input class="form-control form-control-sm w-100" type="text" value="MGL001" aria-label="readonly input example" readonly />
+                    <input class="form-control form-control-sm w-100" type="text" value="" aria-label="readonly input example" />
                   </div>
                   <div class="col-sm-4">
                     <input class="form-control form-control-sm w-100" type="text" value="Blue Land" aria-label="readonly input example" readonly />
@@ -171,28 +168,33 @@ if (isset($_POST["submit"])) {
                   <div class="col-sm-10">
                     <select name="caraBayar" id="caraBayar" class="form-select">
                       <option value="transfer" selected>Transfer</option>
-                      <option value="tunai" selected>Tunai</option>
+                      <option value="tunai">Cash</option>
+                      <option value="tunai">Giro</option>
                     </select>
                   </div>
                 </div>
                 <div class="row mb-3">
                   <label for="kodeBank" class="col-sm-2 col-form-label">Kode Bank</label>
                   <div class="col-sm-3">
-                    <input id="kodeBank" name="kodeBank" type="text" value="BTN001" class="form-control" readonly /> <!-- kalo disabled gak bisa di input valuenya -->
+                    <input id="kodeBank" name="kodeBank" type="text" value="" class="form-control" /> <!-- kalo disabled gak bisa di input valuenya -->
                   </div>
-                  <div class="col-sm-6">
-                    <input type="text" value="BTN" class="form-control" disabled readonly />
-                  </div>
-                  <div class="col-sm-1">
-                    <button type="button" class="mt-1 btn border btn-sm">
-                      ...
-                    </button>
+                  <div class="col-sm-7">
+                    <input type="text" value="" class="form-control" />
                   </div>
                 </div>
                 <div class="row mb-3">
                   <label for="noRek" class="col-sm-2 col-form-label">No Rekening</label>
                   <div class="col-sm-10">
-                    <input id="noRekening" name="noRekening" type="text" value="BTN-010072-01-30-888" class="form-control" />
+                    <input id="noRekening" name="noRekening" type="text" value="" class="form-control" />
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label for="noGiro" class="col-sm-2 col-form-label">No Giro</label>
+                  <div class="col-sm-8">
+                    <input id="noGiro" name="noRekening" type="text" value="" class="form-control" />
+                  </div>
+                  <div class="mt-2 d-flex justify-content-center col-sm-1">
+                    <input class="form-check-input" type="checkbox" id="giroChecked" />
                   </div>
                 </div>
               </div>
@@ -241,20 +243,18 @@ if (isset($_POST["submit"])) {
                 </div>
                 <div class="row mb-3">
                   <label for="Potongan" class="col-sm-2 col-form-label">Potongan PPH</label>
-                  <div class="col-sm-2 mb-0">
-                    <select name="Potongan" id="Potongan" class="form-select">
-                      <option value="transfer" selected>1</option>
-                      <option value="tunai" selected>2</option>
-                    </select>
-                  </div>
-                  <div class="col-sm-2">
-                    <input name="pot" id="pot" class="text-end form-control" onkeypress="return restrictAlpha(event)" />
-                  </div>
                   <div class="col-sm-2">
                     <input name="idr" id="idr" value="IDR" class="text-center form-control" disabled readonly />
                   </div>
+                  <div class="col-sm-2">
+                    <input name="pot" id="pot" class="text-end form-control" value="5.0" onkeypress="return restrictAlpha(event)" readonly />
+                  </div>
                   <div class="col-sm-4">
-                    <input name="" id="" class="text-end form-control" onkeypress="return restrictAlpha(event)" />
+                    <input name="pot1" id="pot1" class="text-end form-control" onkeypress="return restrictAlpha(event)" />
+                  </div>
+                  <div class="mt-2 d-flex col-sm-2">
+                    <input class="form-check-input" type="checkbox" value="" id="potChacked" />
+                    <label for="" class="ms-2">Pot. Y/N</label>
                   </div>
                 </div>
                 <div class="row mb-3">
@@ -289,7 +289,60 @@ if (isset($_POST["submit"])) {
                   </div>
                 </div>
               </div>
+              <div class="pembatas">
+                <hr />
+              </div>
               <!-- main content end -->
+            </div>
+            <div class="row mt-3">
+              <div class="col-10 offset-1">
+                <div class="card">
+                  <div class="card-header">
+                    Input Detail
+                  </div>
+                  <div class="card-body">
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th scope="col">No</th>
+                          <th scope="col">No Invoice</th>
+                          <th scope="col">Tanggal</th>
+                          <th scope="col">Account</th>
+                          <th scope="col">Uraian</th>
+                          <th scope="col">Nilai Penerimaan</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th scope="row">1</th>
+                          <td>KSS-PNM-07042023</td>
+                          <td>19/12/2023</td>
+                          <td>Achmad Sumartono</td>
+                          <td>Telah di bayar secara cash dari Teten</td>
+                          <td>250.000</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">2</th>
+                          <td>KSS-PNM-07042023</td>
+                          <td>19/12/2023</td>
+                          <td>Achmad Sumartono</td>
+                          <td>Telah di bayar secara cash dari Teten</td>
+                          <td>250.000</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">3</th>
+                          <td>KSS-PNM-07042023</td>
+                          <td>19/12/2023</td>
+                          <td>Achmad Sumartono</td>
+                          <td>Telah di bayar secara cash dari Teten</td>
+                          <td>250.000</td>
+                        </tr>
+
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
           <div class="card-footer text-body-secondary">
@@ -340,11 +393,11 @@ if (isset($_POST["submit"])) {
   <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js" type="text/javascript"></script>
   <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="Stylesheet" type="text/css" />
   <script>
+    //invoice format start
     $(document).ready(function() {
       $('#datePicker').datepicker({
         dateFormat: "dd-mm-yy",
         defaultDate: "+1w",
-        buttonImage: "https://w7.pngwing.com/pngs/162/843/png-transparent-computer-icons-calendar-date-others-miscellaneous-text-calendar.png",
         numberOfMonths: 1,
         onClose: function(selectedDate) {
           $(".to_date").datepicker("option", selectedDate);
@@ -353,6 +406,37 @@ if (isset($_POST["submit"])) {
         }
       });
     });
+    //invoice format end
+
+    //no giro start
+    var checkbox = document.querySelector("#giroChecked");
+    var input = document.querySelector("#noGiro");
+
+    var toogleInput = function(e) {
+      input.disabled = !e.target.checked;
+    };
+
+    toogleInput({
+      target: checkbox
+    });
+    checkbox.addEventListener("change", toogleInput);
+    //no giro end
+
+    //potpph start
+    var checkbox = document.querySelector("#potChacked");
+    var input = document.querySelector("#pot");
+    var input1 = document.querySelector("#pot1");
+
+    var toogleInput = function(e) {
+      input.disabled = !e.target.checked;
+      input1.disabled = !e.target.checked;
+    };
+
+    toogleInput({
+      target: checkbox
+    });
+    checkbox.addEventListener("change", toogleInput);
+    //potpph end
   </script>
 </body>
 

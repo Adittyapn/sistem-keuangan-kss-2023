@@ -73,9 +73,6 @@ if (
               Belum memiliki akun ? <a href="register.php">Daftar disini</a>
             </p>
           </div>
-          <div class="button">
-            <button class="btn btn-primary">Reset</button>
-          </div>
         </form>
         <!-- Form end -->
       </div>

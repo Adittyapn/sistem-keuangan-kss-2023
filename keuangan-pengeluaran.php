@@ -1,3 +1,25 @@
+<?php
+
+require "function.php";
+
+// cek apakah tombol submit sudah ditekan atau belum
+if (isset($_POST["submit"])) {
+
+  // cek apakah data berhasil di tambahkan atau tidak
+  if (tambah($_POST) > 0) {
+    echo "<script> 
+              alert('Data Berhasil di Tambahkan!');
+              document.location.href = 'keuangan-penerimaan.php';
+          </script>";
+  } else {
+    echo "<script> 
+              alert('Data Gagal di Tambahkan!');
+          </script>";
+  }
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,7 +39,7 @@
   <!-- Navbar Start -->
   <nav class="navbar navbar-expand-lg bg-body-tertiary mb-3 sticky-top">
     <div class="container-fluid">
-      <a class="navbar-brand" href="index.html"><img src="src/image/NEW-LOGO-KSS.png" alt="KSS-LOGO" width="60" height="25" /></a>
+      <a class="navbar-brand" href="index.php"><img src="src/image/NEW-LOGO-KSS.png" alt="KSS-LOGO" width="60" height="25" /></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -32,7 +54,7 @@
             </a>
             <ul class="dropdown-menu">
               <li>
-                <a class="dropdown-item" href="keuangan-penerimaan.php">Penerimaan Kas</a>
+                <a class="dropdown-item " href="keuangan-penerimaan.php">Penerimaan Kas</a>
               </li>
               <li>
                 <a class="dropdown-item active" href="keuangan-pengeluaran.php">Pengeluaran Kas</a>
@@ -59,34 +81,34 @@
   <!-- Main Start  -->
   <!-- header content start -->
 
-  <section class="form-penerimaan">
+  <section class="form-pengeluaran">
     <div class="container-fluid">
       <div class="card">
         <div class="card-header">
           <h4 class="text-center">Pengeluaran Kas</h4>
         </div>
-        <div class="card-body">
-          <div class="row">
-            <div class="col-6 border mb-3">
-              <form action="">
+        <form action="" method="POST">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-6 border mb-3 py-3">
                 <div class="row align-items-center">
-                  <label for="caraBayar" class="col-sm-2 col-form-label"><b>Diterima Melalui</b></label>
+                  <label for="caraBayar" class="col-sm-2 col-form-label"><b>Keluar Melalui</b></label>
                   <div class="p-2 col-sm-10 d-flex">
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" />
+                      <input class="form-check-input" type="radio" name="payment" id="payment" value="KAS" />
                       <label class="form-check-label me-1" for="flexRadioDefault1">
                         KAS
                       </label>
                     </div>
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked />
+                      <input class="form-check-input" type="radio" name="payment" id="payment" value="BANK" checked />
                       <label class="form-check-label me-1" for="flexRadioDefault2">
                         BANK
                       </label>
                     </div>
 
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3" />
+                      <input class="form-check-input" type="radio" name="payment" id="payment" value="GIRO" />
                       <label class="form-check-label me-1" for="flexRadioDefault3">
                         GIRO
                       </label>
@@ -94,28 +116,41 @@
                   </div>
                 </div>
                 <div class="row">
-                  <label for="invoice" class="col-sm-2 col-form-label">
+                  <label for="no_invoice" class="col-sm-2 col-form-label">
                     <b>No Invoice</b>
                   </label>
                   <div class="col-sm-4">
-                    <input class="form-control" type="text" value="KSS-PLR-07042023" aria-label="readonly input example" readonly />
+                    <input class="form-control" type="text" value="KSS-PLR-" name="no_invoice" id="no_invoice" aria-label="readonly input example" readonly />
                   </div>
-                  <label for="date" class="col-sm-2 text-end col-form-label"><b>Tanggal</b></label>
-                  <div class="col-sm-2 p-2">
-                    <input type="date" class="datepicker border rounded-1" />
+                  <label for="" class="col-sm-2 text-end col-form-label"><b>Tanggal</b></label>
+                  <div class="col-sm-4">
+                    <!-- <input type="date" class="datepicker border rounded-1" name="tanggal" id="datePicker" /> -->
+                    <div class="input-group">
+                      <input type="text text-tanggal" id="datePicker" class="form-control datepicker border rounded-1" name="tanggal" autocomplete="off">
+                      <span class="input-group-text" id="addon-wrapping"><i class="fa fa-calendar icon"></i></span>
+                    </div>
                   </div>
                 </div>
-              </form>
-            </div>
-            <div class="col-6 border mb-3">
-              <form action="">
+              </div>
+              <div class="col-6 border mb-3 py-3">
                 <div class="row align-items-center">
-                  <label for="caraBayar" class="col-sm-2 col-form-label"><b>Dibayarkan Kpd.</b></label>
+                  <label for="from" class="col-sm-2 col-form-label"><b>Dibayarkan Kpd.</b></label>
                   <div class="col-sm-4">
-                    <input class="form-control form-control-sm w-100" type="text" value="SP0003" aria-label="readonly input example" readonly />
+                    <input class="form-control form-control-sm w-100" type="text" value="" aria-label="readonly input example" />
                   </div>
                   <div class="col-sm-4">
-                    <input class="form-control form-control-sm w-100" type="text" value="ABDUL HALIM" aria-label="readonly input example" readonly />
+                    <input class="form-control form-control-sm w-100" type="text" value="" aria-label="readonly input example" />
+                  </div>
+                  <div class="col-sm-2">
+                  </div>
+                </div>
+                <div class="row align-items-center">
+                  <label for="Proyek" class="col-sm-2 col-form-label"><b>Proyek</b></label>
+                  <div class="col-sm-4">
+                    <input class="form-control form-control-sm w-100" type="text" value="" aria-label="readonly input example" />
+                  </div>
+                  <div class="col-sm-4">
+                    <input class="form-control form-control-sm w-100" type="text" value="Blue Land" aria-label="readonly input example" readonly />
                   </div>
                   <div class="col-sm-2">
                     <button type="button" class="btn border btn-sm">
@@ -123,62 +158,49 @@
                     </button>
                   </div>
                 </div>
-                <div class="row align-items-center">
-                  <label for="caraBayar" class="col-sm-2 col-form-label"><b>Proyek</b></label>
-                  <div class="col-sm-4">
-                    <input class="form-control form-control-sm w-100" type="text" value="TB5006" aria-label="readonly input example" readonly />
-                  </div>
-                  <div class="col-sm-4">
-                    <input class="form-control form-control-sm w-100" type="text" value="Green Land" aria-label="readonly input example" readonly />
-                  </div>
-                  <div class="col-sm-2">
-                    <button type="button" class="btn border btn-sm">
-                      ...
-                    </button>
-                  </div>
-                </div>
-              </form>
-            </div>
-            <!-- header content end -->
-            <!-- main content start -->
+              </div>
+              <!-- header content end -->
+              <!-- main content start -->
 
-            <div class="col-6 mt-2">
-              <form action="">
+              <div class="col-6 mt-2">
                 <div class="row mb-3">
                   <label for="caraBayar" class="col-sm-2 col-form-label">Cara Bayar</label>
                   <div class="col-sm-10">
                     <select name="caraBayar" id="caraBayar" class="form-select">
                       <option value="transfer" selected>Transfer</option>
-                      <option value="tunai" selected>Tunai</option>
+                      <option value="tunai">Cash</option>
+                      <option value="tunai">Giro</option>
                     </select>
                   </div>
                 </div>
                 <div class="row mb-3">
                   <label for="kodeBank" class="col-sm-2 col-form-label">Kode Bank</label>
                   <div class="col-sm-3">
-                    <input id="kodeBank" name="kodeBank" type="text" value="BTN001" class="form-control" disabled readonly />
+                    <input id="kodeBank" name="kodeBank" type="text" value="" class="form-control" /> <!-- kalo disabled gak bisa di input valuenya -->
                   </div>
-                  <div class="col-sm-6">
-                    <input type="text" value="BTN" class="form-control" disabled readonly />
-                  </div>
-                  <div class="col-sm-1">
-                    <button type="button" class="mt-1 btn border btn-sm">
-                      ...
-                    </button>
+                  <div class="col-sm-7">
+                    <input type="text" value="" class="form-control" />
                   </div>
                 </div>
                 <div class="row mb-3">
-                  <label for="kodeBank" class="col-sm-2 col-form-label">No Rekening</label>
+                  <label for="noRek" class="col-sm-2 col-form-label">No Rekening</label>
                   <div class="col-sm-10">
-                    <input id="noRek" name="noRek" type="text" value="BTN-010072-01-30-888" class="form-control" />
+                    <input id="noRekening" name="noRekening" type="text" value="" class="form-control" />
                   </div>
                 </div>
-              </form>
-            </div>
-            <div class="col-6 mt-2">
-              <form action="">
                 <div class="row mb-3">
-                  <label for="caraBayar" class="col-sm-2 col-form-label">Nilai Penerimaan</label>
+                  <label for="noGiro" class="col-sm-2 col-form-label">No Giro</label>
+                  <div class="col-sm-8">
+                    <input id="noGiro" name="noRekening" type="text" value="" class="form-control" />
+                  </div>
+                  <div class="mt-2 d-flex justify-content-center col-sm-1">
+                    <input class="form-check-input" type="checkbox" id="giroChecked" />
+                  </div>
+                </div>
+              </div>
+              <div class="col-6 mt-2">
+                <div class="row mb-3">
+                  <label for="nilaiPenerimaan" class="col-sm-2 col-form-label">Nilai Pengeluaran</label>
                   <div class="col-sm-2">
                     <input name="idr" id="idr" value="IDR" class="text-center form-control" disabled readonly />
                   </div>
@@ -187,7 +209,7 @@
                   </div>
                 </div>
                 <div class="row mb-3">
-                  <label for="caraBayar" class="col-sm-2 col-form-label">PPN 10 %</label>
+                  <label for="ppn" class="col-sm-2 col-form-label">PPN 10 %</label>
                   <div class="col-sm-2">
                     <input name="ppn" id="ppn" value="IDR" class="text-center form-control" disabled readonly />
                   </div>
@@ -199,7 +221,7 @@
                   </div>
                 </div>
                 <div class="row mb-3">
-                  <label for="caraBayar" class="col-sm-2 col-form-label">Materai</label>
+                  <label for="materai" class="col-sm-2 col-form-label">Materai</label>
                   <div class="col-sm-2">
                     <input name="idr" id="idr" value="IDR" class="text-center form-control" disabled readonly />
                   </div>
@@ -211,7 +233,7 @@
                   <hr />
                 </div>
                 <div class="row mb-3">
-                  <label for="kodeBank" class="col-sm-2 col-form-label">Total Penerimaan</label>
+                  <label for="kodeBank" class="col-sm-2 col-form-label">Total Pengeluaran</label>
                   <div class="col-sm-2">
                     <input name="idr" id="idr" value="IDR" class="text-center form-control" disabled readonly />
                   </div>
@@ -221,24 +243,22 @@
                 </div>
                 <div class="row mb-3">
                   <label for="Potongan" class="col-sm-2 col-form-label">Potongan PPH</label>
-                  <div class="col-sm-2 mb-0">
-                    <select name="Potongan" id="Potongan" class="form-select">
-                      <option value="transfer" selected>1</option>
-                      <option value="tunai" selected>2</option>
-                    </select>
-                  </div>
-                  <div class="col-sm-2">
-                    <input name="pot" id="pot" class="text-end form-control" onkeypress="return restrictAlpha(event)" />
-                  </div>
                   <div class="col-sm-2">
                     <input name="idr" id="idr" value="IDR" class="text-center form-control" disabled readonly />
                   </div>
+                  <div class="col-sm-2">
+                    <input name="pot" id="pot" class="text-end form-control" value="5.0" onkeypress="return restrictAlpha(event)" readonly />
+                  </div>
                   <div class="col-sm-4">
-                    <input name="" id="" class="text-end form-control" onkeypress="return restrictAlpha(event)" />
+                    <input name="pot1" id="pot1" class="text-end form-control" onkeypress="return restrictAlpha(event)" />
+                  </div>
+                  <div class="mt-2 d-flex col-sm-2">
+                    <input class="form-check-input" type="checkbox" value="" id="potChacked" />
+                    <label for="" class="ms-2">Pot. Y/N</label>
                   </div>
                 </div>
                 <div class="row mb-3">
-                  <label for="potlain" class="col-sm-2 col-form-label">Potongan Lain-Lain</label>
+                  <label for="potlain" class="col-sm-2 col-form-label">Lain-Lain</label>
                   <div class="col-sm-2">
                     <input name="idr" id="idr" value="IDR" class="text-center form-control" disabled readonly />
                   </div>
@@ -268,44 +288,98 @@
                     </div>
                   </div>
                 </div>
-              </form>
+              </div>
+              <div class="pembatas">
+                <hr />
+              </div>
+              <!-- main content end -->
             </div>
-            <!-- main content end -->
-          </div>
-        </div>
-        <div class="card-footer text-body-secondary">
-          <div class="row">
-            <div class="col-10 offset-2">
-              <div class="row">
-                <div class="col-sm-2 align-items-center">
-                  <button class="btn btn-danger">
-                    <span class="fa fa-file me-1"></span>Baru
-                  </button>
-                </div>
-                <div class="col-sm-2 align-items-center">
-                  <button class="btn btn-danger">
-                    <span class="fa fa-floppy-disk me-1"></span>Simpan
-                  </button>
-                </div>
-                <div class="col-sm-2 align-items-center">
-                  <button class="btn btn-danger">
-                    <span class="fa fa-xmark me-1"></span>Batal
-                  </button>
-                </div>
-                <div class="col-sm-2 align-items-center">
-                  <button class="btn btn-danger">
-                    <span class="fa fa-trash me-1"></span>Hapus
-                  </button>
-                </div>
-                <div class="col-sm-2 align-items-center">
-                  <button class="btn btn-danger">
-                    <span class="fa fa-print me-1"></span>Cetak
-                  </button>
+            <div class="row mt-3">
+              <div class="col-10 offset-1">
+                <div class="card">
+                  <div class="card-header">
+                    Input Detail
+                  </div>
+                  <div class="card-body">
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th scope="col">No</th>
+                          <th scope="col">No Invoice</th>
+                          <th scope="col">Tanggal</th>
+                          <th scope="col">Account</th>
+                          <th scope="col">Uraian</th>
+                          <th scope="col">Nilai Pengeluaran</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th scope="row">1</th>
+                          <td>KSS-PNM-07042023</td>
+                          <td>19/12/2023</td>
+                          <td>Achmad Sumartono</td>
+                          <td>Telah di bayar secara cash dari Teten</td>
+                          <td>250.000</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">2</th>
+                          <td>KSS-PNM-07042023</td>
+                          <td>19/12/2023</td>
+                          <td>Achmad Sumartono</td>
+                          <td>Telah di bayar secara cash dari Teten</td>
+                          <td>250.000</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">3</th>
+                          <td>KSS-PNM-07042023</td>
+                          <td>19/12/2023</td>
+                          <td>Achmad Sumartono</td>
+                          <td>Telah di bayar secara cash dari Teten</td>
+                          <td>250.000</td>
+                        </tr>
+
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+          <div class="card-footer text-body-secondary">
+            <div class="row">
+              <div class="col-10 offset-2">
+                <div class="row">
+                  <div class="col-sm-2 align-items-center">
+                    <button class="btn btn-danger">
+                      <span class="fa fa-file me-1"></span>Baru
+                    </button>
+                  </div>
+                  <div class="col-sm-2 align-items-center">
+                    <button class="btn btn-danger" type="submit" name="submit">
+                      <span class="fa fa-floppy-disk me-1"></span>Simpan
+                    </button>
+                  </div>
+                  <div class="col-sm-2 align-items-center">
+                    <button class="btn btn-danger">
+                      <span class="fa fa-xmark me-1"></span>Batal
+                    </button>
+                  </div>
+                  <div class="col-sm-2 align-items-center">
+                    <button class="btn btn-danger" type="reset">
+                      <span class="fa fa-trash me-1"></span>Hapus
+                    </button>
+                  </div>
+                  <div class="col-sm-2 align-items-center">
+                    <button class="btn btn-danger">
+                      <span class="fa fa-print me-1"></span>Cetak
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+
       </div>
     </div>
   </section>
@@ -314,6 +388,56 @@
   <!-- 👇 javascript code file 👇 -->
   <script src="src/js/index.js"></script>
   <script src="src/bootstrap/bootstrap.bundle.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.4.slim.min.js" integrity="sha256-a2yjHM4jnF9f54xUQakjZGaqYs/V1CYvWpoqZzC2/Bw=" crossorigin="anonymous"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js" type="text/javascript"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js" type="text/javascript"></script>
+  <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="Stylesheet" type="text/css" />
+  <script>
+    //invoice format start
+    $(document).ready(function() {
+      $('#datePicker').datepicker({
+        dateFormat: "dd-mm-yy",
+        defaultDate: "+1w",
+        numberOfMonths: 1,
+        onClose: function(selectedDate) {
+          $(".to_date").datepicker("option", selectedDate);
+          $(this).parent().next().children().focus();
+          document.getElementById("no_invoice").value = "KSS-PLR-" + selectedDate.split(/\s*\-\s*/g).join("");
+        }
+      });
+    });
+    //invoice format end
+
+    //no giro start
+    var checkboxGiro = document.querySelector("#giroChecked");
+    var inputGiro = document.querySelector("#noGiro");
+
+    var toogleInput = function(e) {
+      inputGiro.disabled = !e.target.checked;
+    };
+
+    toogleInput({
+      target: checkboxGiro
+    });
+    checkboxGiro.addEventListener("change", toogleInput);
+    //no giro end
+
+    //potpph start
+    var checkbox = document.querySelector("#potChacked");
+    var input = document.querySelector("#pot");
+    var input1 = document.querySelector("#pot1");
+
+    var toogleInput = function(e) {
+      input.disabled = !e.target.checked;
+      input1.disabled = !e.target.checked;
+    };
+
+    toogleInput({
+      target: checkbox
+    });
+    checkbox.addEventListener("change", toogleInput);
+    //potpph end
+  </script>
 </body>
 
 </html>
