@@ -18,6 +18,30 @@ if (isset($_POST["submit"])) {
   }
 }
 
+$proyek = query("select * from proyek");
+
+if (isset($_POST["submit_tambahProyek"])) {
+
+  if (empty($_POST["text_proyek"])) {
+    echo "<script> 
+              alert('Data Gagal di Tambahkan!');
+          </script>";
+  } else {
+    // cek apakah data berhasil di tambahkan atau tidak
+    if (tambahProyek($_POST) > 0) {
+      echo "<script> 
+                alert('Data Berhasil di Tambahkan!');
+                document.location.href = 'keuangan-penerimaan.php';
+            </script>";
+    } else {
+      echo "<script> 
+                alert('Data Gagal di Tambahkan!');
+            </script>";
+    }
+  }
+}
+
+$penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan_kas.proyek = proyek.id");
 ?>
 
 <!DOCTYPE html>
@@ -147,14 +171,19 @@ if (isset($_POST["submit"])) {
                 <div class="row align-items-center">
                   <label for="Proyek" class="col-sm-2 col-form-label"><b>Proyek</b></label>
                   <div class="col-sm-4">
-                    <input class="form-control form-control-sm w-100" type="text" value="" aria-label="readonly input example" />
+                    <input class="form-control form-control-sm w-100" name="kode_proyek" type="text" value="" aria-label="readonly input example" />
                   </div>
                   <div class="col-sm-4">
-                    <input class="form-control form-control-sm w-100" type="text" value="Blue Land" aria-label="readonly input example" readonly />
+                    <select name="tambahProyek" id="tambahProyek" class="form-select">
+                      <?php foreach ($proyek as $row) : ?>
+                        <option value="<?= $row['id']; ?>"><?= $row["nama"]; ?></option>
+                      <?php endforeach; ?>
+                    </select>
+                    <!-- <input class="form-control form-control-sm w-100" type="text" value="Blue Land" aria-label="readonly input example" readonly /> -->
                   </div>
                   <div class="col-sm-2">
-                    <button type="button" class="btn border btn-sm">
-                      ...
+                    <button type="button" class="btn border btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                      Tambah Proyek
                     </button>
                   </div>
                 </div>
@@ -211,13 +240,13 @@ if (isset($_POST["submit"])) {
                 <div class="row mb-3">
                   <label for="ppn" class="col-sm-2 col-form-label">PPN 10 %</label>
                   <div class="col-sm-2">
-                    <input name="ppn" id="ppn" value="IDR" class="text-center form-control" disabled readonly />
+                    <input name="" id="" value="IDR" class="text-center form-control" disabled readonly />
                   </div>
                   <div class="mt-2 d-flex justify-content-center col-sm-1">
                     <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" />
                   </div>
                   <div class="col-sm-7">
-                    <input name="nilaiPnrm" id="nilaiPnrm" class="text-end form-control" />
+                    <input name="ppn" id="ppn" class="text-end form-control" />
                   </div>
                 </div>
                 <div class="row mb-3">
@@ -238,7 +267,7 @@ if (isset($_POST["submit"])) {
                     <input name="idr" id="idr" value="IDR" class="text-center form-control" disabled readonly />
                   </div>
                   <div class="col-sm-8">
-                    <input id="noRek" name="noRek" type="text" value="" class="text-end form-control" onkeypress="return restrictAlpha(event)" />
+                    <input id="total_pnrm" name="total_pnrm" type="text" value="" class="text-end form-control" onkeypress="return restrictAlpha(event)" />
                   </div>
                 </div>
                 <div class="row mb-3">
@@ -263,7 +292,7 @@ if (isset($_POST["submit"])) {
                     <input name="idr" id="idr" value="IDR" class="text-center form-control" disabled readonly />
                   </div>
                   <div class="col-sm-8">
-                    <input id="" name="" type="text" value="" class="text-end form-control" onkeypress="return restrictAlpha(event)" />
+                    <input id="pot_lain" name="pot_lain" type="text" value="" class="text-end form-control" onkeypress="return restrictAlpha(event)" />
                   </div>
                 </div>
                 <div class="pembatas">
@@ -276,7 +305,7 @@ if (isset($_POST["submit"])) {
                     <input name="idr" id="idr" value="IDR" class="text-center form-control" disabled readonly />
                   </div>
                   <div class="col-sm-8">
-                    <input id="" name="" type="text" value="" class="text-end form-control" onkeypress="return restrictAlpha(event)" />
+                    <input id="total_bayar" name="total_bayar" type="text" value="" class="text-end form-control" onkeypress="return restrictAlpha(event)" />
                   </div>
                 </div>
                 <div class="row mb-3">
@@ -284,7 +313,7 @@ if (isset($_POST["submit"])) {
                   <div class="col-sm-8">
                     <div class="form-group">
                       <label for="exampleFormControlTextarea1"></label>
-                      <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                      <textarea class="form-control" id="uraian" name="uraian" rows="3"></textarea>
                     </div>
                   </div>
                 </div>
@@ -305,39 +334,28 @@ if (isset($_POST["submit"])) {
                       <thead>
                         <tr>
                           <th scope="col">No</th>
+                          <th scope="col">Diterima Melalui</th>
                           <th scope="col">No Invoice</th>
                           <th scope="col">Tanggal</th>
-                          <th scope="col">Account</th>
-                          <th scope="col">Uraian</th>
-                          <th scope="col">Nilai Penerimaan</th>
+                          <th scope="col">Cara Bayar</th>
+                          <th scope="col">No Rekening</th>
+                          <th scope="col">Kode Proyek</th>
+                          <th scope="col">Proyek</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <th scope="row">1</th>
-                          <td>KSS-PNM-07042023</td>
-                          <td>19/12/2023</td>
-                          <td>Achmad Sumartono</td>
-                          <td>Telah di bayar secara cash dari Teten</td>
-                          <td>250.000</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">2</th>
-                          <td>KSS-PNM-07042023</td>
-                          <td>19/12/2023</td>
-                          <td>Achmad Sumartono</td>
-                          <td>Telah di bayar secara cash dari Teten</td>
-                          <td>250.000</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">3</th>
-                          <td>KSS-PNM-07042023</td>
-                          <td>19/12/2023</td>
-                          <td>Achmad Sumartono</td>
-                          <td>Telah di bayar secara cash dari Teten</td>
-                          <td>250.000</td>
-                        </tr>
-
+                        <?php foreach ($penerimaan as $i => $row) : ?>
+                          <tr>
+                            <th scope="row"><?php echo ++$i ?></th>
+                            <td><?php echo $row['payment'] ?></td>
+                            <td><?php echo $row['no_invoice'] ?></td>
+                            <td><?php echo $row['tanggal'] ?></td>
+                            <td><?php echo $row['caraBayar'] ?></td>
+                            <td><?php echo $row['noRekening'] ?></td>
+                            <td><?php echo $row['kode_proyek'] ?></td>
+                            <td><?php echo $row['nama'] ?></td>
+                          </tr>
+                        <?php endforeach; ?>
                       </tbody>
                     </table>
                   </div>
@@ -374,6 +392,26 @@ if (isset($_POST["submit"])) {
                       <span class="fa fa-print me-1"></span>Cetak
                     </button>
                   </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+        <form action="" method="POST">
+          <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <label for="" class="me-2">Tambah Proyek</label>
+                  <input type="text" class="form-control-sm" name="text_proyek">
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-primary" name="submit_tambahProyek" id="tambahProyek">Tambah</button>
                 </div>
               </div>
             </div>
@@ -437,6 +475,20 @@ if (isset($_POST["submit"])) {
     });
     checkbox.addEventListener("change", toogleInput);
     //potpph end
+
+
+    $("#nilaiPnrm").keyup(function() {
+      var nilai_pnrm = document.getElementById("nilaiPnrm").value;
+      console.log(nilai_pnrm)
+      document.getElementById("ppn").value = nilai_pnrm * 10 / 100;
+    });
+
+    $("#materai").keyup(function() {
+      var nilai_pnrm = document.getElementById("nilaiPnrm").value;
+      var ppn = document.getElementById("ppn").value;
+      var materai = document.getElementById("materai").value;
+      document.getElementById("total_pnrm").value = parseFloat(nilai_pnrm) + parseFloat(ppn) + parseFloat(materai);
+    });
   </script>
 </body>
 
