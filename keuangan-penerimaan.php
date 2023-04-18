@@ -409,17 +409,17 @@ if (isset($_POST["submit"])) {
     //invoice format end
 
     //no giro start
-    var checkbox = document.querySelector("#giroChecked");
-    var input = document.querySelector("#noGiro");
+    var checkboxGiro = document.querySelector("#giroChecked");
+    var inputGiro = document.querySelector("#noGiro");
 
     var toogleInput = function(e) {
-      input.disabled = !e.target.checked;
+      inputGiro.disabled = !e.target.checked;
     };
 
     toogleInput({
-      target: checkbox
+      target: checkboxGiro
     });
-    checkbox.addEventListener("change", toogleInput);
+    checkboxGiro.addEventListener("change", toogleInput);
     //no giro end
 
     //potpph start
