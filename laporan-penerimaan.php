@@ -1,3 +1,27 @@
+<?php
+
+require "function.php";
+
+// cek apakah tombol submit sudah ditekan atau belum
+if (isset($_POST["submit"])) {
+
+  // cek apakah data berhasil di tambahkan atau tidak
+  if (tambah($_POST) > 0) {
+    echo "<script> 
+              alert('Data Berhasil di Tambahkan!');
+              document.location.href = 'keuangan-penerimaan.php';
+          </script>";
+  } else {
+    echo "<script> 
+              alert('Data Gagal di Tambahkan!');
+          </script>";
+  }
+}
+
+$penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan_kas.proyek = proyek.id");
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,6 +35,8 @@
   <link rel="stylesheet" href="./src/style/global.css" />
   <link rel="stylesheet" href="./src/bootstrap/bootstrap.min.css" />
   <link rel="stylesheet" href="./src/style/all.min.css" />
+  <link rel="Stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" type="text/css" />
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 </head>
 
 <body>
@@ -71,43 +97,26 @@
         </div>
         <div class="card-body">
           <div class="row">
-            <div class="col-6 border mb-3">
+            <div class="col-9 offset-3 mb-3 mt-3">
               <form action="">
                 <div class="row align-items-center">
-                  <label for="caraBayar" class="col-sm-2 col-form-label"><b>Periode Transaksi</b></label>
+                  <label for="" class="col-sm-2 col-form-label"><b>Periode Transaksi</b></label>
                   <div class="col-sm-10 d-flex">
-                    <div class="date-range me-4">
-                      <input type="date" class="datepicker border rounded-1" />
+                    <div class="col-3 me-3">
+                      <div class="input-group">
+                        <input type="text" id="from" name="from" class="form-control form-control-sm">
+                        <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                      </div>
                     </div>
-                    <div class="date-range">
-                      <input type="date" class="datepicker border rounded-1" />
+                    <div class="col-auto">
+                      <label for="" class=" col-form-label">to</label>
                     </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <label for="invoice" class="col-sm-2 col-form-label">
-                    <b>No Invoice</b>
-                  </label>
-                  <div class="col-sm-4">
-                    <input class="form-control form-control-sm w-100" type="text" value="KSS-PNM-07042023" aria-label="readonly input example" readonly />
-                  </div>
-                </div>
-              </form>
-            </div>
-            <div class="col-6 border mb-3">
-              <form action="">
-                <div class="row align-items-center">
-                  <label for="caraBayar" class="col-sm-2 col-form-label"><b>Proyek</b></label>
-                  <div class="col-sm-4">
-                    <input class="form-control form-control-sm w-100" type="text" value="TBS006/001" aria-label="readonly input example" readonly />
-                  </div>
-                  <div class="col-sm-4">
-                    <input class="form-control form-control-sm w-100" type="text" value="Achmad Sumartono" aria-label="readonly input example" readonly />
-                  </div>
-                  <div class="col-sm-2">
-                    <button type="button" class="btn border btn-sm">
-                      ...
-                    </button>
+                    <div class="col-3 ms-3">
+                      <div class="input-group">
+                        <input type="text" id="to" name="to" class="form-control form-control-sm">
+                        <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </form>
@@ -120,42 +129,82 @@
         <div class="col-12 mt-1">
           <div class="container-fluid p-2">
             <div class="container-fluid border border-1">
-              <div class="col-12">
-                <table class="table table-bordered mt-4">
+              <div class="col-12 mt-3">
+                <table class="table table-bordered">
                   <thead>
-                    <tr>
+                    <tr class="text-center">
                       <th scope="col">No</th>
-                      <th scope="col">Tanggal</th>
+                      <th scope="col">Diterima Melalui</th>
                       <th scope="col">No Invoice</th>
+                      <th scope="col">Tanggal</th>
+                      <th scope="col">Cara Bayar</th>
+                      <th scope="col">No Rekening</th>
+                      <th scope="col">No Giro</th>
                       <th scope="col">Proyek</th>
+                      <th scope="col">Uraian</th>
+                      <th scope="col">Action</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <th scope="row">1</th>
-                      <td>19/12/2023</td>
-                      <td>KSS-PNM-07042023</td>
-                      <td>Blue Land</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">2</th>
-                      <td>19/12/2023</td>
-                      <td>KSS-PNM-07042023</td>
-                      <td>Green Land</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">3</th>
-                      <td>19/12/2023</td>
-                      <td>KSS-PNM-07042023</td>
-                      <td>Red Land</td>
-                    </tr>
+                    <?php foreach ($penerimaan as $i => $row) : ?>
+                      <tr>
+                        <th scope="row"><?php echo ++$i ?></th>
+                        <td><?php echo $row['payment'] ?></td>
+                        <td><?php echo $row['no_invoice'] ?></td>
+                        <td><?php echo $row['tanggal'] ?></td>
+                        <td><?php echo $row['caraBayar'] ?></td>
+                        <td><?php echo $row['noRekening'] ?></td>
+                        <td><?php echo $row['noGiro'] ?></td>
+                        <td><?php echo $row['nama'] ?></td>
+                        <td><?php echo $row['uraian'] ?></td>
+                        <td class="text-center">
+                          <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            Edit
+                          </button>
+                          <button class="btn btn-outline-danger mx-1">Delete</button>
+                        </td>
+                      </tr>
+                    <?php endforeach; ?>
                   </tbody>
                 </table>
               </div>
             </div>
           </div>
         </div>
-
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <div class="container">
+                  <div class="row">
+                    <label for="no_invoice" class="col-sm-2 col-form-label">
+                      <b>No Invoice</b>
+                    </label>
+                    <div class="col-sm-4">
+                      <input class="form-control" type="text" value="KSS-PNM-" name="no_invoice" id="no_invoice" aria-label="readonly input example" readonly />
+                    </div>
+                    <label for="" class="col-sm-2 text-end col-form-label"><b>Tanggal</b></label>
+                    <div class="col-sm-4">
+                      <!-- <input type="date" class="datepicker border rounded-1" name="tanggal" id="datePicker" /> -->
+                      <div class="input-group">
+                        <input type="text text-tanggal" id="datePicker" class="form-control datepicker border rounded-1" name="tanggal" autocomplete="off">
+                        <span class="input-group-text" id="addon-wrapping"><i class="fa fa-calendar icon"></i></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
         <!-- main content end -->
         <!-- footer start -->
         <div class="card-footer text-body-secondary">
@@ -163,7 +212,7 @@
             <div class="col-8 offset-4">
               <div class="row">
                 <div class="col-sm-2 align-items-center">
-                  <button class="btn btn-danger">
+                  <button class="btn btn-danger" type="reset">
                     <span class="fa fa-file me-1"></span>Baru
                   </button>
                 </div>
@@ -190,6 +239,41 @@
   <!-- 👇 javascript code file 👇 -->
   <script src="src/js/index.js"></script>
   <script src="src/bootstrap/bootstrap.bundle.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+  <script>
+    $(function() {
+      var dateFormat = "mm/dd/yy",
+        from = $("#from")
+        .datepicker({
+          defaultDate: "+1w",
+          changeMonth: true,
+          numberOfMonths: 3
+        })
+        .on("change", function() {
+          to.datepicker("option", "minDate", getDate(this));
+        }),
+        to = $("#to").datepicker({
+          defaultDate: "+1w",
+          changeMonth: true,
+          numberOfMonths: 3
+        })
+        .on("change", function() {
+          from.datepicker("option", "maxDate", getDate(this));
+        });
+
+      function getDate(element) {
+        var date;
+        try {
+          date = $.datepicker.parseDate(dateFormat, element.value);
+        } catch (error) {
+          date = null;
+        }
+
+        return date;
+      }
+    });
+  </script>
 </body>
 
 </html>
