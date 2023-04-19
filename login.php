@@ -21,7 +21,7 @@ if (
 ) {
   $user = $_POST['username'];
   $pass = $_POST['password'];
-  $sql = mysqli_query($conn, "select * from login where username='$user' and pass='$pass'");
+  $sql = mysqli_query($conn, "SELECT * FROM WHERE username='$user' and pass='$pass'");
 
   $cek = mysqli_num_rows($sql);
   // cek apakah username dan password ditemukan pada database
@@ -66,7 +66,6 @@ if (
               <option value="2024">2021</option>
             </select>
           </div>
-
           <div class="d-grid mb-3">
             <button type="submit" class="btn btn-danger" name="login" value="login">Login</button>
             <p class="text-center mt-3">

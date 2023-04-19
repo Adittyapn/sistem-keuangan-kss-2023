@@ -220,7 +220,7 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
                 <div class="row mb-3">
                   <label for="noGiro" class="col-sm-2 col-form-label">No Giro</label>
                   <div class="col-sm-8">
-                    <input id="noGiro" name="noRekening" type="text" value="" class="form-control" />
+                    <input id="noGiro" name="noGiro" type="text" value="" class="form-control" />
                   </div>
                   <div class="mt-2 d-flex justify-content-center col-sm-1">
                     <input class="form-check-input" type="checkbox" id="giroChecked" />
@@ -243,7 +243,7 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
                     <input name="" id="" value="IDR" class="text-center form-control" disabled readonly />
                   </div>
                   <div class="mt-2 d-flex justify-content-center col-sm-1">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" />
+                    <input class="form-check-input" type="checkbox" value="" id="ppnChecked" />
                   </div>
                   <div class="col-sm-7">
                     <input name="ppn" id="ppn" class="text-end form-control" />
@@ -329,7 +329,7 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
                   <div class="card-header">
                     Input Detail
                   </div>
-                  <div class="card-body">
+                  <div class="card-body" style="height: 300px; overflow: scroll; ">
                     <table class="table table-bordered">
                       <thead>
                         <tr>
@@ -339,8 +339,9 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
                           <th scope="col">Tanggal</th>
                           <th scope="col">Cara Bayar</th>
                           <th scope="col">No Rekening</th>
-                          <th scope="col">Kode Proyek</th>
+                          <th scope="col">No Giro</th>
                           <th scope="col">Proyek</th>
+                          <th scope="col">Uraian</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -352,8 +353,9 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
                             <td><?php echo $row['tanggal'] ?></td>
                             <td><?php echo $row['caraBayar'] ?></td>
                             <td><?php echo $row['noRekening'] ?></td>
-                            <td><?php echo $row['kode_proyek'] ?></td>
+                            <td><?php echo $row['noGiro'] ?></td>
                             <td><?php echo $row['nama'] ?></td>
+                            <td><?php echo $row['uraian'] ?></td>
                           </tr>
                         <?php endforeach; ?>
                       </tbody>
@@ -476,6 +478,20 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
     checkbox.addEventListener("change", toogleInput);
     //potpph end
 
+    //ppn check start
+    var checkboxPpn = document.querySelector("#ppnChecked");
+    var inputPpn = document.querySelector("#ppn");
+
+    var toogleInput = function(e) {
+      inputPpn.disabled = !e.target.checked;
+    };
+
+    toogleInput({
+      target: checkboxPpn
+    });
+    checkboxPpn.addEventListener("change", toogleInput);
+    //ppn check end
+
 
     $("#nilaiPnrm").keyup(function() {
       var nilai_pnrm = document.getElementById("nilaiPnrm").value;
@@ -488,6 +504,20 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
       var ppn = document.getElementById("ppn").value;
       var materai = document.getElementById("materai").value;
       document.getElementById("total_pnrm").value = parseFloat(nilai_pnrm) + parseFloat(ppn) + parseFloat(materai);
+
+      $("#materai").keyup(function() {
+        var pph = document.getElementById("materai").value;
+        var total_pnrm = document.getElementById("total_pnrm").value;
+        console.log(total_pnrm)
+        document.getElementById("pot1").value = total_pnrm * 5 / 100;
+      });
+
+      $("#pot_lain").keyup(function() {
+        var total_pnrm = document.getElementById("total_pnrm").value;
+        var pph = document.getElementById("pot1").value;
+        var pot_lain = document.getElementById("pot_lain").value;
+        document.getElementById("total_bayar").value = parseFloat(total_pnrm) - parseFloat(pph) - parseFloat(pot_lain);
+      });
     });
   </script>
 </body>

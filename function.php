@@ -24,10 +24,11 @@ function tambah($data)
     $caraBayar = $data["caraBayar"];
     $kodeBank = $data["kodeBank"];
     $noRek = $data["noRekening"];
+    $noGiro = $data["noGiro"];
     $kode_proyek = $data["kode_proyek"];
     $tambahProyek = $data["tambahProyek"];
     $nilai_pnrm = $data["nilaiPnrm"];
-    $ppn = $data['ppn'];
+    $ppn = isset($data['ppn']) ? $data['ppn'] : 0;
     $materai = $data['materai'];
     $total_pnrm = $data['total_pnrm'];
     $potPPH = isset($data['pot1']) ? $data['pot1'] : 0;
@@ -42,7 +43,7 @@ function tambah($data)
 
     $query = "INSERT INTO penerimaan_kas 
                 VALUES
-                (NULL, '$payment', '$invoice', '$tanggal', '$caraBayar', '$kodeBank', '$noRek', '$tambahProyek', '$kode_proyek',$nilai_pnrm,'$ppn',$materai,
+                (NULL, '$payment', '$invoice', '$tanggal', '$caraBayar', '$kodeBank', '$noRek', '$noGiro', '$tambahProyek', '$kode_proyek',$nilai_pnrm, $ppn, $materai,
                 $total_pnrm, $potPPH, $potLain, $total_bayar, '$uraian')";
     mysqli_query($conn, $query);
 
