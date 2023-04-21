@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Apr 18, 2023 at 08:40 PM
+-- Generation Time: Apr 19, 2023 at 10:47 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -56,10 +56,11 @@ CREATE TABLE `penerimaan_kas` (
   `caraBayar` varchar(255) NOT NULL,
   `kodeBank` varchar(255) NOT NULL,
   `noRekening` varchar(255) NOT NULL,
+  `noGiro` varchar(255) NOT NULL,
   `proyek` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `kode_proyek` varchar(255) NOT NULL,
   `nilai_penerimaan` int NOT NULL,
-  `ppn` varchar(255) NOT NULL,
+  `ppn` int NOT NULL,
   `materai` int NOT NULL,
   `total_pnrm` int NOT NULL,
   `pot_pph` int DEFAULT NULL,
@@ -72,8 +73,12 @@ CREATE TABLE `penerimaan_kas` (
 -- Dumping data for table `penerimaan_kas`
 --
 
-INSERT INTO `penerimaan_kas` (`id`, `payment`, `no_invoice`, `tanggal`, `caraBayar`, `kodeBank`, `noRekening`, `proyek`, `kode_proyek`, `nilai_penerimaan`, `ppn`, `materai`, `total_pnrm`, `pot_pph`, `pot_lain`, `total_bayar`, `uraian`) VALUES
-(15, 'BANK', 'KSS-PNM-', '1970-01-01', 'transfer', '', '', '1', '', 1500000000, '150000000', 110000, 1650110000, 0, 122112, 900000000, '');
+INSERT INTO `penerimaan_kas` (`id`, `payment`, `no_invoice`, `tanggal`, `caraBayar`, `kodeBank`, `noRekening`, `noGiro`, `proyek`, `kode_proyek`, `nilai_penerimaan`, `ppn`, `materai`, `total_pnrm`, `pot_pph`, `pot_lain`, `total_bayar`, `uraian`) VALUES
+(15, 'BANK', 'KSS-PNM-', '1970-01-01', 'transfer', '', '', '', '1', '', 1500000000, 150000000, 110000, 1650110000, 0, 122112, 900000000, ''),
+(16, 'BANK', 'KSS-PNM-05042023', '2023-04-05', 'tunai', '', '', '2183921-2139129-32193', '1', 'TBS-5', 10000, 1000, 10000, 21000, 0, 1000, 10000, ''),
+(17, 'BANK', 'KSS-PNM-', '1970-01-01', 'transfer', '', '', '', '1', '', 15000, 1500, 10000, 26500, 1325, 10000, 15175, 'test'),
+(18, 'BANK', 'KSS-PNM-', '1970-01-01', 'transfer', '', '', '', '1', '', 15000, 1500, 10000, 26500, 0, 10000, 15175, 'test'),
+(19, 'BANK', 'KSS-PNM-', '1970-01-01', 'transfer', '', '', '', '1', '', 10000, 0, 10000, 21000, 0, 1000, 18950, 'test');
 
 -- --------------------------------------------------------
 
@@ -125,7 +130,7 @@ ALTER TABLE `proyek`
 -- AUTO_INCREMENT for table `penerimaan_kas`
 --
 ALTER TABLE `penerimaan_kas`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `proyek`

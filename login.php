@@ -21,7 +21,7 @@ if (
 ) {
   $user = $_POST['username'];
   $pass = $_POST['password'];
-  $sql = mysqli_query($conn, "SELECT * FROM WHERE username='$user' and pass='$pass'");
+  $sql = mysqli_query($conn, "SELECT * FROM login WHERE username='$user' AND pass='$pass'");
 
   $cek = mysqli_num_rows($sql);
   // cek apakah username dan password ditemukan pada database
@@ -30,6 +30,10 @@ if (
     $_SESSION['username'] = $user;
     // alihkan ke halaman dashboard admin
     header("location:index.php");
+  }
+  if (!$sql) {
+    printf("Error: %s\n", mysqli_error($conn));
+    exit();
   }
 }
 ?>
@@ -49,11 +53,11 @@ if (
         <form action="#" method="POST" autocomplete="off">
           <div class="input-group mb-3">
             <span class="input-group-text"><i class="fa fa-user"></i></span>
-            <input type="text" class="form-control" name="username" id="exampleInputEmail1" placeholder="Nama User" required oninvalid="this.setCustomValidity('Harap Isi Username')" oninput="this.setCustomValidity('')" />
+            <input type="text" class="form-control" name="username" id="username" placeholder="Nama User" required oninvalid="this.setCustomValidity('Harap Isi Username')" oninput="this.setCustomValidity('')" />
           </div>
           <div class="input-group mb-3">
             <span class="input-group-text"><i class="fa fa-lock"></i></span>
-            <input type="password" class="form-control" id="exampleInputEmail1" placeholder="Password" required name="password" />
+            <input type="password" class="form-control" id="password" placeholder="Password" required name="password" />
           </div>
           <div class="input-group mb-3">
             <select class="form-select" aria-label="Default select example">

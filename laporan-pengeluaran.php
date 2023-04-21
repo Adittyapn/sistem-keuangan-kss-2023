@@ -1,3 +1,26 @@
+<?php
+
+require "function.php";
+
+// cek apakah tombol submit sudah ditekan atau belum
+if (isset($_POST["submit"])) {
+  // cek apakah data berhasil di tambahkan atau tidak
+  if (tambahpengeluaran($_POST) > 0) {
+    echo "<script> 
+              alert('Data Berhasil di Tambahkan!');
+              document.location.href = 'keuangan-penerimaan.php';
+          </script>";
+  } else {
+    echo "<script> 
+              alert('Data Gagal di Tambahkan!');
+          </script>";
+  }
+}
+
+$pengeluaran = query("SELECT * FROM pengeluaran_kas LEFT JOIN proyek ON pengeluaran_kas.proyek = proyek.id");
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,6 +34,8 @@
   <link rel="stylesheet" href="./src/style/global.css" />
   <link rel="stylesheet" href="./src/bootstrap/bootstrap.min.css" />
   <link rel="stylesheet" href="./src/style/all.min.css" />
+  <link rel="Stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" type="text/css" />
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 </head>
 
 <body>
@@ -71,43 +96,26 @@
         </div>
         <div class="card-body">
           <div class="row">
-            <div class="col-6 border mb-3">
+            <div class="col-9 offset-3 mb-3 mt-3">
               <form action="">
                 <div class="row align-items-center">
-                  <label for="caraBayar" class="col-sm-2 col-form-label"><b>Periode Transaksi</b></label>
+                  <label for="" class="col-sm-2 col-form-label"><b>Periode Transaksi</b></label>
                   <div class="col-sm-10 d-flex">
-                    <div class="date-range me-4">
-                      <input type="date" class="datepicker border rounded-1" />
+                    <div class="col-3 me-3">
+                      <div class="input-group">
+                        <input type="text" id="from" name="from" class="form-control form-control-sm">
+                        <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                      </div>
                     </div>
-                    <div class="date-range">
-                      <input type="date" class="datepicker border rounded-1" />
+                    <div class="col-auto">
+                      <label for="" class=" col-form-label">to</label>
                     </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <label for="invoice" class="col-sm-2 col-form-label">
-                    <b>No Invoice</b>
-                  </label>
-                  <div class="col-sm-4">
-                    <input class="form-control form-control-sm w-100" type="text" value="KSS-PLR-07042023" aria-label="readonly input example" readonly />
-                  </div>
-                </div>
-              </form>
-            </div>
-            <div class="col-6 border mb-3">
-              <form action="">
-                <div class="row align-items-center">
-                  <label for="caraBayar" class="col-sm-2 col-form-label"><b>Proyek</b></label>
-                  <div class="col-sm-4">
-                    <input class="form-control form-control-sm w-100" type="text" value="TBS006/001" aria-label="readonly input example" readonly />
-                  </div>
-                  <div class="col-sm-4">
-                    <input class="form-control form-control-sm w-100" type="text" value="Achmad Sumartono" aria-label="readonly input example" readonly />
-                  </div>
-                  <div class="col-sm-2">
-                    <button type="button" class="btn border btn-sm">
-                      ...
-                    </button>
+                    <div class="col-3 ms-3">
+                      <div class="input-group">
+                        <input type="text" id="to" name="to" class="form-control form-control-sm">
+                        <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </form>
@@ -115,47 +123,122 @@
           </div>
         </div>
         <!-- header content end -->
-
         <!-- main content start -->
         <div class="col-12 mt-1">
           <div class="container-fluid p-2">
             <div class="container-fluid border border-1">
-              <div class="col-12">
-                <table class="table table-bordered mt-4">
+              <div class="col-12 mt-3">
+                <table class="table table-bordered">
                   <thead>
-                    <tr>
-                      <th scope="col">No</th>
-                      <th scope="col">Tanggal</th>
-                      <th scope="col">No Invoice</th>
-                      <th scope="col">Proyek</th>
+                    <tr class="text-center">
+                      <th scope="col" rowspan="2">No</th>
+                      <th scope="col" colspan="2">Transaksi</th>
+                      <th scope="col" rowspan="2"> Proyek </th>
+                      <th scope="col" rowspan="2">Rekanan</th>
+                      <th scope="col" rowspan="2">Sumber Dana</th>
+                      <th scope="col" colspan="2">Mata Uang</th>
+                      <th scope="col" colspan="2">Nominal</th>
+                      <!-- <th scope="col" colspan="2">Ekuivalen</th> -->
+                      <th scope="col" rowspan="2">Uraian</th>
+                      <th scope="col" rowspan="2">Action</th>
                     </tr>
-                  </thead>
+                    <tr class="text-center">
+                      <th> Tanggal </th>
+                      <th> No Invoice </th>
+                      <th> Kode </th>
+                      <th> rate </th>
+                      <th>Debet (Masuk)</th>
+                      <th>Kredit(Keluar)</th>
+                      <!-- <th>Debet (Masuk)</th>
+                      <th>Kredit(Keluar)</th> -->
+                    </tr>
                   <tbody>
-                    <tr>
-                      <th scope="row">1</th>
-                      <td>19/12/2023</td>
-                      <td>KSS-PNM-07042023</td>
-                      <td>Blue Land</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">2</th>
-                      <td>19/12/2023</td>
-                      <td>KSS-PNM-07042023</td>
-                      <td>Green Land</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">3</th>
-                      <td>19/12/2023</td>
-                      <td>KSS-PNM-07042023</td>
-                      <td>Red Land</td>
-                    </tr>
+                    <?php $i = 1; ?>
+                    <?php foreach ($pengeluaran as $row) : ?>
+                      <td><?= $i ?></td>
+                      <td><?= $row['tanggal'] ?></td>
+                      <td><?= $row['no_invoice'] ?></td>
+                      <td><?= $row['nama'] ?></td>
+                      <td><?= $row['nama_dibayar'] ?></td>
+                      <td><?= $row['no_rekening'] ?></td>
+                      <td> IDR </td>
+                      <td> 1.00 </td>
+                      <td>0.00</td>
+                      <td><?= $row['total_bayar'] ?></td>
+                      <td><?= $row['uraian'] ?></td>
+                      <td class="text-center">
+                        <a type="button" id="tombolUbah" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#ubahModal" data-id_pengeluaran="<?= $row['id_pengeluaran'] ?>" data-tanggal="<?= $row['tanggal'] ?>" data-no_invoice="<?= $row['no_invoice'] ?>" data-nama="<?= $row['nama'] ?>" data-nama_dibayar="<?= $row['nama_dibayar'] ?>" data-no_rekening="<?= $row['no_rekening'] ?>" data-total_bayar="<?= $row['total_bayar'] ?>" data-uraian="<?= $row['uraian'] ?>">
+                          Edit
+                        </a>
+                        <a href="deletepengeluaran.php?id_pengeluaran=<?= $row['id_pengeluaran'] ?>" onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')">
+                          <button class="btn btn-outline-danger mx-1">Delete</button>
+                        </a>
+                      </td>
+                      </tr>
+                      <?php $i++; ?>
+                    <?php endforeach; ?>
                   </tbody>
                 </table>
               </div>
             </div>
           </div>
         </div>
-
+        <div class="modal fade" id="ubahModal" tabindex="-1" aria-labelledby="ubahModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="ubahModalLabel">Edit Data</h5>
+              </div>
+              <form action="" method="POST">
+                <div class="modal-body">
+                  <div class="form-group mb-3">
+                    <input type="hidden" class="form-control" id="id_penerimaan" name="id_penerimaan">
+                  </div>
+                  <!-- <div class="form-group mb-3">
+                    <label for="payment" class="form-label">Payment</label>
+                    <input type="text" class="form-control" id="payment" name="payment" autocomplete="off">
+                  </div> -->
+                  <div class="form-group mb-3">
+                    <label for="tanggal" class="form-label">Tanggal</label>
+                    <input type="text" class="form-control" id="tanggal" name="tanggal" autocomplete="off">
+                  </div>
+                  <div class="form-group mb-3">
+                    <label for="no_invoice" class="form-label">No. Invoice</label>
+                    <input type="text" class="form-control" id="no_invoice" name="no_invoice" autocomplete="off">
+                  </div>
+                  <div class="form-group mb-3">
+                    <label for="no_invoice" class="form-label">Proyek</label>
+                    <input type="text" class="form-control" id="nama" name="nama" disabled>
+                  </div>
+                  <div class="form-group mb-3">
+                    <label for="no_invoice" class="form-label">Rekanan</label>
+                    <input type="text" class="form-control" id="nama_dibayar" name="nama_dibayar" autocomplete="off">
+                  </div>
+                  <div class="form-group mb-3">
+                    <label for="no_invoice" class="form-label">Sumber Dana</label>
+                    <input type="text" class="form-control" id="noRekening" name="noRekening" autocomplete="off">
+                  </div>
+                  <div class="form-group mb-3">
+                    <label for="" class="form-label">Debet</label>
+                    <input type="text" class="form-control" id="" name="" value="0.00" disabled>
+                  </div>
+                  <div class="form-group mb-3">
+                    <label for="no_invoice" class="form-label">Kredit</label>
+                    <input type="text" class="form-control" id="total_bayar" name="total_bayar" autocomplete="off">
+                  </div>
+                  <div class="form-group mb-3">
+                    <label for="no_invoice" class="form-label">Uraian</label>
+                    <input type="text" class="form-control" id="uraian" name="uraian">
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="submit" name="edit" class="btn btn-primary">Edit</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
         <!-- main content end -->
         <!-- footer start -->
         <div class="card-footer text-body-secondary">
@@ -163,7 +246,7 @@
             <div class="col-8 offset-4">
               <div class="row">
                 <div class="col-sm-2 align-items-center">
-                  <button class="btn btn-danger">
+                  <button class="btn btn-danger" type="reset">
                     <span class="fa fa-file me-1"></span>Baru
                   </button>
                 </div>
@@ -190,6 +273,61 @@
   <!-- 👇 javascript code file 👇 -->
   <script src="src/js/index.js"></script>
   <script src="src/bootstrap/bootstrap.bundle.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+  <script>
+    $(function() {
+      var dateFormat = "mm/dd/yy",
+        from = $("#from")
+        .datepicker({
+          defaultDate: "+1w",
+          changeMonth: true,
+          numberOfMonths: 3
+        })
+        .on("change", function() {
+          to.datepicker("option", "minDate", getDate(this));
+        }),
+        to = $("#to").datepicker({
+          defaultDate: "+1w",
+          changeMonth: true,
+          numberOfMonths: 3
+        })
+        .on("change", function() {
+          from.datepicker("option", "maxDate", getDate(this));
+        });
+
+      function getDate(element) {
+        var date;
+        try {
+          date = $.datepicker.parseDate(dateFormat, element.value);
+        } catch (error) {
+          date = null;
+        }
+
+        return date;
+      }
+    });
+    $(document).on("click", "#tombolUbah", function() {
+      let id_pengeluaran = $(this).data('id_pengeluaran');
+      let tanggal = $(this).data('tanggal');
+      let no_invoice = $(this).data('no_invoice');
+      let nama = $(this).data('nama');
+      let nama_dibayar = $(this).data('nama_dibayar');
+      let no_rekening = $(this).data('no_rekening');
+      let total_bayar = $(this).data('total_bayar');
+      let uraian = $(this).data('uraian');
+
+      $(".modal-body #id_pengeluaran").val(id_penerimaan);
+      $(".modal-body #tanggal").val(tanggal);
+      $(".modal-body #no_invoice").val(no_invoice);
+      $(".modal-body #nama").val(nama);
+      $(".modal-body #nama_dibayar").val(nama_dibayar);
+      $(".modal-body #noRekening").val(no_rekening);
+      $(".modal-body #total_bayar").val(total_bayar);
+
+      $(".modal-body #uraian").val(uraian);
+    });
+  </script>
 </body>
 
 </html>

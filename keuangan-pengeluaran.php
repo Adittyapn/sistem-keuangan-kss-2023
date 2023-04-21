@@ -6,10 +6,10 @@ require "function.php";
 if (isset($_POST["submit"])) {
 
   // cek apakah data berhasil di tambahkan atau tidak
-  if (tambah($_POST) > 0) {
+  if (tambahpengeluaran($_POST) > 0) {
     echo "<script> 
               alert('Data Berhasil di Tambahkan!');
-              document.location.href = 'keuangan-penerimaan.php';
+              document.location.href = 'keuangan-pengeluaran.php';
           </script>";
   } else {
     echo "<script> 
@@ -18,6 +18,30 @@ if (isset($_POST["submit"])) {
   }
 }
 
+$proyek = query("select * from proyek");
+
+if (isset($_POST["submit_tambahProyek"])) {
+
+  if (empty($_POST["text_proyek"])) {
+    echo "<script> 
+              alert('Data Gagal di Tambahkan!');
+          </script>";
+  } else {
+    // cek apakah data berhasil di tambahkan atau tidak
+    if (tambahProyek($_POST) > 0) {
+      echo "<script> 
+                alert('Data Berhasil di Tambahkan!');
+                document.location.href = 'keuangan-penerimaan.php';
+            </script>";
+    } else {
+      echo "<script> 
+                alert('Data Gagal di Tambahkan!');
+            </script>";
+    }
+  }
+}
+
+$pengeluaran = query("SELECT * FROM pengeluaran_kas LEFT JOIN proyek ON pengeluaran_kas.proyek = proyek.id");
 ?>
 
 <!DOCTYPE html>
@@ -136,10 +160,10 @@ if (isset($_POST["submit"])) {
                 <div class="row align-items-center">
                   <label for="from" class="col-sm-2 col-form-label"><b>Dibayarkan Kpd.</b></label>
                   <div class="col-sm-4">
-                    <input class="form-control form-control-sm w-100" type="text" value="" aria-label="readonly input example" />
+                    <input class="form-control form-control-sm w-100" type="text" value="001" aria-label="readonly input example" name="kode_bayar" id="kode_bayar" />
                   </div>
                   <div class="col-sm-4">
-                    <input class="form-control form-control-sm w-100" type="text" value="" aria-label="readonly input example" />
+                    <input class="form-control form-control-sm w-100" type="text" value="" aria-label="readonly input example" name="nama_dibayar" id="nama_dibayar" />
                   </div>
                   <div class="col-sm-2">
                   </div>
@@ -147,14 +171,19 @@ if (isset($_POST["submit"])) {
                 <div class="row align-items-center">
                   <label for="Proyek" class="col-sm-2 col-form-label"><b>Proyek</b></label>
                   <div class="col-sm-4">
-                    <input class="form-control form-control-sm w-100" type="text" value="" aria-label="readonly input example" />
+                    <input class="form-control form-control-sm w-100" name="kode_proyek" type="text" value="BL-001" aria-label="readonly input example" />
                   </div>
                   <div class="col-sm-4">
-                    <input class="form-control form-control-sm w-100" type="text" value="Blue Land" aria-label="readonly input example" readonly />
+                    <select name="tambahProyek" id="tambahProyek" class="form-select">
+                      <?php foreach ($proyek as $row) : ?>
+                        <option value="<?= $row['id']; ?>"><?= $row["nama"]; ?></option>
+                      <?php endforeach; ?>
+                    </select>
+                    <!-- <input class="form-control form-control-sm w-100" type="text" value="Blue Land" aria-label="readonly input example" readonly /> -->
                   </div>
                   <div class="col-sm-2">
-                    <button type="button" class="btn border btn-sm">
-                      ...
+                    <button type="button" class="btn border btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                      . . .
                     </button>
                   </div>
                 </div>
@@ -174,12 +203,12 @@ if (isset($_POST["submit"])) {
                   </div>
                 </div>
                 <div class="row mb-3">
-                  <label for="kodeBank" class="col-sm-2 col-form-label">Kode Bank</label>
+                  <label for="kodeBank" class="col-sm-2 col-form-label">Kode Bank/BANK</label>
                   <div class="col-sm-3">
-                    <input id="kodeBank" name="kodeBank" type="text" value="" class="form-control" /> <!-- kalo disabled gak bisa di input valuenya -->
+                    <input id="kodeBank" name="kodeBank" type="text" value="012" class="form-control" /> <!-- kalo disabled gak bisa di input valuenya -->
                   </div>
                   <div class="col-sm-7">
-                    <input type="text" value="" class="form-control" />
+                    <input type="text" value="BCA" class="form-control" />
                   </div>
                 </div>
                 <div class="row mb-3">
@@ -191,7 +220,7 @@ if (isset($_POST["submit"])) {
                 <div class="row mb-3">
                   <label for="noGiro" class="col-sm-2 col-form-label">No Giro</label>
                   <div class="col-sm-8">
-                    <input id="noGiro" name="noRekening" type="text" value="" class="form-control" />
+                    <input id="noGiro" name="noGiro" type="text" value="" class="form-control" />
                   </div>
                   <div class="mt-2 d-flex justify-content-center col-sm-1">
                     <input class="form-check-input" type="checkbox" id="giroChecked" />
@@ -205,19 +234,19 @@ if (isset($_POST["submit"])) {
                     <input name="idr" id="idr" value="IDR" class="text-center form-control" disabled readonly />
                   </div>
                   <div class="col-sm-8">
-                    <input name="nilaiPnrm" id="nilaiPnrm" class="text-end form-control" onkeypress="return restrictAlpha(event)" />
+                    <input name="nilaiPengeluaran" id="nilaiPengeluaran" class="text-end form-control" onkeypress="return restrictAlpha(event)" />
                   </div>
                 </div>
                 <div class="row mb-3">
                   <label for="ppn" class="col-sm-2 col-form-label">PPN 10 %</label>
                   <div class="col-sm-2">
-                    <input name="ppn" id="ppn" value="IDR" class="text-center form-control" disabled readonly />
+                    <input name="" id="" value="IDR" class="text-center form-control" disabled readonly />
                   </div>
                   <div class="mt-2 d-flex justify-content-center col-sm-1">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" />
+                    <input class="form-check-input" type="checkbox" value="" id="ppnChecked" />
                   </div>
                   <div class="col-sm-7">
-                    <input name="nilaiPnrm" id="nilaiPnrm" class="text-end form-control" />
+                    <input name="ppn" id="ppn" class="text-end form-control" />
                   </div>
                 </div>
                 <div class="row mb-3">
@@ -238,7 +267,7 @@ if (isset($_POST["submit"])) {
                     <input name="idr" id="idr" value="IDR" class="text-center form-control" disabled readonly />
                   </div>
                   <div class="col-sm-8">
-                    <input id="noRek" name="noRek" type="text" value="" class="text-end form-control" onkeypress="return restrictAlpha(event)" />
+                    <input id="total_pengeluaran" name="total_pengeluaran" type="text" value="" class="text-end form-control" onkeypress="return restrictAlpha(event)" />
                   </div>
                 </div>
                 <div class="row mb-3">
@@ -247,7 +276,7 @@ if (isset($_POST["submit"])) {
                     <input name="idr" id="idr" value="IDR" class="text-center form-control" disabled readonly />
                   </div>
                   <div class="col-sm-2">
-                    <input name="pot" id="pot" class="text-end form-control" value="5.0" onkeypress="return restrictAlpha(event)" readonly />
+                    <input name="pot" id="pot" class="text-center form-control" value="5.0" onkeypress="return restrictAlpha(event)" readonly />
                   </div>
                   <div class="col-sm-4">
                     <input name="pot1" id="pot1" class="text-end form-control" onkeypress="return restrictAlpha(event)" />
@@ -263,7 +292,7 @@ if (isset($_POST["submit"])) {
                     <input name="idr" id="idr" value="IDR" class="text-center form-control" disabled readonly />
                   </div>
                   <div class="col-sm-8">
-                    <input id="" name="" type="text" value="" class="text-end form-control" onkeypress="return restrictAlpha(event)" />
+                    <input id="pot_lain" name="pot_lain" type="text" value="" class="text-end form-control" onkeypress="return restrictAlpha(event)" />
                   </div>
                 </div>
                 <div class="pembatas">
@@ -276,7 +305,7 @@ if (isset($_POST["submit"])) {
                     <input name="idr" id="idr" value="IDR" class="text-center form-control" disabled readonly />
                   </div>
                   <div class="col-sm-8">
-                    <input id="" name="" type="text" value="" class="text-end form-control" onkeypress="return restrictAlpha(event)" />
+                    <input id="total_bayar" name="total_bayar" type="text" value="" class="text-end form-control" onkeypress="return restrictAlpha(event)" />
                   </div>
                 </div>
                 <div class="row mb-3">
@@ -284,7 +313,7 @@ if (isset($_POST["submit"])) {
                   <div class="col-sm-8">
                     <div class="form-group">
                       <label for="exampleFormControlTextarea1"></label>
-                      <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                      <textarea class="form-control" id="uraian" name="uraian" rows="3"></textarea>
                     </div>
                   </div>
                 </div>
@@ -305,39 +334,26 @@ if (isset($_POST["submit"])) {
                       <thead>
                         <tr>
                           <th scope="col">No</th>
-                          <th scope="col">No Invoice</th>
+                          <th scope="col">No. Referensi</th>
                           <th scope="col">Tanggal</th>
                           <th scope="col">Account</th>
+                          <th scope="col">Sub Akun(Biaya)</th>
                           <th scope="col">Uraian</th>
                           <th scope="col">Nilai Pengeluaran</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <th scope="row">1</th>
-                          <td>KSS-PNM-07042023</td>
-                          <td>19/12/2023</td>
-                          <td>Achmad Sumartono</td>
-                          <td>Telah di bayar secara cash dari Teten</td>
-                          <td>250.000</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">2</th>
-                          <td>KSS-PNM-07042023</td>
-                          <td>19/12/2023</td>
-                          <td>Achmad Sumartono</td>
-                          <td>Telah di bayar secara cash dari Teten</td>
-                          <td>250.000</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">3</th>
-                          <td>KSS-PNM-07042023</td>
-                          <td>19/12/2023</td>
-                          <td>Achmad Sumartono</td>
-                          <td>Telah di bayar secara cash dari Teten</td>
-                          <td>250.000</td>
-                        </tr>
-
+                        <?php foreach ($pengeluaran as $i => $row) : ?>
+                          <tr>
+                            <th scope="row"><?php echo ++$i ?></th>
+                            <td>- -</td>
+                            <td><?php echo $row['tanggal'] ?></td>
+                            <td><?php echo $row['nama_dibayar'] ?></td>
+                            <td>- - -</td>
+                            <td><?php echo $row['uraian'] ?></td>
+                            <td><?php echo $row['nilaiPengeluaran'] ?></td>
+                          </tr>
+                        <?php endforeach; ?>
                       </tbody>
                     </table>
                   </div>
@@ -379,7 +395,26 @@ if (isset($_POST["submit"])) {
             </div>
           </div>
         </form>
-
+        <form action="" method="POST">
+          <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="staticBackdropLabel">Tambah Proyek</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <label for="" class="me-2">Tambah Proyek</label>
+                  <input type="text" class="form-control-sm" name="text_proyek">
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-primary" name="submit_tambahProyek" id="tambahProyek">Tambah</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
       </div>
     </div>
   </section>
@@ -437,6 +472,55 @@ if (isset($_POST["submit"])) {
     });
     checkbox.addEventListener("change", toogleInput);
     //potpph end
+
+    //ppn check start
+    var checkboxPpn = document.querySelector("#ppnChecked");
+    var inputPpn = document.querySelector("#ppn");
+
+    var toogleInput = function(e) {
+      inputPpn.disabled = !e.target.checked;
+    };
+
+    toogleInput({
+      target: checkboxPpn
+    });
+    checkboxPpn.addEventListener("change", toogleInput);
+    //ppn check end
+
+
+    $("#nilaiPengeluaran").keyup(function() {
+      var nilai_pengeluaran = document.getElementById("nilaiPengeluaran").value;
+      document.getElementById("ppn").value = nilai_pengeluaran * 10 / 100;
+    });
+
+    $("#materai").keyup(function() {
+      var nilai_pengeluaran = document.getElementById("nilaiPengeluaran").value;
+      var ppn = document.getElementById("ppn").value;
+      var materai = document.getElementById("materai").value;
+      if ($('#ppnChecked').prop('checked')) {
+        document.getElementById("total_pengeluaran").value = parseFloat(nilai_pengeluaran) + parseFloat(ppn) + parseFloat(materai);
+      } else {
+        document.getElementById("total_pengeluaran").value = parseFloat(nilai_pengeluaran) + parseFloat(materai);
+      }
+    });
+
+    $("#materai").keyup(function() {
+      // var pph = document.getElementById("pot1").value;
+      var total_pengeluaran = document.getElementById("total_pengeluaran").value;
+      console.log(total_pengeluaran)
+      document.getElementById("pot1").value = total_pengeluaran * 5 / 100;
+    });
+
+    $("#pot_lain").keyup(function() {
+      var total_pengeluaran = document.getElementById("total_pengeluaran").value;
+      var pph = document.getElementById("pot1").value;
+      var pot_lain = document.getElementById("pot_lain").value;
+      if ($('#potChacked').prop('checked')) {
+        document.getElementById("total_bayar").value = parseFloat(total_pengeluaran) - parseFloat(pph) - parseFloat(pot_lain);
+      } else {
+        document.getElementById("total_bayar").value = parseFloat(total_pengeluaran) - parseFloat(pot_lain);
+      }
+    });
   </script>
 </body>
 

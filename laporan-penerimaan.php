@@ -3,13 +3,12 @@
 require "function.php";
 
 // cek apakah tombol submit sudah ditekan atau belum
-if (isset($_POST["submit"])) {
+if (isset($_POST["edit"])) {
 
   // cek apakah data berhasil di tambahkan atau tidak
-  if (tambah($_POST) > 0) {
+  if (editData($_POST) > 0) {
     echo "<script> 
               alert('Data Berhasil di Tambahkan!');
-              document.location.href = 'keuangan-penerimaan.php';
           </script>";
   } else {
     echo "<script> 
@@ -102,6 +101,7 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
                 <div class="row align-items-center">
                   <label for="" class="col-sm-2 col-form-label"><b>Periode Transaksi</b></label>
                   <div class="col-sm-10 d-flex">
+
                     <div class="col-3 me-3">
                       <div class="input-group">
                         <input type="text" id="from" name="from" class="form-control form-control-sm">
@@ -118,7 +118,6 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
                       </div>
                     </div>
                   </div>
-                </div>
               </form>
             </div>
           </div>
@@ -130,40 +129,54 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
           <div class="container-fluid p-2">
             <div class="container-fluid border border-1">
               <div class="col-12 mt-3">
-                <table class="table table-bordered">
+                <table class="table table-bordered" id="myTable">
                   <thead>
                     <tr class="text-center">
-                      <th scope="col">No</th>
-                      <th scope="col">Diterima Melalui</th>
-                      <th scope="col">No Invoice</th>
-                      <th scope="col">Tanggal</th>
-                      <th scope="col">Cara Bayar</th>
-                      <th scope="col">No Rekening</th>
-                      <th scope="col">No Giro</th>
-                      <th scope="col">Proyek</th>
-                      <th scope="col">Uraian</th>
-                      <th scope="col">Action</th>
+                      <th scope="col" rowspan="2">No</th>
+                      <th scope="col" colspan="2">Transaksi</th>
+
+                      <th scope="col" rowspan="2">Proyek</th>
+                      <th scope="col" rowspan="2"> Rekanan </th>
+                      <th scope="col" rowspan="2">Sumber Dana</th>
+                      <th scope="col" colspan="2">Mata Uang</th>
+                      <th scope="col" colspan="2">Nominal</th>
+                      <!-- <th scope="col" colspan="2">Ekuivalen</th> -->
+                      <th scope="col" rowspan="2">Uraian</th>
+                      <th scope="col" rowspan="2">Edit/Delete</th>
+                    </tr>
+                    <tr class="text-center">
+                      <th> Tanggal </th>
+                      <th> No Invoice </th>
+                      <th> Kode </th>
+                      <th> rate </th>
+                      <th>Debet (Masuk)</th>
+                      <th>Kredit(Keluar)</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <?php foreach ($penerimaan as $i => $row) : ?>
-                      <tr>
-                        <th scope="row"><?php echo ++$i ?></th>
-                        <td><?php echo $row['payment'] ?></td>
-                        <td><?php echo $row['no_invoice'] ?></td>
-                        <td><?php echo $row['tanggal'] ?></td>
-                        <td><?php echo $row['caraBayar'] ?></td>
-                        <td><?php echo $row['noRekening'] ?></td>
-                        <td><?php echo $row['noGiro'] ?></td>
-                        <td><?php echo $row['nama'] ?></td>
-                        <td><?php echo $row['uraian'] ?></td>
-                        <td class="text-center">
-                          <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            Edit
-                          </button>
+                    <?php $i = 1; ?>
+                    <?php foreach ($penerimaan as $row) : ?>
+                      <td><?= $i ?></td>
+                      <td><?= $row['tanggal'] ?></td>
+                      <td><?= $row['no_invoice'] ?></td>
+                      <td><?= $row['nama'] ?></td>
+                      <td><?= $row['nama_diterima'] ?></td>
+                      <td><?= $row['noRekening'] ?></td>
+                      <td> IDR </td>
+                      <td> 1.00 </td>
+                      <td>0.00</td>
+                      <td><?= $row['total_bayar'] ?></td>
+                      <td><?= $row['uraian'] ?></td>
+                      <td class="text-center">
+                        <a type="button" id="tombolUbah" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#ubahModal" data-id_penerimaan="<?= $row['id_penerimaan'] ?>" data-tanggal="<?= $row['tanggal'] ?>" data-no_invoice="<?= $row['no_invoice'] ?>" data-nama="<?= $row['nama'] ?>" data-nama_diterima="<?= $row['nama_diterima'] ?>" data-no_rekening="<?= $row['noRekening'] ?>" data-total_bayar="<?= $row['total_bayar'] ?>" data-uraian="<?= $row['uraian'] ?>">
+                          Edit
+                        </a>
+                        <a href="delete.php?id_penerimaan=<?= $row['id_penerimaan'] ?>" onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')">
                           <button class="btn btn-outline-danger mx-1">Delete</button>
-                        </td>
+                        </a>
+                      </td>
                       </tr>
+                      <?php $i++; ?>
                     <?php endforeach; ?>
                   </tbody>
                 </table>
@@ -171,67 +184,92 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
             </div>
           </div>
         </div>
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog modal-dialog-centered modal-xl">
+        <!-- Modal -->
+        <div class="modal fade" id="ubahModal" tabindex="-1" aria-labelledby="ubahModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title" id="ubahModalLabel">Edit Data</h5>
               </div>
-              <div class="modal-body">
-                <div class="container">
-                  <div class="row">
-                    <label for="no_invoice" class="col-sm-2 col-form-label">
-                      <b>No Invoice</b>
-                    </label>
-                    <div class="col-sm-4">
-                      <input class="form-control" type="text" value="KSS-PNM-" name="no_invoice" id="no_invoice" aria-label="readonly input example" readonly />
-                    </div>
-                    <label for="" class="col-sm-2 text-end col-form-label"><b>Tanggal</b></label>
-                    <div class="col-sm-4">
-                      <!-- <input type="date" class="datepicker border rounded-1" name="tanggal" id="datePicker" /> -->
-                      <div class="input-group">
-                        <input type="text text-tanggal" id="datePicker" class="form-control datepicker border rounded-1" name="tanggal" autocomplete="off">
-                        <span class="input-group-text" id="addon-wrapping"><i class="fa fa-calendar icon"></i></span>
-                      </div>
-                    </div>
+              <form action="" method="POST">
+                <div class="modal-body">
+                  <div class="form-group mb-3">
+                    <input type="text" class="form-control" id="id_penerimaan" name="id_penerimaan">
+                  </div>
+                  <!-- <div class="form-group mb-3">
+                    <label for="payment" class="form-label">Payment</label>
+                    <input type="text" class="form-control" id="payment" name="payment" autocomplete="off">
+                  </div> -->
+                  <div class="form-group mb-3">
+                    <label for="tanggal" class="form-label">Tanggal</label>
+                    <input type="text" class="form-control" id="tanggal" name="tanggal" autocomplete="off">
+                  </div>
+                  <div class="form-group mb-3">
+                    <label for="no_invoice" class="form-label">No. Invoice</label>
+                    <input type="text" class="form-control" id="no_invoice" name="no_invoice" autocomplete="off">
+                  </div>
+                  <div class="form-group mb-3">
+                    <label for="no_invoice" class="form-label">Proyek</label>
+                    <input type="text" class="form-control" id="nama" name="nama" disabled>
+                  </div>
+                  <div class="form-group mb-3">
+                    <label for="no_invoice" class="form-label">Rekanan</label>
+                    <input type="text" class="form-control" id="nama_diterima" name="nama_diterima" autocomplete="off">
+                  </div>
+                  <div class="form-group mb-3">
+                    <label for="no_invoice" class="form-label">Sumber Dana</label>
+                    <input type="text" class="form-control" id="noRekening" name="noRekening" autocomplete="off">
+                  </div>
+                  <div class="form-group mb-3">
+                    <label for="" class="form-label">Debet</label>
+                    <input type="text" class="form-control" id="" name="" value="0.00" disabled>
+                  </div>
+                  <div class="form-group mb-3">
+                    <label for="no_invoice" class="form-label">Kredit</label>
+                    <input type="text" class="form-control" id="total_bayar" name="total_bayar" autocomplete="off">
+                  </div>
+                  <div class="form-group mb-3">
+                    <label for="no_invoice" class="form-label">Uraian</label>
+                    <input type="text" class="form-control" id="uraian" name="uraian">
                   </div>
                 </div>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-              </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="submit" name="edit" class="btn btn-primary">Edit</button>
+                </div>
+              </form>
             </div>
           </div>
         </div>
-        <!-- main content end -->
-        <!-- footer start -->
-        <div class="card-footer text-body-secondary">
-          <div class="row">
-            <div class="col-8 offset-4">
-              <div class="row">
-                <div class="col-sm-2 align-items-center">
-                  <button class="btn btn-danger" type="reset">
-                    <span class="fa fa-file me-1"></span>Baru
-                  </button>
-                </div>
-                <div class="col-sm-2 align-items-center">
-                  <button class="btn btn-danger">
-                    <span class="fa fa-eye me-1"></span>Tampil
-                  </button>
-                </div>
-                <div class="col-sm-2 align-items-center">
-                  <button class="btn btn-danger">
-                    <span class="fa fa-print me-1"></span>Cetak
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- footer end -->
       </div>
+
+      <!-- main content end -->
+      <!-- footer start -->
+      <div class="card-footer text-body-secondary">
+        <div class="row">
+          <div class="col-8 offset-4">
+            <div class="row">
+              <div class="col-sm-2 align-items-center">
+                <button class="btn btn-danger" type="reset">
+                  <span class="fa fa-file me-1"></span>Baru
+                </button>
+              </div>
+              <div class="col-sm-2 align-items-center">
+                <button class="btn btn-danger">
+                  <span class="fa fa-eye me-1"></span>Tampil
+                </button>
+              </div>
+              <div class="col-sm-2 align-items-center">
+                <button class="btn btn-danger" onclick="printTable()">
+                  <span class="fa fa-print me-1"></span>Cetak
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- footer end -->
+    </div>
     </div>
   </section>
 
@@ -242,24 +280,29 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
   <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
   <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
   <script>
+    //datepicker
     $(function() {
-      var dateFormat = "mm/dd/yy",
+      var dateFormat = "dd/mm/yy",
         from = $("#from")
         .datepicker({
           defaultDate: "+1w",
           changeMonth: true,
-          numberOfMonths: 3
+          numberOfMonths: 1,
+          dateFormat: "dd/mm/yy"
         })
         .on("change", function() {
           to.datepicker("option", "minDate", getDate(this));
+          filterTable();
         }),
         to = $("#to").datepicker({
           defaultDate: "+1w",
           changeMonth: true,
-          numberOfMonths: 3
+          numberOfMonths: 1,
+          dateFormat: "dd/mm/yy"
         })
         .on("change", function() {
           from.datepicker("option", "maxDate", getDate(this));
+          filterTable();
         });
 
       function getDate(element) {
@@ -272,7 +315,54 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
 
         return date;
       }
+
+      function filterTable() {
+        var from_date = $("#from").val();
+        var to_date = $("#to").val();
+
+        $("tbody tr").hide().filter(function() {
+          var date = $(this).find("td:eq(1)").text();
+          return (date >= from_date && date <= to_date);
+        }).show();
+      }
     });
+    //edit 
+    $(document).on("click", "#tombolUbah", function() {
+      let id_penerimaan = $(this).data('id_penerimaan');
+      let tanggal = $(this).data('tanggal');
+      let no_invoice = $(this).data('no_invoice');
+      let nama = $(this).data('nama');
+      let nama_diterima = $(this).data('nama_diterima');
+      let no_rekening = $(this).data('no_rekening');
+      let total_bayar = $(this).data('total_bayar');
+      let uraian = $(this).data('uraian');
+
+      $(".modal-body #id_penerimaan").val(id_penerimaan);
+      $(".modal-body #tanggal").val(tanggal);
+      $(".modal-body #no_invoice").val(no_invoice);
+      $(".modal-body #nama").val(nama);
+      $(".modal-body #nama_diterima").val(nama_diterima);
+      $(".modal-body #noRekening").val(no_rekening);
+      $(".modal-body #total_bayar").val(total_bayar);
+
+      $(".modal-body #uraian").val(uraian);
+    });
+
+    //cetak
+    function printTable() {
+      window.print();
+    }
+
+    function printTable() {
+      var divToPrint = document.getElementById('myTable');
+      var newWin = window.open('', 'Print-Window');
+      newWin.document.open();
+      newWin.document.write('<html><body onload="window.print()">' + divToPrint.innerHTML + '</body></html>');
+      newWin.document.close();
+      setTimeout(function() {
+        newWin.close();
+      }, 10);
+    }
   </script>
 </body>
 

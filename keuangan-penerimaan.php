@@ -8,12 +8,12 @@ if (isset($_POST["submit"])) {
   // cek apakah data berhasil di tambahkan atau tidak
   if (tambah($_POST) > 0) {
     echo "<script> 
-              alert('Data Berhasil di Tambahkan!');
-              document.location.href = 'keuangan-penerimaan.php';
+              alert('Data Berhasil di Edit!');
+              document.location.href = 'laporan-penerimaan.php';
           </script>";
   } else {
     echo "<script> 
-              alert('Data Gagal di Tambahkan!');
+              alert('Data Gagal di Edit!');
           </script>";
   }
 }
@@ -41,8 +41,11 @@ if (isset($_POST["submit_tambahProyek"])) {
   }
 }
 
+
 $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan_kas.proyek = proyek.id");
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -162,10 +165,10 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
                 <div class="row align-items-center">
                   <label for="from" class="col-sm-2 col-form-label"><b>Diterima Dari</b></label>
                   <div class="col-sm-4">
-                    <input class="form-control form-control-sm w-100" type="text" value="" aria-label="readonly input example" />
+                    <input class="form-control form-control-sm w-100" type="text" value="001" name="kode_diterima" aria-label="readonly input example" id="kode_diterima" />
                   </div>
                   <div class="col-sm-4">
-                    <input class="form-control form-control-sm w-100" type="text" value="" aria-label="readonly input example" />
+                    <input class="form-control form-control-sm w-100" type="text" value="" name="nama_diterima" aria-label="readonly input example" id="nama_diterima" />
                   </div>
                   <div class="col-sm-2">
                   </div>
@@ -173,7 +176,7 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
                 <div class="row align-items-center">
                   <label for="Proyek" class="col-sm-2 col-form-label"><b>Proyek</b></label>
                   <div class="col-sm-4">
-                    <input class="form-control form-control-sm w-100" name="kode_proyek" type="text" value="" aria-label="readonly input example" />
+                    <input class="form-control form-control-sm w-100" name="kode_proyek" type="text" value="BL-001" aria-label="readonly input example" />
                   </div>
                   <div class="col-sm-4">
                     <select name="tambahProyek" id="tambahProyek" class="form-select">
@@ -185,7 +188,7 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
                   </div>
                   <div class="col-sm-2">
                     <button type="button" class="btn border btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                      Tambah Proyek
+                      ...
                     </button>
                   </div>
                 </div>
@@ -205,12 +208,12 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
                   </div>
                 </div>
                 <div class="row mb-3">
-                  <label for="kodeBank" class="col-sm-2 col-form-label">Kode Bank</label>
+                  <label for="kodeBank" class="col-sm-2 col-form-label">Kode Bank/BANK</label>
                   <div class="col-sm-3">
-                    <input id="kodeBank" name="kodeBank" type="text" value="" class="form-control" /> <!-- kalo disabled gak bisa di input valuenya -->
+                    <input id="kodeBank" name="kodeBank" type="text" value="012" class="form-control" /> <!-- kalo disabled gak bisa di input valuenya -->
                   </div>
                   <div class="col-sm-7">
-                    <input type="text" value="" class="form-control" />
+                    <input type="text" value="BRI" class="form-control" />
                   </div>
                 </div>
                 <div class="row mb-3">
@@ -245,7 +248,7 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
                     <input name="" id="" value="IDR" class="text-center form-control" disabled readonly />
                   </div>
                   <div class="mt-2 d-flex justify-content-center col-sm-1">
-                    <input class="form-check-input" type="checkbox" value="" id="ppnChecked" />
+                    <input class="form-check-input ppnCheck" type="checkbox" value="" id="ppnChecked" />
                   </div>
                   <div class="col-sm-7">
                     <input name="ppn" id="ppn" class="text-end form-control" />
@@ -278,7 +281,7 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
                     <input name="idr" id="idr" value="IDR" class="text-center form-control" disabled readonly />
                   </div>
                   <div class="col-sm-2">
-                    <input name="pot" id="pot" class="text-end form-control" value="5.0" onkeypress="return restrictAlpha(event)" readonly />
+                    <input name="pot" id="pot" class="text-center form-control" value="5.0" onkeypress="return restrictAlpha(event)" readonly />
                   </div>
                   <div class="col-sm-4">
                     <input name="pot1" id="pot1" class="text-end form-control" onkeypress="return restrictAlpha(event)" />
@@ -336,28 +339,24 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
                       <thead>
                         <tr>
                           <th scope="col">No</th>
-                          <th scope="col">Diterima Melalui</th>
-                          <th scope="col">No Invoice</th>
+                          <th scope="col">No. Referensi</th>
                           <th scope="col">Tanggal</th>
-                          <th scope="col">Cara Bayar</th>
-                          <th scope="col">No Rekening</th>
-                          <th scope="col">No Giro</th>
-                          <th scope="col">Proyek</th>
+                          <th scope="col">Account</th>
+                          <th scope="col">Sub Akun(Biaya)</th>
                           <th scope="col">Uraian</th>
+                          <th scope="col">Nilai Penerimaan</th>
                         </tr>
                       </thead>
                       <tbody>
                         <?php foreach ($penerimaan as $i => $row) : ?>
                           <tr>
                             <th scope="row"><?php echo ++$i ?></th>
-                            <td><?php echo $row['payment'] ?></td>
-                            <td><?php echo $row['no_invoice'] ?></td>
+                            <td> -- </td>
                             <td><?php echo $row['tanggal'] ?></td>
-                            <td><?php echo $row['caraBayar'] ?></td>
-                            <td><?php echo $row['noRekening'] ?></td>
-                            <td><?php echo $row['noGiro'] ?></td>
-                            <td><?php echo $row['nama'] ?></td>
+                            <td><?php echo $row['nama_diterima'] ?></td>
+                            <td>- - -</td>
                             <td><?php echo $row['uraian'] ?></td>
+                            <td><?php echo $row['nilai_penerimaan'] ?></td>
                           </tr>
                         <?php endforeach; ?>
                       </tbody>
@@ -406,7 +405,7 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                  <h5 class="modal-title" id="staticBackdropLabel"> Tambah Proyek </h5>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -503,21 +502,28 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
       var nilai_pnrm = document.getElementById("nilaiPnrm").value;
       var ppn = document.getElementById("ppn").value;
       var materai = document.getElementById("materai").value;
-      document.getElementById("total_pnrm").value = parseFloat(nilai_pnrm) + parseFloat(ppn) + parseFloat(materai);
+      if ($('#ppnChecked').prop('checked')) {
+        document.getElementById("total_pnrm").value = parseFloat(nilai_pnrm) + parseFloat(ppn) + parseFloat(materai);
+      } else {
+        document.getElementById("total_pnrm").value = parseFloat(nilai_pnrm) + parseFloat(materai);
+      }
+    });
 
-      $("#materai").keyup(function() {
-        var pph = document.getElementById("materai").value;
-        var total_pnrm = document.getElementById("total_pnrm").value;
-        console.log(total_pnrm)
-        document.getElementById("pot1").value = total_pnrm * 5 / 100;
-      });
+    $("#materai").keyup(function() {
+      var pph = document.getElementById("materai").value;
+      var total_pnrm = document.getElementById("total_pnrm").value;
+      document.getElementById("pot1").value = total_pnrm * 5 / 100;
+    });
 
-      $("#pot_lain").keyup(function() {
-        var total_pnrm = document.getElementById("total_pnrm").value;
-        var pph = document.getElementById("pot1").value;
-        var pot_lain = document.getElementById("pot_lain").value;
+    $("#pot_lain").keyup(function() {
+      var total_pnrm = document.getElementById("total_pnrm").value;
+      var pph = document.getElementById("pot1").value;
+      var pot_lain = document.getElementById("pot_lain").value;
+      if ($('#potChacked').prop('checked')) {
         document.getElementById("total_bayar").value = parseFloat(total_pnrm) - parseFloat(pph) - parseFloat(pot_lain);
-      });
+      } else {
+        document.getElementById("total_bayar").value = parseFloat(total_pnrm) - parseFloat(pot_lain);
+      }
     });
   </script>
 </body>
