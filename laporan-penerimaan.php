@@ -156,7 +156,7 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
                     <?php $i = 1; ?>
                     <?php foreach ($penerimaan as $row) : ?>
                       <td><?= $i ?></td>
-                      <td><?= $row['tanggal'] ?></td>
+                      <td id ="date" ><?= $row['tanggal'] ?></td>
                       <td><?= $row['no_invoice'] ?></td>
                       <td><?= $row['nama'] ?></td>
                       <td><?= $row['nama_diterima'] ?></td>
@@ -316,9 +316,9 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
         var from_date = $("#from").val();
         var to_date = $("#to").val();
 
-        $("tbody tr").hide().filter(function() {
-          var date = $(this).find("td:eq(1)").text();
-          return (date >= from_date && date <= to_date);
+        $("tbody tr").filter(function() {
+          var date = $(this).find("#date").text();
+          return (new Date(date) >= new Date(from_date) && new Date(date) <= new Date(to_date));
         }).show();
       }
     });
