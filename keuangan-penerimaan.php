@@ -8,12 +8,12 @@ if (isset($_POST["submit"])) {
   // cek apakah data berhasil di tambahkan atau tidak
   if (tambah($_POST) > 0) {
     echo "<script> 
-              alert('Data Berhasil di Edit!');
+              alert('Data Berhasil di Tambahkan!');
               document.location.href = 'laporan-penerimaan.php';
           </script>";
   } else {
     echo "<script> 
-              alert('Data Gagal di Edit!');
+              alert('Data Gagal di Tambahkan!');
           </script>";
   }
 }

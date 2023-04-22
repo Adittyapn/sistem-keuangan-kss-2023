@@ -8,11 +8,11 @@ if (isset($_POST["edit"])) {
   // cek apakah data berhasil di tambahkan atau tidak
   if (editData($_POST) > 0) {
     echo "<script> 
-              alert('Data Berhasil di Tambahkan!');
+              alert('Data Berhasil di Edit!');
           </script>";
   } else {
     echo "<script> 
-              alert('Data Gagal di Tambahkan!');
+              alert('Data Gagal di Edit!');
           </script>";
   }
 }
@@ -101,7 +101,6 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
                 <div class="row align-items-center">
                   <label for="" class="col-sm-2 col-form-label"><b>Periode Transaksi</b></label>
                   <div class="col-sm-10 d-flex">
-
                     <div class="col-3 me-3">
                       <div class="input-group">
                         <input type="text" id="from" name="from" class="form-control form-control-sm">
@@ -184,6 +183,7 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
             </div>
           </div>
         </div>
+        <iframe id="frame" src="print.php" style="width : 100px; border : 0; height : 0;" frameborder="0"></iframe>
         <!-- Modal -->
         <div class="modal fade" id="ubahModal" tabindex="-1" aria-labelledby="ubahModalLabel" aria-hidden="true">
           <div class="modal-dialog">
@@ -194,7 +194,7 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
               <form action="" method="POST">
                 <div class="modal-body">
                   <div class="form-group mb-3">
-                    <input type="text" class="form-control" id="id_penerimaan" name="id_penerimaan">
+                    <input type="hidden" class="form-control" id="id_penerimaan" name="id_penerimaan">
                   </div>
                   <!-- <div class="form-group mb-3">
                     <label for="payment" class="form-label">Payment</label>
@@ -247,7 +247,7 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
       <!-- footer start -->
       <div class="card-footer text-body-secondary">
         <div class="row">
-          <div class="col-8 offset-4">
+          <div class="col-7 offset-5">
             <div class="row">
               <div class="col-sm-2 align-items-center">
                 <button class="btn btn-danger" type="reset">
@@ -255,13 +255,8 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
                 </button>
               </div>
               <div class="col-sm-2 align-items-center">
-                <button class="btn btn-danger">
-                  <span class="fa fa-eye me-1"></span>Tampil
-                </button>
-              </div>
-              <div class="col-sm-2 align-items-center">
-                <button class="btn btn-danger" onclick="printTable()">
-                  <span class="fa fa-print me-1"></span>Cetak
+                <button class="btn btn-danger" id="cetak">
+                  <span class=" fa fa-print me-1"></span>Cetak
                 </button>
               </div>
             </div>
@@ -279,6 +274,7 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
   <script src="src/bootstrap/bootstrap.bundle.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
   <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+  <script src="https://unpkg.com/jspdf-invoice-template@1.4.0/dist/index.js"></script>
   <script>
     //datepicker
     $(function() {
@@ -363,6 +359,14 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
         newWin.close();
       }, 10);
     }
+
+    $(function() {
+      $('#cetak').click(function() {
+        let wspFrame = document.getElementById('frame').contentwindow;
+        wspFrame.focus();
+        wspFrame.print();
+      })
+    })
   </script>
 </body>
 

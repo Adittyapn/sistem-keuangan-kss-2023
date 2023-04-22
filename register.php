@@ -1,3 +1,21 @@
+<?php
+
+if (isset($_POST["edit"])) {
+
+  // cek apakah data berhasil di tambahkan atau tidak
+  if (editData($_POST) > 0) {
+    echo "<script> 
+              alert('Data Berhasil di Edit!');
+          </script>";
+  } else {
+    echo "<script> 
+              alert('Data Gagal di Edit!');
+          </script>";
+  }
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -34,7 +52,7 @@
               <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Nama Pengguna" required name="nama_pengguna" />
             </div>
             <div class="input-group mb-3">
-              <span class="input-group-text"><i class="fa fa-user"></i></span>
+              <span class="input-group-text"><i class="fa fa-circle-user"></i></span>
               <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Username" required name="username" />
             </div>
             <div class="input-group mb-3">
