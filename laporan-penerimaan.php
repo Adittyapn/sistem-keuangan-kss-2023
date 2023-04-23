@@ -314,10 +314,10 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
 
       function filterTable() {
         var from_date = $("#from").val();
-        var to_date = $("#to").val();
+        var to_date = $("#to").val(); 
 
         from_date = from_date.split("/").reverse().join("-");
-        to_date = to_date.split("/").reverse().join("-");
+        to_date = to_date?.split("/").reverse().join("-") || new Date().toISOString().split("T")[0];
 
         $("tbody tr").hide().filter(function() {
           var date = $(this).find("td:eq(1)").text();
