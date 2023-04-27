@@ -103,7 +103,7 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
                   <div class="col-sm-10 d-flex">
                     <div class="col-3 me-3">
                       <div class="input-group">
-                        <input type="text" id="from" name="from" class="form-control form-control-sm">
+                        <input type="text" id="from" name="from" class="form-control form-control-sm" data-target="#reservationdate" autocomplete="off">
                         <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                       </div>
                     </div>
@@ -112,7 +112,7 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
                     </div>
                     <div class="col-3 ms-3">
                       <div class="input-group">
-                        <input type="text" id="to" name="to" class="form-control form-control-sm">
+                        <input type="text" id="to" name="to" class="form-control form-control-sm" data-target="#reservationdate2" autocomplete="off">
                         <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                       </div>
                     </div>
@@ -156,7 +156,7 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
                     <?php $i = 1; ?>
                     <?php foreach ($penerimaan as $row) : ?>
                       <td><?= $i ?></td>
-                      <td class ="data_tanggal" ><?= $row['tanggal'] ?></td>
+                      <td><?= $row['tanggal'] ?></td>
                       <td><?= $row['no_invoice'] ?></td>
                       <td><?= $row['nama'] ?></td>
                       <td><?= $row['nama_diterima'] ?></td>
@@ -314,7 +314,7 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
 
       function filterTable() {
         var from_date = $("#from").val();
-        var to_date = $("#to").val(); 
+        var to_date = $("#to").val();
 
         from_date = from_date.split("/").reverse().join("-");
         to_date = to_date?.split("/").reverse().join("-") || new Date().toISOString().split("T")[0];
@@ -324,7 +324,7 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
           return date >= from_date && date <= to_date;
         }).show();
 
-        
+
       }
     });
     //edit 

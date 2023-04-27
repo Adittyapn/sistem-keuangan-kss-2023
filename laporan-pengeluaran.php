@@ -3,16 +3,16 @@
 require "function.php";
 
 // cek apakah tombol submit sudah ditekan atau belum
-if (isset($_POST["submit"])) {
+if (isset($_POST["edit"])) {
+
   // cek apakah data berhasil di tambahkan atau tidak
-  if (tambahpengeluaran($_POST) > 0) {
+  if (editDataPengeluaran($_POST) > 0) {
     echo "<script> 
-              alert('Data Berhasil di Tambahkan!');
-              document.location.href = 'keuangan-penerimaan.php';
+              alert('Data Berhasil di Edit!');
           </script>";
   } else {
     echo "<script> 
-              alert('Data Gagal di Tambahkan!');
+              alert('Data Gagal di Edit!');
           </script>";
   }
 }
@@ -70,10 +70,10 @@ $pengeluaran = query("SELECT * FROM pengeluaran_kas LEFT JOIN proyek ON pengelua
             </a>
             <ul class="dropdown-menu">
               <li>
-                <a class="dropdown-item" href="laporan-penerimaan.php">Penerimaan Kas</a>
+                <a class="dropdown-item active" href="laporan-penerimaan.php">Penerimaan Kas</a>
               </li>
               <li>
-                <a class="dropdown-item active" href="laporan-pengeluaran.php">Pengeluaran Kas</a>
+                <a class="dropdown-item" href="laporan-pengeluaran.php">Pengeluaran Kas</a>
               </li>
             </ul>
           </li>
@@ -88,7 +88,7 @@ $pengeluaran = query("SELECT * FROM pengeluaran_kas LEFT JOIN proyek ON pengelua
   <!-- Main Start  -->
   <!-- header content start -->
 
-  <section class="form-laporan-penerimaan">
+  <section class="form-laporan-pengeluaran">
     <div class="container-fluid">
       <div class="card">
         <div class="card-header">
@@ -103,7 +103,7 @@ $pengeluaran = query("SELECT * FROM pengeluaran_kas LEFT JOIN proyek ON pengelua
                   <div class="col-sm-10 d-flex">
                     <div class="col-3 me-3">
                       <div class="input-group">
-                        <input type="text" id="from" name="from" class="form-control form-control-sm">
+                        <input type="text" id="from" name="from" class="form-control form-control-sm" data-target="#reservationdate" autocomplete="off">
                         <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                       </div>
                     </div>
@@ -112,35 +112,36 @@ $pengeluaran = query("SELECT * FROM pengeluaran_kas LEFT JOIN proyek ON pengelua
                     </div>
                     <div class="col-3 ms-3">
                       <div class="input-group">
-                        <input type="text" id="to" name="to" class="form-control form-control-sm">
+                        <input type="text" id="to" name="to" class="form-control form-control-sm" data-target="#reservationdate2" autocomplete="off">
                         <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                       </div>
                     </div>
                   </div>
-                </div>
               </form>
             </div>
           </div>
         </div>
         <!-- header content end -->
+
         <!-- main content start -->
         <div class="col-12 mt-1">
           <div class="container-fluid p-2">
             <div class="container-fluid border border-1">
               <div class="col-12 mt-3">
-                <table class="table table-bordered">
+                <table class="table table-bordered" id="myTable">
                   <thead>
                     <tr class="text-center">
                       <th scope="col" rowspan="2">No</th>
                       <th scope="col" colspan="2">Transaksi</th>
-                      <th scope="col" rowspan="2"> Proyek </th>
-                      <th scope="col" rowspan="2">Rekanan</th>
+
+                      <th scope="col" rowspan="2">Proyek</th>
+                      <th scope="col" rowspan="2"> Rekanan </th>
                       <th scope="col" rowspan="2">Sumber Dana</th>
                       <th scope="col" colspan="2">Mata Uang</th>
                       <th scope="col" colspan="2">Nominal</th>
                       <!-- <th scope="col" colspan="2">Ekuivalen</th> -->
                       <th scope="col" rowspan="2">Uraian</th>
-                      <th scope="col" rowspan="2">Action</th>
+                      <th scope="col" rowspan="2">Edit/Delete</th>
                     </tr>
                     <tr class="text-center">
                       <th> Tanggal </th>
@@ -149,9 +150,8 @@ $pengeluaran = query("SELECT * FROM pengeluaran_kas LEFT JOIN proyek ON pengelua
                       <th> rate </th>
                       <th>Debet (Masuk)</th>
                       <th>Kredit(Keluar)</th>
-                      <!-- <th>Debet (Masuk)</th>
-                      <th>Kredit(Keluar)</th> -->
                     </tr>
+                  </thead>
                   <tbody>
                     <?php $i = 1; ?>
                     <?php foreach ($pengeluaran as $row) : ?>
@@ -167,10 +167,10 @@ $pengeluaran = query("SELECT * FROM pengeluaran_kas LEFT JOIN proyek ON pengelua
                       <td><?= $row['total_bayar'] ?></td>
                       <td><?= $row['uraian'] ?></td>
                       <td class="text-center">
-                        <a type="button" id="tombolUbah" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#ubahModal" data-id_pengeluaran="<?= $row['id_pengeluaran'] ?>" data-tanggal="<?= $row['tanggal'] ?>" data-no_invoice="<?= $row['no_invoice'] ?>" data-nama="<?= $row['nama'] ?>" data-nama_dibayar="<?= $row['nama_dibayar'] ?>" data-no_rekening="<?= $row['no_rekening'] ?>" data-total_bayar="<?= $row['total_bayar'] ?>" data-uraian="<?= $row['uraian'] ?>">
+                        <a type="button" id="edit_data" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#ubahModal" data-id_pengeluaran="<?= $row['id_pengeluaran'] ?>" data-tanggal="<?= $row['tanggal'] ?>" data-no_invoice="<?= $row['no_invoice'] ?>" data-nama="<?= $row['nama'] ?>" data-nama_dibayar="<?= $row['nama_dibayar'] ?>" data-no_rekening="<?= $row['no_rekening'] ?>" data-total_bayar="<?= $row['total_bayar'] ?>" data-uraian="<?= $row['uraian'] ?>">
                           Edit
                         </a>
-                        <a href="deletepengeluaran.php?id_pengeluaran=<?= $row['id_pengeluaran'] ?>" onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')">
+                        <a href="delete.php?id_pengeluaran=<?= $row['id_pengeluaran'] ?>" onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')">
                           <button class="btn btn-outline-danger mx-1">Delete</button>
                         </a>
                       </td>
@@ -183,6 +183,8 @@ $pengeluaran = query("SELECT * FROM pengeluaran_kas LEFT JOIN proyek ON pengelua
             </div>
           </div>
         </div>
+
+        <!-- Modal -->
         <div class="modal fade" id="ubahModal" tabindex="-1" aria-labelledby="ubahModalLabel" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
@@ -192,7 +194,7 @@ $pengeluaran = query("SELECT * FROM pengeluaran_kas LEFT JOIN proyek ON pengelua
               <form action="" method="POST">
                 <div class="modal-body">
                   <div class="form-group mb-3">
-                    <input type="hidden" class="form-control" id="id_penerimaan" name="id_penerimaan">
+                    <input type="text" class="form-control" id="id_pengeluaran" name="id_pengeluaran">
                   </div>
                   <!-- <div class="form-group mb-3">
                     <label for="payment" class="form-label">Payment</label>
@@ -203,20 +205,20 @@ $pengeluaran = query("SELECT * FROM pengeluaran_kas LEFT JOIN proyek ON pengelua
                     <input type="text" class="form-control" id="tanggal" name="tanggal" autocomplete="off">
                   </div>
                   <div class="form-group mb-3">
-                    <label for="no_invoice" class="form-label">No. Invoice</label>
+                    <label for="" class="form-label">No. Invoice</label>
                     <input type="text" class="form-control" id="no_invoice" name="no_invoice" autocomplete="off">
                   </div>
                   <div class="form-group mb-3">
-                    <label for="no_invoice" class="form-label">Proyek</label>
+                    <label for=" class=" form-label">Proyek</label>
                     <input type="text" class="form-control" id="nama" name="nama" disabled>
                   </div>
                   <div class="form-group mb-3">
-                    <label for="no_invoice" class="form-label">Rekanan</label>
+                    <label for="" class="form-label">Rekanan</label>
                     <input type="text" class="form-control" id="nama_dibayar" name="nama_dibayar" autocomplete="off">
                   </div>
                   <div class="form-group mb-3">
-                    <label for="no_invoice" class="form-label">Sumber Dana</label>
-                    <input type="text" class="form-control" id="noRekening" name="noRekening" autocomplete="off">
+                    <label for="" class="form-label">Sumber Dana</label>
+                    <input type="text" class="form-control" id="no_rekening" name="no_rekening" autocomplete="off">
                   </div>
                   <div class="form-group mb-3">
                     <label for="" class="form-label">Debet</label>
@@ -239,33 +241,30 @@ $pengeluaran = query("SELECT * FROM pengeluaran_kas LEFT JOIN proyek ON pengelua
             </div>
           </div>
         </div>
-        <!-- main content end -->
-        <!-- footer start -->
-        <div class="card-footer text-body-secondary">
-          <div class="row">
-            <div class="col-8 offset-4">
-              <div class="row">
-                <div class="col-sm-2 align-items-center">
-                  <button class="btn btn-danger" type="reset">
-                    <span class="fa fa-file me-1"></span>Baru
-                  </button>
-                </div>
-                <div class="col-sm-2 align-items-center">
-                  <button class="btn btn-danger">
-                    <span class="fa fa-eye me-1"></span>Tampil
-                  </button>
-                </div>
-                <div class="col-sm-2 align-items-center">
-                  <button class="btn btn-danger">
-                    <span class="fa fa-print me-1"></span>Cetak
-                  </button>
-                </div>
+      </div>
+
+      <!-- main content end -->
+      <!-- footer start -->
+      <div class="card-footer text-body-secondary">
+        <div class="row">
+          <div class="col-7 offset-5">
+            <div class="row">
+              <div class="col-sm-2 align-items-center">
+                <button class="btn btn-danger" type="reset">
+                  <span class="fa fa-file me-1"></span>Baru
+                </button>
+              </div>
+              <div class="col-sm-2 align-items-center">
+                <button class="btn btn-danger" id="cetak">
+                  <span class=" fa fa-print me-1"></span>Cetak
+                </button>
               </div>
             </div>
           </div>
         </div>
-        <!-- footer end -->
       </div>
+      <!-- footer end -->
+    </div>
     </div>
   </section>
 
@@ -275,25 +274,31 @@ $pengeluaran = query("SELECT * FROM pengeluaran_kas LEFT JOIN proyek ON pengelua
   <script src="src/bootstrap/bootstrap.bundle.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
   <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+  <script src="https://unpkg.com/jspdf-invoice-template@1.4.0/dist/index.js"></script>
   <script>
+    //datepicker
     $(function() {
-      var dateFormat = "mm/dd/yy",
+      var dateFormat = "dd/mm/yy",
         from = $("#from")
         .datepicker({
           defaultDate: "+1w",
           changeMonth: true,
-          numberOfMonths: 3
+          numberOfMonths: 1,
+          dateFormat: "dd/mm/yy"
         })
         .on("change", function() {
           to.datepicker("option", "minDate", getDate(this));
+          filterTable();
         }),
         to = $("#to").datepicker({
           defaultDate: "+1w",
           changeMonth: true,
-          numberOfMonths: 3
+          numberOfMonths: 1,
+          dateFormat: "dd/mm/yy"
         })
         .on("change", function() {
           from.datepicker("option", "maxDate", getDate(this));
+          filterTable();
         });
 
       function getDate(element) {
@@ -306,8 +311,24 @@ $pengeluaran = query("SELECT * FROM pengeluaran_kas LEFT JOIN proyek ON pengelua
 
         return date;
       }
+
+      function filterTable() {
+        var from_date = $("#from").val();
+        var to_date = $("#to").val();
+
+        from_date = from_date.split("/").reverse().join("-");
+        to_date = to_date?.split("/").reverse().join("-") || new Date().toISOString().split("T")[0];
+
+        $("tbody tr").hide().filter(function() {
+          var date = $(this).find("td:eq(1)").text();
+          return date >= from_date && date <= to_date;
+        }).show();
+
+
+      }
     });
-    $(document).on("click", "#tombolUbah", function() {
+    //edit 
+    $(document).on("click", "#edit_data", function() {
       let id_pengeluaran = $(this).data('id_pengeluaran');
       let tanggal = $(this).data('tanggal');
       let no_invoice = $(this).data('no_invoice');
@@ -317,16 +338,39 @@ $pengeluaran = query("SELECT * FROM pengeluaran_kas LEFT JOIN proyek ON pengelua
       let total_bayar = $(this).data('total_bayar');
       let uraian = $(this).data('uraian');
 
-      $(".modal-body #id_pengeluaran").val(id_penerimaan);
+      $(".modal-body #id_pengeluaran").val(id_pengeluaran);
       $(".modal-body #tanggal").val(tanggal);
       $(".modal-body #no_invoice").val(no_invoice);
       $(".modal-body #nama").val(nama);
       $(".modal-body #nama_dibayar").val(nama_dibayar);
-      $(".modal-body #noRekening").val(no_rekening);
+      $(".modal-body #no_rekening").val(no_rekening);
       $(".modal-body #total_bayar").val(total_bayar);
-
       $(".modal-body #uraian").val(uraian);
     });
+
+    //cetak
+    function printTable() {
+      window.print();
+    }
+
+    function printTable() {
+      var divToPrint = document.getElementById('myTable');
+      var newWin = window.open('', 'Print-Window');
+      newWin.document.open();
+      newWin.document.write('<html><body onload="window.print()">' + divToPrint.innerHTML + '</body></html>');
+      newWin.document.close();
+      setTimeout(function() {
+        newWin.close();
+      }, 10);
+    }
+
+    $(function() {
+      $('#cetak').click(function() {
+        let wspFrame = document.getElementById('frame').contentwindow;
+        wspFrame.focus();
+        wspFrame.print();
+      })
+    })
   </script>
 </body>
 

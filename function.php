@@ -129,6 +129,33 @@ function editData($data)
     }
     return mysqli_affected_rows($conn);
 }
+
+function editDataPengeluaran($data)
+{
+    global $conn;
+
+    $id_pengeluaran = $data['id_pengeluaran'];
+    $tanggal = $data['tanggal'];
+    $no_invoice = $data['no_invoice'];
+    $nama_dibayar = $data['nama_dibayar'];
+    $no_rekening = $data['no_rekening'];
+    $total_bayar = $data['total_bayar'];
+    $uraian = $data['uraian'];
+
+    $query = "UPDATE pengeluaran_kas SET
+                            tanggal = '$tanggal',
+                            no_invoice = '$no_invoice',
+                            nama_dibayar = '$nama_dibayar',
+                            no_rekening = '$no_rekening',
+                            total_bayar = '$total_bayar',
+                            uraian = '$uraian'
+                            WHERE id_pengeluaran = '$id_pengeluaran'";
+
+    if (!mysqli_query($conn, $query)) {
+        die('Error: ' . mysqli_error($conn));
+    }
+    return mysqli_affected_rows($conn);
+}
 //end pengeluaran kas
 // function ubahproduk($data)
 // {
