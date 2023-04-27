@@ -194,7 +194,7 @@ $pengeluaran = query("SELECT * FROM pengeluaran_kas LEFT JOIN proyek ON pengelua
               <form action="" method="POST">
                 <div class="modal-body">
                   <div class="form-group mb-3">
-                    <input type="text" class="form-control" id="id_pengeluaran" name="id_pengeluaran">
+                    <input type="hidden" class="form-control" id="id_pengeluaran" name="id_pengeluaran">
                   </div>
                   <!-- <div class="form-group mb-3">
                     <label for="payment" class="form-label">Payment</label>
