@@ -96,7 +96,7 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
         </div>
         <div class="card-body">
           <div class="row">
-            <div class="col-9 offset-3 mb-3 mt-3">
+            <div class="col-10 offset-2 mb-3 mt-3">
               <form action="">
                 <div class="row align-items-center">
                   <label for="" class="col-sm-2 col-form-label"><b>Periode Transaksi</b></label>
@@ -115,6 +115,14 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
                         <input type="text" id="to" name="to" class="form-control form-control-sm" data-target="#reservationdate2" autocomplete="off">
                         <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                       </div>
+                    </div>
+                    <div class="col-2 ms-4">
+                      <button class="btn btn-danger btn-sm" type="reset">
+                          <span class="fa fa-file me-1"></span>Baru
+                      </button>
+                      <button class="btn btn-danger btn-sm" id="cetak">
+                          <span class=" fa fa-print me-1"></span>Cetak
+                      </button>
                     </div>
                   </div>
               </form>
@@ -249,16 +257,7 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
         <div class="row">
           <div class="col-7 offset-5">
             <div class="row">
-              <div class="col-sm-2 align-items-center">
-                <button class="btn btn-danger" type="reset">
-                  <span class="fa fa-file me-1"></span>Baru
-                </button>
-              </div>
-              <div class="col-sm-2 align-items-center">
-                <button class="btn btn-danger" id="cetak">
-                  <span class=" fa fa-print me-1"></span>Cetak
-                </button>
-              </div>
+              
             </div>
           </div>
         </div>
