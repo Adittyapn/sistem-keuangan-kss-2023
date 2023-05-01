@@ -42,14 +42,14 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
   <!-- Navbar Start -->
   <nav class="navbar navbar-expand-lg bg-body-tertiary mb-3 sticky-top">
     <div class="container-fluid">
-      <a class="navbar-brand" href="index.html"><img src="src/image/NEW-LOGO-KSS.png" alt="KSS-LOGO" width="60" height="25" /></a>
+      <a class="navbar-brand" href="halaman.php"><img src="src/image/NEW-LOGO-KSS.png" alt="KSS-LOGO" width="60" height="25" /></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="index.php">Home</a>
+            <a class="nav-link" aria-current="page" href="halaman.php">Home</a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -78,7 +78,7 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
             </ul>
           </li>
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="#">Tentang Kami</a>
+            <a class="nav-link" aria-current="page" href="tentang.php">Tentang Kami</a>
           </li>
         </ul>
       </div>
@@ -97,13 +97,13 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
         <div class="card-body">
           <div class="row">
             <div class="col-10 offset-2 mb-3 mt-3">
-              <form action="">
+              <form action="print.php" method="POST" target="_blank">
                 <div class="row align-items-center">
                   <label for="" class="col-sm-2 col-form-label"><b>Periode Transaksi</b></label>
                   <div class="col-sm-10 d-flex">
                     <div class="col-3 me-3">
                       <div class="input-group">
-                        <input type="text" id="from" name="from" class="form-control form-control-sm" data-target="#reservationdate" autocomplete="off">
+                        <input type="text" id="from" name="from" class="form-control form-control-sm" autocomplete="off">
                         <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                       </div>
                     </div>
@@ -112,15 +112,15 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
                     </div>
                     <div class="col-3 ms-3">
                       <div class="input-group">
-                        <input type="text" id="to" name="to" class="form-control form-control-sm" data-target="#reservationdate2" autocomplete="off">
+                        <input type="text" id="to" name="to" class="form-control form-control-sm" autocomplete="off">
                         <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                       </div>
                     </div>
                     <div class="col-2 ms-4">
-                      <button class="btn btn-danger btn-sm" type="reset">
+                      <a class="btn btn-danger btn-sm" type="reset">
                           <span class="fa fa-file me-1"></span>Baru
-                      </button>
-                      <button class="btn btn-danger btn-sm" id="cetak">
+                      </a>
+                      <button class="btn btn-danger btn-sm" type="submit" id="cetak" name="cetak"">
                           <span class=" fa fa-print me-1"></span>Cetak
                       </button>
                     </div>
@@ -136,7 +136,7 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
           <div class="container-fluid p-2">
             <div class="container-fluid border border-1">
               <div class="col-12 mt-3">
-                <table class="table table-bordered" id="myTable">
+                <table class="table table-bordered">
                   <thead>
                     <tr class="text-center">
                       <th scope="col" rowspan="2">No</th>
@@ -175,11 +175,11 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
                       <td><?= $row['total_bayar'] ?></td>
                       <td><?= $row['uraian'] ?></td>
                       <td class="text-center">
-                        <a type="button" id="tombolUbah" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#ubahModal" data-id_penerimaan="<?= $row['id_penerimaan'] ?>" data-tanggal="<?= $row['tanggal'] ?>" data-no_invoice="<?= $row['no_invoice'] ?>" data-nama="<?= $row['nama'] ?>" data-nama_diterima="<?= $row['nama_diterima'] ?>" data-no_rekening="<?= $row['noRekening'] ?>" data-total_bayar="<?= $row['total_bayar'] ?>" data-uraian="<?= $row['uraian'] ?>">
+                        <a type="button" id="tombolUbah" class="btn btn-outline-warning btn-sm" data-bs-toggle="modal" data-bs-target="#ubahModal" data-id_penerimaan="<?= $row['id_penerimaan'] ?>" data-tanggal="<?= $row['tanggal'] ?>" data-no_invoice="<?= $row['no_invoice'] ?>" data-nama="<?= $row['nama'] ?>" data-nama_diterima="<?= $row['nama_diterima'] ?>" data-no_rekening="<?= $row['noRekening'] ?>" data-total_bayar="<?= $row['total_bayar'] ?>" data-uraian="<?= $row['uraian'] ?>">
                           Edit
                         </a>
                         <a href="delete.php?id_penerimaan=<?= $row['id_penerimaan'] ?>" onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')">
-                          <button class="btn btn-outline-danger mx-1">Delete</button>
+                          <button class="btn btn-outline-danger mx-1 btn-sm">Delete</button>
                         </a>
                       </td>
                       </tr>
@@ -191,7 +191,6 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
             </div>
           </div>
         </div>
-        <iframe id="frame" src="print.php" style="width : 100px; border : 0; height : 0;" frameborder="0"></iframe>
         <!-- Modal -->
         <div class="modal fade" id="ubahModal" tabindex="-1" aria-labelledby="ubahModalLabel" aria-hidden="true">
           <div class="modal-dialog">
@@ -347,30 +346,6 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
 
       $(".modal-body #uraian").val(uraian);
     });
-
-    //cetak
-    function printTable() {
-      window.print();
-    }
-
-    function printTable() {
-      var divToPrint = document.getElementById('myTable');
-      var newWin = window.open('', 'Print-Window');
-      newWin.document.open();
-      newWin.document.write('<html><body onload="window.print()">' + divToPrint.innerHTML + '</body></html>');
-      newWin.document.close();
-      setTimeout(function() {
-        newWin.close();
-      }, 10);
-    }
-
-    $(function() {
-      $('#cetak').click(function() {
-        let wspFrame = document.getElementById('frame').contentwindow;
-        wspFrame.focus();
-        wspFrame.print();
-      })
-    })
   </script>
 </body>
 

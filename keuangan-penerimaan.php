@@ -68,14 +68,14 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
   <!-- Navbar Start -->
   <nav class="navbar navbar-expand-lg bg-body-tertiary mb-3 sticky-top">
     <div class="container-fluid">
-      <a class="navbar-brand" href="index.php"><img src="src/image/NEW-LOGO-KSS.png" alt="KSS-LOGO" width="60" height="25" /></a>
+      <a class="navbar-brand" href="halaman.php"><img src="src/image/NEW-LOGO-KSS.png" alt="KSS-LOGO" width="60" height="25" /></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="index.php">Home</a>
+            <a class="nav-link" aria-current="page" href="halaman.php">Home</a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link active dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -100,7 +100,7 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
             </ul>
           </li>
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="#">Tentang Kami</a>
+            <a class="nav-link" aria-current="page" href="tentang.php">Tentang Kami</a>
           </li>
         </ul>
       </div>

@@ -116,13 +116,13 @@ function editData($data)
     $uraian = $data['uraian'];
 
     $query = "UPDATE penerimaan_kas SET
-                            tanggal = '$tanggal',
-                            no_invoice = '$no_invoice',
-                            nama_diterima = '$nama_diterima',
-                            noRekening = '$noRekening',
-                            total_bayar = '$total_bayar',
-                            uraian = '$uraian'
-                            WHERE id_penerimaan = '$id_penerimaan'";
+            tanggal = '$tanggal',
+            no_invoice = '$no_invoice',
+            nama_diterima = '$nama_diterima',
+            noRekening = '$noRekening',
+            total_bayar = '$total_bayar',
+            uraian = '$uraian'
+            WHERE id_penerimaan = '$id_penerimaan'";
 
     if (!mysqli_query($conn, $query)) {
         die('Error: ' . mysqli_error($conn));
