@@ -107,7 +107,7 @@
           <img src="src/image/tentang.png" class="img-fluid" alt="...">
         </div>
         <div class="col-4 offset-4 mt-5 text-center">
-          <h2>PT. Koprima Sandysejahtera</h2>
+          <h2>PT. Koprima Sandy Sejahtera</h2>
         </div>
         <div class="col-auto mt-2">
           <p class="p-5">PT. Koprima Sandysejahtera atau lebih dikenal dengan KSS Properti berdiri sejak tahun 1990, merupakan Perusahaan Investasi Dana Pensiun Telkom dan Koperasi Telkom yang bergerak dalam bidang Pengembangan Perumahan, Jasa Konstruksi, dan Perdagangan berdasarkan Akta Notaris  Wiratni Ahmadi, SH Nomor 170 tanggal 23 November 1990. KSS Properti beralamat di Jalan Palasari No. 28, Malabar, Kec. Lengkong, Kota Bandung, Jawa Barat.</p>

@@ -63,7 +63,7 @@ if (isset($_POST["edit"])) {
             <div class="d-grid mb-3">
               <button type="submit" class="btn btn-danger" name="save" value="submit">Daftar</button>
               <p class="text-center mt-3">
-                Sudah memiliki akun ? <a href="login.php">Login disini</a>
+                Sudah memiliki akun ? <a href="index.php">Login disini</a>
               </p>
             </div>
           </form>

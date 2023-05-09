@@ -363,7 +363,7 @@ $pengeluaran = query("SELECT * FROM pengeluaran_kas LEFT JOIN proyek ON pengelua
           </div>
           <div class="card-footer text-body-secondary">
             <div class="row">
-              <div class="col-10 offset-2">
+              <div class="col-9 offset-3">
                 <div class="row">
                   <div class="col-sm-2 align-items-center">
                     <button class="btn btn-danger">
@@ -376,18 +376,13 @@ $pengeluaran = query("SELECT * FROM pengeluaran_kas LEFT JOIN proyek ON pengelua
                     </button>
                   </div>
                   <div class="col-sm-2 align-items-center">
-                    <button class="btn btn-danger">
+                    <button class="btn btn-danger" type="reset">
                       <span class="fa fa-xmark me-1"></span>Batal
                     </button>
                   </div>
                   <div class="col-sm-2 align-items-center">
                     <button class="btn btn-danger" type="reset">
                       <span class="fa fa-trash me-1"></span>Hapus
-                    </button>
-                  </div>
-                  <div class="col-sm-2 align-items-center">
-                    <button class="btn btn-danger">
-                      <span class="fa fa-print me-1"></span>Cetak
                     </button>
                   </div>
                 </div>

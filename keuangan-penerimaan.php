@@ -9,7 +9,7 @@ if (isset($_POST["submit"])) {
   if (tambah($_POST) > 0) {
     echo "<script> 
               alert('Data Berhasil di Tambahkan!');
-              document.location.href = 'laporan-penerimaan.php';
+              document.location.href = 'keuangan-penerimaan.php';
           </script>";
   } else {
     echo "<script> 
@@ -149,11 +149,10 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
                     <b>No Invoice</b>
                   </label>
                   <div class="col-sm-4">
-                    <input class="form-control" type="text" value="KSS-PNM-" name="no_invoice" id="no_invoice" aria-label="readonly input example" readonly />
+                    <input class="form-control" type="text" value="KSS-PNM-" name="no_invoice" id="no_invoice" aria-label="readonly input example" readonly  autocomplete="off"/>
                   </div>
                   <label for="" class="col-sm-2 text-end col-form-label"><b>Tanggal</b></label>
                   <div class="col-sm-4">
-                    <!-- <input type="date" class="datepicker border rounded-1" name="tanggal" id="datePicker" /> -->
                     <div class="input-group">
                       <input type="text text-tanggal" id="datePicker" class="form-control datepicker border rounded-1" name="tanggal" autocomplete="off">
                       <span class="input-group-text" id="addon-wrapping"><i class="fa fa-calendar icon"></i></span>
@@ -165,10 +164,10 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
                 <div class="row align-items-center">
                   <label for="from" class="col-sm-2 col-form-label"><b>Diterima Dari</b></label>
                   <div class="col-sm-4">
-                    <input class="form-control form-control-sm w-100" type="text" value="001" name="kode_diterima" aria-label="readonly input example" id="kode_diterima" />
+                    <input class="form-control form-control-sm w-100" type="text" value="001" name="kode_diterima" aria-label="readonly input example" id="kode_diterima" autocomplete="off"/>
                   </div>
                   <div class="col-sm-4">
-                    <input class="form-control form-control-sm w-100" type="text" value="" name="nama_diterima" aria-label="readonly input example" id="nama_diterima" />
+                    <input class="form-control form-control-sm w-100" type="text" value="" name="nama_diterima" aria-label="readonly input example" id="nama_diterima" autocomplete="off"/>
                   </div>
                   <div class="col-sm-2">
                   </div>
@@ -176,7 +175,7 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
                 <div class="row align-items-center">
                   <label for="Proyek" class="col-sm-2 col-form-label"><b>Proyek</b></label>
                   <div class="col-sm-4">
-                    <input class="form-control form-control-sm w-100" name="kode_proyek" type="text" value="BL-001" aria-label="readonly input example" />
+                    <input class="form-control form-control-sm w-100" name="kode_proyek" type="text" value="BL-001" aria-label="readonly input example" autocomplete="off"/>
                   </div>
                   <div class="col-sm-4">
                     <select name="tambahProyek" id="tambahProyek" class="form-select">
@@ -184,7 +183,6 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
                         <option value="<?= $row['id']; ?>"><?= $row["nama"]; ?></option>
                       <?php endforeach; ?>
                     </select>
-                    <!-- <input class="form-control form-control-sm w-100" type="text" value="Blue Land" aria-label="readonly input example" readonly /> -->
                   </div>
                   <div class="col-sm-2">
                     <button type="button" class="btn border btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
@@ -219,13 +217,13 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
                 <div class="row mb-3">
                   <label for="noRek" class="col-sm-2 col-form-label">No Rekening</label>
                   <div class="col-sm-10">
-                    <input id="noRekening" name="noRekening" type="text" value="" class="form-control" />
+                    <input id="noRekening" name="noRekening" type="text" value="" class="form-control" autocomplete="off" />
                   </div>
                 </div>
                 <div class="row mb-3">
                   <label for="noGiro" class="col-sm-2 col-form-label">No Giro</label>
                   <div class="col-sm-8">
-                    <input id="noGiro" name="noGiro" type="text" value="" class="form-control" />
+                    <input id="noGiro" name="noGiro" type="text" value="" class="form-control" autocomplete="off"/>
                   </div>
                   <div class="mt-2 d-flex justify-content-center col-sm-1">
                     <input class="form-check-input" type="checkbox" id="giroChecked" />
@@ -239,7 +237,7 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
                     <input name="idr" id="idr" value="IDR" class="text-center form-control" disabled readonly />
                   </div>
                   <div class="col-sm-8">
-                    <input name="nilaiPnrm" id="nilaiPnrm" class="text-end form-control" onkeypress="return restrictAlpha(event)" />
+                    <input name="nilaiPnrm" id="nilaiPnrm" class="text-end form-control" onkeypress="return restrictAlpha(event)" autocomplete="off"/>
                   </div>
                 </div>
                 <div class="row mb-3">
@@ -251,7 +249,7 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
                     <input class="form-check-input ppnCheck" type="checkbox" value="" id="ppnChecked" />
                   </div>
                   <div class="col-sm-7">
-                    <input name="ppn" id="ppn" class="text-end form-control" />
+                    <input name="ppn" id="ppn" class="text-end form-control" autocomplete="off"/>
                   </div>
                 </div>
                 <div class="row mb-3">
@@ -260,7 +258,7 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
                     <input name="idr" id="idr" value="IDR" class="text-center form-control" disabled readonly />
                   </div>
                   <div class="col-sm-8">
-                    <input name="materai" id="materai" class="text-end form-control" onkeypress="return restrictAlpha(event)" />
+                    <input name="materai" id="materai" class="text-end form-control" onkeypress="return restrictAlpha(event)" autocomplete="off"/>
                   </div>
                 </div>
                 <div class="pembatas">
@@ -272,7 +270,7 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
                     <input name="idr" id="idr" value="IDR" class="text-center form-control" disabled readonly />
                   </div>
                   <div class="col-sm-8">
-                    <input id="total_pnrm" name="total_pnrm" type="text" value="" class="text-end form-control" onkeypress="return restrictAlpha(event)" />
+                    <input id="total_pnrm" name="total_pnrm" type="text" value="" class="text-end form-control" onkeypress="return restrictAlpha(event)" autocomplete="off"/>
                   </div>
                 </div>
                 <div class="row mb-3">
@@ -281,7 +279,7 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
                     <input name="idr" id="idr" value="IDR" class="text-center form-control" disabled readonly />
                   </div>
                   <div class="col-sm-2">
-                    <input name="pot" id="pot" class="text-center form-control" value="5.0" onkeypress="return restrictAlpha(event)" readonly />
+                    <input name="pot" id="pot" class="text-center form-control" value="5.0" onkeypress="return restrictAlpha(event)" readonly autocomplete="off"/>
                   </div>
                   <div class="col-sm-4">
                     <input name="pot1" id="pot1" class="text-end form-control" onkeypress="return restrictAlpha(event)" />
@@ -297,7 +295,7 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
                     <input name="idr" id="idr" value="IDR" class="text-center form-control" disabled readonly />
                   </div>
                   <div class="col-sm-8">
-                    <input id="pot_lain" name="pot_lain" type="text" value="" class="text-end form-control" onkeypress="return restrictAlpha(event)" />
+                    <input id="pot_lain" name="pot_lain" type="text" value="" class="text-end form-control" onkeypress="return restrictAlpha(event)" autocomplete="off"/>
                   </div>
                 </div>
                 <div class="pembatas">
@@ -310,7 +308,7 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
                     <input name="idr" id="idr" value="IDR" class="text-center form-control" disabled readonly />
                   </div>
                   <div class="col-sm-8">
-                    <input id="total_bayar" name="total_bayar" type="text" value="" class="text-end form-control" onkeypress="return restrictAlpha(event)" />
+                    <input id="total_bayar" name="total_bayar" type="text" value="" class="text-end form-control" onkeypress="return restrictAlpha(event)" autocomplete="off"/>
                   </div>
                 </div>
                 <div class="row mb-3">
@@ -368,7 +366,7 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
           </div>
           <div class="card-footer text-body-secondary">
             <div class="row">
-              <div class="col-10 offset-2">
+              <div class="col-9 offset-3">
                 <div class="row">
                   <div class="col-sm-2 align-items-center">
                     <button class="btn btn-danger">
@@ -381,18 +379,13 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
                     </button>
                   </div>
                   <div class="col-sm-2 align-items-center">
-                    <button class="btn btn-danger">
+                    <button class="btn btn-danger" type="reset">
                       <span class="fa fa-xmark me-1"></span>Batal
                     </button>
                   </div>
                   <div class="col-sm-2 align-items-center">
                     <button class="btn btn-danger" type="reset">
                       <span class="fa fa-trash me-1"></span>Hapus
-                    </button>
-                  </div>
-                  <div class="col-sm-2 align-items-center">
-                    <button class="btn btn-danger">
-                      <span class="fa fa-print me-1"></span>Cetak
                     </button>
                   </div>
                 </div>
@@ -410,7 +403,7 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
                 </div>
                 <div class="modal-body">
                   <label for="" class="me-2">Tambah Proyek</label>
-                  <input type="text" class="form-control-sm" name="text_proyek">
+                  <input type="text" class="form-control-sm" name="text_proyek" autocomplete="off">
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

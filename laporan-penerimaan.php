@@ -4,7 +4,7 @@ require "function.php";
 
 // cek apakah tombol submit sudah ditekan atau belum
 if (isset($_POST["edit"])) {
-
+  
   // cek apakah data berhasil di tambahkan atau tidak
   if (editData($_POST) > 0) {
     echo "<script> 
@@ -97,7 +97,7 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
         <div class="card-body">
           <div class="row">
             <div class="col-10 offset-2 mb-3 mt-3">
-              <form action="print.php" method="POST" target="_blank">
+              <form action="print_penerimaan.php" method="POST" target="_blank">
                 <div class="row align-items-center">
                   <label for="" class="col-sm-2 col-form-label"><b>Periode Transaksi</b></label>
                   <div class="col-sm-10 d-flex">
@@ -117,9 +117,9 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
                       </div>
                     </div>
                     <div class="col-2 ms-4">
-                      <a class="btn btn-danger btn-sm" type="reset">
+                      <button class="btn btn-danger btn-sm" type="reset" onclick="location.reload()">
                           <span class="fa fa-file me-1"></span>Baru
-                      </a>
+                      </button>
                       <button class="btn btn-danger btn-sm" type="submit" id="cetak" name="cetak"">
                           <span class=" fa fa-print me-1"></span>Cetak
                       </button>
@@ -156,11 +156,12 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
                       <th> No Invoice </th>
                       <th> Kode </th>
                       <th> rate </th>
+                      <th>Kredit (Keluar)</th>
                       <th>Debet (Masuk)</th>
-                      <th>Kredit(Keluar)</th>
                     </tr>
                   </thead>
                   <tbody>
+                    <tr>
                     <?php $i = 1; ?>
                     <?php foreach ($penerimaan as $row) : ?>
                       <td><?= $i ?></td>
@@ -169,9 +170,9 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
                       <td><?= $row['nama'] ?></td>
                       <td><?= $row['nama_diterima'] ?></td>
                       <td><?= $row['noRekening'] ?></td>
-                      <td> IDR </td>
+                      <td> IDR  </td>
                       <td> 1.00 </td>
-                      <td>0.00</td>
+                      <td> 0.00 </td>
                       <td><?= $row['total_bayar'] ?></td>
                       <td><?= $row['uraian'] ?></td>
                       <td class="text-center">
@@ -276,13 +277,13 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
   <script>
     //datepicker
     $(function() {
-      var dateFormat = "dd/mm/yy",
+      var dateFormat = "yy/mm/dd",
         from = $("#from")
         .datepicker({
           defaultDate: "+1w",
           changeMonth: true,
           numberOfMonths: 1,
-          dateFormat: "dd/mm/yy"
+          dateFormat: "yy/mm/dd"
         })
         .on("change", function() {
           to.datepicker("option", "minDate", getDate(this));
@@ -292,7 +293,7 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
           defaultDate: "+1w",
           changeMonth: true,
           numberOfMonths: 1,
-          dateFormat: "dd/mm/yy"
+          dateFormat: "yy/mm/dd"
         })
         .on("change", function() {
           from.datepicker("option", "maxDate", getDate(this));
@@ -314,8 +315,8 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
         var from_date = $("#from").val();
         var to_date = $("#to").val();
 
-        from_date = from_date.split("/").reverse().join("-");
-        to_date = to_date?.split("/").reverse().join("-") || new Date().toISOString().split("T")[0];
+        from_date = from_date.split("/").join("-");
+        to_date = to_date?.split("/").join("-") || new Date().toISOString().split("T")[0];
 
         $("tbody tr").hide().filter(function() {
           var date = $(this).find("td:eq(1)").text();

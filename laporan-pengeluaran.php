@@ -97,7 +97,7 @@ $pengeluaran = query("SELECT * FROM pengeluaran_kas LEFT JOIN proyek ON pengelua
         <div class="card-body">
           <div class="row">
             <div class="col-10 offset-2 mb-3 mt-3">
-              <form action="">
+              <form action="print_pengeluaran.php" method="POST" target="_blank">
                 <div class="row align-items-center">
                   <label for="" class="col-sm-2 col-form-label"><b>Periode Transaksi</b></label>
                   <div class="col-sm-10 d-flex">
@@ -117,7 +117,7 @@ $pengeluaran = query("SELECT * FROM pengeluaran_kas LEFT JOIN proyek ON pengelua
                       </div>
                     </div>
                     <div class="col-2 ms-4">
-                      <button class="btn btn-danger btn-sm" type="reset">
+                      <button class="btn btn-danger btn-sm" type="reset" onclick="location.reload()">
                           <span class="fa fa-file me-1"></span>Baru
                       </button>
                       <button class="btn btn-danger btn-sm" id="cetak">
@@ -279,13 +279,13 @@ $pengeluaran = query("SELECT * FROM pengeluaran_kas LEFT JOIN proyek ON pengelua
   <script>
     //datepicker
     $(function() {
-      var dateFormat = "dd/mm/yy",
+      var dateFormat = "yy/mm/dd",
         from = $("#from")
         .datepicker({
           defaultDate: "+1w",
           changeMonth: true,
           numberOfMonths: 1,
-          dateFormat: "dd/mm/yy"
+          dateFormat: "yy/mm/dd"
         })
         .on("change", function() {
           to.datepicker("option", "minDate", getDate(this));
@@ -295,7 +295,7 @@ $pengeluaran = query("SELECT * FROM pengeluaran_kas LEFT JOIN proyek ON pengelua
           defaultDate: "+1w",
           changeMonth: true,
           numberOfMonths: 1,
-          dateFormat: "dd/mm/yy"
+          dateFormat: "yy/mm/dd"
         })
         .on("change", function() {
           from.datepicker("option", "maxDate", getDate(this));
@@ -317,8 +317,8 @@ $pengeluaran = query("SELECT * FROM pengeluaran_kas LEFT JOIN proyek ON pengelua
         var from_date = $("#from").val();
         var to_date = $("#to").val();
 
-        from_date = from_date.split("/").reverse().join("-");
-        to_date = to_date?.split("/").reverse().join("-") || new Date().toISOString().split("T")[0];
+        from_date = from_date.split("/").join("-");
+        to_date = to_date?.split("/").join("-") || new Date().toISOString().split("T")[0];
 
         $("tbody tr").hide().filter(function() {
           var date = $(this).find("td:eq(1)").text();
