@@ -272,7 +272,7 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
                     <input name="idr" id="idr" value="IDR" class="text-center form-control" disabled readonly />
                   </div>
                   <div class="col-sm-8">
-                    <input id="total_pnrm" name="total_pnrm" type="text" value="" class="text-end form-control" onkeypress="return restrictAlpha(event)" autocomplete="off" disabled />
+                    <input id="total_pnrm" name="total_pnrm" type="text" value="" class="text-end form-control" onkeypress="return restrictAlpha(event)" autocomplete="off" />
                   </div>
                 </div>
                 <!-- <div class="row mb-3">
@@ -310,7 +310,7 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
                     <input name="idr" id="idr" value="IDR" class="text-center form-control" disabled readonly />
                   </div>
                   <div class="col-sm-8">
-                    <input id="total_bayar" name="total_bayar" type="text" value="" class="text-end form-control" onkeypress="return restrictAlpha(event)" autocomplete="off" disabled />
+                    <input id="total_bayar" name="total_bayar" type="text" value="" class="text-end form-control" onkeypress="return restrictAlpha(event)" autocomplete="off" />
                   </div>
                 </div>
                 <div class="row mb-3">

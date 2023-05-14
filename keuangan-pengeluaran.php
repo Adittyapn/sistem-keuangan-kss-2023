@@ -266,7 +266,7 @@ $pengeluaran = query("SELECT * FROM pengeluaran_kas LEFT JOIN proyek ON pengelua
                     <input name="idr" id="idr" value="IDR" class="text-center form-control" disabled readonly />
                   </div>
                   <div class="col-sm-8">
-                    <input id="total_pengeluaran" name="total_pengeluaran" type="text" value="" class="text-end form-control" onkeypress="return restrictAlpha(event)" disabled />
+                    <input id="total_pengeluaran" name="total_pengeluaran" type="text" value="" class="text-end form-control" onkeypress="return restrictAlpha(event)" />
                   </div>
                 </div>
                 <!-- <div class="row mb-3">
@@ -304,7 +304,7 @@ $pengeluaran = query("SELECT * FROM pengeluaran_kas LEFT JOIN proyek ON pengelua
                     <input name="idr" id="idr" value="IDR" class="text-center form-control" disabled readonly />
                   </div>
                   <div class="col-sm-8">
-                    <input id="total_bayar" name="total_bayar" type="text" value="" class="text-end form-control" onkeypress="return restrictAlpha(event)" disabled />
+                    <input id="total_bayar" name="total_bayar" type="text" value="" class="text-end form-control" onkeypress="return restrictAlpha(event)" />
                   </div>
                 </div>
                 <div class="row mb-3">
