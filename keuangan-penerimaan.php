@@ -149,12 +149,12 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
                     <b>No Invoice</b>
                   </label>
                   <div class="col-sm-4">
-                    <input class="form-control" type="text" value="KSS-PNM-" name="no_invoice" id="no_invoice" aria-label="readonly input example" readonly  autocomplete="off"/>
+                    <input class="form-control" type="text" value="KSS-PNM-" name="no_invoice" id="no_invoice" aria-label="readonly input example" readonly autocomplete="off" />
                   </div>
                   <label for="" class="col-sm-2 text-end col-form-label"><b>Tanggal</b></label>
                   <div class="col-sm-4">
                     <div class="input-group">
-                      <input type="text text-tanggal" id="datePicker" class="form-control datepicker border rounded-1" name="tanggal" autocomplete="off">
+                      <input type="text text-tanggal" id="datePicker" class="form-control datepicker border rounded-1" name="tanggal" autocomplete="off" required>
                       <span class="input-group-text" id="addon-wrapping"><i class="fa fa-calendar icon"></i></span>
                     </div>
                   </div>
@@ -163,20 +163,20 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
               <div class="col-6 border mb-3 py-3">
                 <div class="row align-items-center">
                   <label for="from" class="col-sm-2 col-form-label"><b>Diterima Dari</b></label>
+                  <!-- <div class="col-sm-4">
+                    <input class="form-control form-control-sm w-100" type="text" value="001" name="kode_diterima" aria-label="readonly input example" id="kode_diterima" autocomplete="off" />
+                  </div> -->
                   <div class="col-sm-4">
-                    <input class="form-control form-control-sm w-100" type="text" value="001" name="kode_diterima" aria-label="readonly input example" id="kode_diterima" autocomplete="off"/>
-                  </div>
-                  <div class="col-sm-4">
-                    <input class="form-control form-control-sm w-100" type="text" value="" name="nama_diterima" aria-label="readonly input example" id="nama_diterima" autocomplete="off"/>
+                    <input class="form-control form-control-sm w-100" type="text" value="" name="nama_diterima" aria-label="readonly input example" id="nama_diterima" autocomplete="off" required />
                   </div>
                   <div class="col-sm-2">
                   </div>
                 </div>
                 <div class="row align-items-center">
                   <label for="Proyek" class="col-sm-2 col-form-label"><b>Proyek</b></label>
-                  <div class="col-sm-4">
-                    <input class="form-control form-control-sm w-100" name="kode_proyek" type="text" value="BL-001" aria-label="readonly input example" autocomplete="off"/>
-                  </div>
+                  <!-- <div class="col-sm-4">
+                    <input class="form-control form-control-sm w-100" name="kode_proyek" type="text" value="BL-001" aria-label="readonly input example" autocomplete="off" />
+                  </div> -->
                   <div class="col-sm-4">
                     <select name="tambahProyek" id="tambahProyek" class="form-select">
                       <?php foreach ($proyek as $row) : ?>
@@ -206,29 +206,31 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
                   </div>
                 </div>
                 <div class="row mb-3">
-                  <label for="kodeBank" class="col-sm-2 col-form-label">Kode Bank/BANK</label>
+                  <label for="kodeBank" class="col-sm-2 col-form-label">BANK</label>
                   <div class="col-sm-3">
-                    <input id="kodeBank" name="kodeBank" type="text" value="012" class="form-control" /> <!-- kalo disabled gak bisa di input valuenya -->
+                    <input id="kodeBank" name="kodeBank" type="text" value="BCA" class="form-control" required /> <!-- kalo disabled gak bisa di input valuenya -->
                   </div>
-                  <div class="col-sm-7">
+                  <!-- <div class="col-sm-7">
                     <input type="text" value="BRI" class="form-control" />
-                  </div>
+                  </div> -->
                 </div>
                 <div class="row mb-3">
                   <label for="noRek" class="col-sm-2 col-form-label">No Rekening</label>
                   <div class="col-sm-10">
-                    <input id="noRekening" name="noRekening" type="text" value="" class="form-control" autocomplete="off" />
+                    <input id="noRekening" name="noRekening" type="text" value="" class="form-control" autocomplete="off" required />
                   </div>
                 </div>
                 <div class="row mb-3">
                   <label for="noGiro" class="col-sm-2 col-form-label">No Giro</label>
                   <div class="col-sm-8">
-                    <input id="noGiro" name="noGiro" type="text" value="" class="form-control" autocomplete="off"/>
+                    <input id="noGiro" name="noGiro" type="text" value="" class="form-control" autocomplete="off" />
                   </div>
                   <div class="mt-2 d-flex justify-content-center col-sm-1">
-                    <input class="form-check-input" type="checkbox" id="giroChecked" />
+                    <input class="form-check-input" type="checkbox" id="giroChecked" checked />
                   </div>
                 </div>
+                <br><br><br>
+                <h6>* Jika tidak ada isi dengan 0 </h6>
               </div>
               <div class="col-6 mt-2">
                 <div class="row mb-3">
@@ -237,7 +239,7 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
                     <input name="idr" id="idr" value="IDR" class="text-center form-control" disabled readonly />
                   </div>
                   <div class="col-sm-8">
-                    <input name="nilaiPnrm" id="nilaiPnrm" class="text-end form-control" onkeypress="return restrictAlpha(event)" autocomplete="off"/>
+                    <input name="nilaiPnrm" id="nilaiPnrm" class="text-end form-control" onkeypress="return restrictAlpha(event)" autocomplete="off" required />
                   </div>
                 </div>
                 <div class="row mb-3">
@@ -246,21 +248,21 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
                     <input name="" id="" value="IDR" class="text-center form-control" disabled readonly />
                   </div>
                   <div class="mt-2 d-flex justify-content-center col-sm-1">
-                    <input class="form-check-input ppnCheck" type="checkbox" value="" id="ppnChecked" />
+                    <input class="form-check-input ppnCheck" type="checkbox" value="" id="ppnChecked" checked />
                   </div>
                   <div class="col-sm-7">
-                    <input name="ppn" id="ppn" class="text-end form-control" autocomplete="off"/>
+                    <input name="ppn" id="ppn" class="text-end form-control" autocomplete="off" />
                   </div>
                 </div>
-                <div class="row mb-3">
+                <!-- <div class="row mb-3">
                   <label for="materai" class="col-sm-2 col-form-label">Materai</label>
                   <div class="col-sm-2">
                     <input name="idr" id="idr" value="IDR" class="text-center form-control" disabled readonly />
                   </div>
                   <div class="col-sm-8">
-                    <input name="materai" id="materai" class="text-end form-control" onkeypress="return restrictAlpha(event)" autocomplete="off"/>
+                    <input name="materai" id="materai" class="text-end form-control" onkeypress="return restrictAlpha(event)" autocomplete="off" />
                   </div>
-                </div>
+                </div> -->
                 <div class="pembatas">
                   <hr />
                 </div>
@@ -270,16 +272,16 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
                     <input name="idr" id="idr" value="IDR" class="text-center form-control" disabled readonly />
                   </div>
                   <div class="col-sm-8">
-                    <input id="total_pnrm" name="total_pnrm" type="text" value="" class="text-end form-control" onkeypress="return restrictAlpha(event)" autocomplete="off"/>
+                    <input id="total_pnrm" name="total_pnrm" type="text" value="" class="text-end form-control" onkeypress="return restrictAlpha(event)" autocomplete="off" disabled />
                   </div>
                 </div>
-                <div class="row mb-3">
-                  <label for="Potongan" class="col-sm-2 col-form-label">Potongan PPH</label>
-                  <div class="col-sm-2">
+                <!-- <div class="row mb-3">
+                   <label for="Potongan" class="col-sm-2 col-form-label">Potongan PPH</label> -->
+                <!-- <div class="col-sm-2">
                     <input name="idr" id="idr" value="IDR" class="text-center form-control" disabled readonly />
-                  </div>
-                  <div class="col-sm-2">
-                    <input name="pot" id="pot" class="text-center form-control" value="5.0" onkeypress="return restrictAlpha(event)" readonly autocomplete="off"/>
+                  </div> -->
+                <!-- <div class="col-sm-2">
+                    <input name="pot" id="pot" class="text-center form-control" value="5.0" onkeypress="return restrictAlpha(event)" readonly autocomplete="off" />
                   </div>
                   <div class="col-sm-4">
                     <input name="pot1" id="pot1" class="text-end form-control" onkeypress="return restrictAlpha(event)" />
@@ -288,14 +290,14 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
                     <input class="form-check-input" type="checkbox" value="" id="potChacked" />
                     <label for="" class="ms-2">Pot. Y/N</label>
                   </div>
-                </div>
+                </div> -->
                 <div class="row mb-3">
                   <label for="potlain" class="col-sm-2 col-form-label">Potongan Lain-Lain</label>
                   <div class="col-sm-2">
                     <input name="idr" id="idr" value="IDR" class="text-center form-control" disabled readonly />
                   </div>
                   <div class="col-sm-8">
-                    <input id="pot_lain" name="pot_lain" type="text" value="" class="text-end form-control" onkeypress="return restrictAlpha(event)" autocomplete="off"/>
+                    <input id="pot_lain" name="pot_lain" type="text" value="" class="text-end form-control" onkeypress="return restrictAlpha(event)" autocomplete="off" required />
                   </div>
                 </div>
                 <div class="pembatas">
@@ -308,7 +310,7 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
                     <input name="idr" id="idr" value="IDR" class="text-center form-control" disabled readonly />
                   </div>
                   <div class="col-sm-8">
-                    <input id="total_bayar" name="total_bayar" type="text" value="" class="text-end form-control" onkeypress="return restrictAlpha(event)" autocomplete="off"/>
+                    <input id="total_bayar" name="total_bayar" type="text" value="" class="text-end form-control" onkeypress="return restrictAlpha(event)" autocomplete="off" disabled />
                   </div>
                 </div>
                 <div class="row mb-3">
@@ -316,7 +318,7 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
                   <div class="col-sm-8">
                     <div class="form-group">
                       <label for="exampleFormControlTextarea1"></label>
-                      <textarea class="form-control" id="uraian" name="uraian" rows="3"></textarea>
+                      <textarea class="form-control" id="uraian" name="uraian" rows="3" required></textarea>
                     </div>
                   </div>
                 </div>
@@ -337,10 +339,8 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
                       <thead>
                         <tr>
                           <th scope="col">No</th>
-                          <th scope="col">No. Referensi</th>
+                          <th scope="col">No. Invoice</th>
                           <th scope="col">Tanggal</th>
-                          <th scope="col">Account</th>
-                          <th scope="col">Sub Akun(Biaya)</th>
                           <th scope="col">Uraian</th>
                           <th scope="col">Nilai Penerimaan</th>
                         </tr>
@@ -349,10 +349,8 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
                         <?php foreach ($penerimaan as $i => $row) : ?>
                           <tr>
                             <th scope="row"><?php echo ++$i ?></th>
-                            <td> -- </td>
+                            <td><?php echo $row['no_invoice'] ?></td>
                             <td><?php echo $row['tanggal'] ?></td>
-                            <td><?php echo $row['nama_diterima'] ?></td>
-                            <td>- - -</td>
                             <td><?php echo $row['uraian'] ?></td>
                             <td><?php echo $row['nilai_penerimaan'] ?></td>
                           </tr>
@@ -368,19 +366,9 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
             <div class="row">
               <div class="col-9 offset-3">
                 <div class="row">
-                  <div class="col-sm-2 align-items-center">
-                    <button class="btn btn-danger">
-                      <span class="fa fa-file me-1"></span>Baru
-                    </button>
-                  </div>
-                  <div class="col-sm-2 align-items-center">
+                  <div class="col-sm-7 align-items-center">
                     <button class="btn btn-danger" type="submit" name="submit">
                       <span class="fa fa-floppy-disk me-1"></span>Simpan
-                    </button>
-                  </div>
-                  <div class="col-sm-2 align-items-center">
-                    <button class="btn btn-danger" type="reset">
-                      <span class="fa fa-xmark me-1"></span>Batal
                     </button>
                   </div>
                   <div class="col-sm-2 align-items-center">
@@ -445,6 +433,9 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
     var inputGiro = document.querySelector("#noGiro");
 
     var toogleInput = function(e) {
+      if (!e.target.checked) {
+        inputGiro.value = "";
+      }
       inputGiro.disabled = !e.target.checked;
     };
 
@@ -454,69 +445,110 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
     checkboxGiro.addEventListener("change", toogleInput);
     //no giro end
 
-    //potpph start
-    var checkbox = document.querySelector("#potChacked");
-    var input = document.querySelector("#pot");
-    var input1 = document.querySelector("#pot1");
-
-    var toogleInput = function(e) {
-      input.disabled = !e.target.checked;
-      input1.disabled = !e.target.checked;
-    };
-
-    toogleInput({
-      target: checkbox
-    });
-    checkbox.addEventListener("change", toogleInput);
-    //potpph end
-
     //ppn check start
     var checkboxPpn = document.querySelector("#ppnChecked");
     var inputPpn = document.querySelector("#ppn");
 
-    var toogleInput = function(e) {
+    var toggleInput = function(e) {
+      if (!e.target.checked) {
+        inputPpn.value = "";
+      }
       inputPpn.disabled = !e.target.checked;
     };
 
-    toogleInput({
+    toggleInput({
       target: checkboxPpn
     });
-    checkboxPpn.addEventListener("change", toogleInput);
+    checkboxPpn.addEventListener("change", toggleInput);
+
     //ppn check end
 
-
     $("#nilaiPnrm").keyup(function() {
-      var nilai_pnrm = document.getElementById("nilaiPnrm").value;
-      console.log(nilai_pnrm)
+      var nilai_pnrm = parseFloat(document.getElementById("nilaiPnrm").value);
+      console.log(nilai_pnrm);
       document.getElementById("ppn").value = nilai_pnrm * 10 / 100;
+      updateTotalPnrm();
     });
 
-    $("#materai").keyup(function() {
-      var nilai_pnrm = document.getElementById("nilaiPnrm").value;
-      var ppn = document.getElementById("ppn").value;
-      var materai = document.getElementById("materai").value;
-      if ($('#ppnChecked').prop('checked')) {
-        document.getElementById("total_pnrm").value = parseFloat(nilai_pnrm) + parseFloat(ppn) + parseFloat(materai);
+    $(document).ready(function() {
+      var nilai_pnrm = parseFloat(document.getElementById("nilaiPnrm").value);
+      var ppn = parseFloat(document.getElementById("ppn").value);
+      var checkboxChecked = $('#ppnChecked').prop('checked');
+
+      if (checkboxChecked) {
+        document.getElementById("total_pnrm").value = nilai_pnrm + ppn;
       } else {
-        document.getElementById("total_pnrm").value = parseFloat(nilai_pnrm) + parseFloat(materai);
+        document.getElementById("total_pnrm").value = nilai_pnrm;
       }
     });
 
-    $("#materai").keyup(function() {
-      var pph = document.getElementById("materai").value;
-      var total_pnrm = document.getElementById("total_pnrm").value;
-      document.getElementById("pot1").value = total_pnrm * 5 / 100;
-    });
+    $('#ppnChecked').change(function() {
+      var nilai_pnrm = parseFloat(document.getElementById("nilaiPnrm").value);
+      var ppn = parseFloat(document.getElementById("ppn").value);
+      var checkboxChecked = $('#ppnChecked').prop('checked');
 
-    $("#pot_lain").keyup(function() {
-      var total_pnrm = document.getElementById("total_pnrm").value;
-      var pph = document.getElementById("pot1").value;
-      var pot_lain = document.getElementById("pot_lain").value;
-      if ($('#potChacked').prop('checked')) {
-        document.getElementById("total_bayar").value = parseFloat(total_pnrm) - parseFloat(pph) - parseFloat(pot_lain);
+      if (checkboxChecked) {
+        document.getElementById("total_pnrm").value = nilai_pnrm + ppn;
       } else {
-        document.getElementById("total_bayar").value = parseFloat(total_pnrm) - parseFloat(pot_lain);
+        document.getElementById("total_pnrm").value = nilai_pnrm;
       }
+    });
+    $(document).ready(function() {
+      $('#ppnChecked').change(function() {
+        updateTotalPnrm();
+      });
+
+      $('#nilaiPnrm').keyup(function() {
+        updateTotalPnrm();
+      });
+
+      $('#pot_lain').keyup(function() {
+        updateTotalPnrm();
+      });
+
+      function updateTotalPnrm() {
+        var nilai_pnrm = parseFloat(document.getElementById("nilaiPnrm").value);
+        var ppn = parseFloat(document.getElementById("ppn").value);
+        var checkboxChecked = $('#ppnChecked').prop('checked');
+
+        if (isNaN(nilai_pnrm)) {
+          nilai_pnrm = 0;
+        }
+
+        if (isNaN(ppn)) {
+          ppn = 0;
+        }
+
+        var total_pnrm = 0;
+        if (checkboxChecked) {
+          total_pnrm = nilai_pnrm + ppn;
+        } else {
+          total_pnrm = nilai_pnrm;
+        }
+
+        document.getElementById("total_pnrm").value = total_pnrm;
+        updateTotalBayar();
+      }
+
+      function updateTotalBayar() {
+        var total_pnrm = parseFloat(document.getElementById("total_pnrm").value);
+        var pot_lain = parseFloat(document.getElementById("pot_lain").value);
+
+        if (isNaN(total_pnrm)) {
+          total_pnrm = 0;
+        }
+
+        if (isNaN(pot_lain)) {
+          pot_lain = 0;
+        }
+
+        var total_bayar = total_pnrm - pot_lain;
+
+        document.getElementById("total_bayar").value = total_bayar;
+      }
+
+      // Pembaruan awal saat nilai_pnrm pertama kali diinput
+      updateTotalPnrm();
     });
   </script>
 </body>

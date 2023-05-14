@@ -1,10 +1,4 @@
-<!DOCTYPE html>
 
-<title> BERHASIL </title>
-</head>
-
-<body>
-    <center>
         <?php
         $conn = mysqli_connect("localhost", "root", "", "keuangan");
 
@@ -15,13 +9,14 @@
 
         $nik = $_POST['nik'];
         $user = $_POST['username'];
+        $jabatan = $_POST['jabatan'];
         $nama_pengguna = $_POST['nama_pengguna'];
         $pass = $_POST['password'];
 
         // Performing insert query execution
         // here our table name is college
-        $sql = "INSERT INTO login (nik,username,nama_pengguna,pass)
-        VALUES ('$nik','$user','$nama_pengguna','$pass')";
+        $sql = "INSERT INTO login (nik,username,jabatan,nama_pengguna,pass)
+        VALUES ('$nik','$user','$jabatan','$nama_pengguna','$pass')";
 
         if (mysqli_query($conn, $sql)) {
             echo "<h3>data stored in a database successfully."
@@ -38,7 +33,3 @@
         // Close connection
         mysqli_close($conn);
         ?>
-    </center>
-</body>
-
-</html>

@@ -150,7 +150,7 @@ $pengeluaran = query("SELECT * FROM pengeluaran_kas LEFT JOIN proyek ON pengelua
                   <div class="col-sm-4">
                     <!-- <input type="date" class="datepicker border rounded-1" name="tanggal" id="datePicker" /> -->
                     <div class="input-group">
-                      <input type="text text-tanggal" id="datePicker" class="form-control datepicker border rounded-1" name="tanggal" autocomplete="off">
+                      <input type="text text-tanggal" id="datePicker" class="form-control datepicker border rounded-1" name="tanggal" autocomplete="off" required>
                       <span class="input-group-text" id="addon-wrapping"><i class="fa fa-calendar icon"></i></span>
                     </div>
                   </div>
@@ -159,20 +159,20 @@ $pengeluaran = query("SELECT * FROM pengeluaran_kas LEFT JOIN proyek ON pengelua
               <div class="col-6 border mb-3 py-3">
                 <div class="row align-items-center">
                   <label for="from" class="col-sm-2 col-form-label"><b>Dibayarkan Kpd.</b></label>
-                  <div class="col-sm-4">
+                  <!-- <div class="col-sm-4">
                     <input class="form-control form-control-sm w-100" type="text" value="001" aria-label="readonly input example" name="kode_bayar" id="kode_bayar" />
-                  </div>
+                  </div> -->
                   <div class="col-sm-4">
-                    <input class="form-control form-control-sm w-100" type="text" value="" aria-label="readonly input example" name="nama_dibayar" id="nama_dibayar" />
+                    <input class="form-control form-control-sm w-100" type="text" value="" aria-label="readonly input example" name="nama_dibayar" id="nama_dibayar" required />
                   </div>
                   <div class="col-sm-2">
                   </div>
                 </div>
                 <div class="row align-items-center">
                   <label for="Proyek" class="col-sm-2 col-form-label"><b>Proyek</b></label>
-                  <div class="col-sm-4">
+                  <!-- <div class="col-sm-4">
                     <input class="form-control form-control-sm w-100" name="kode_proyek" type="text" value="BL-001" aria-label="readonly input example" />
-                  </div>
+                  </div> -->
                   <div class="col-sm-4">
                     <select name="tambahProyek" id="tambahProyek" class="form-select">
                       <?php foreach ($proyek as $row) : ?>
@@ -203,18 +203,15 @@ $pengeluaran = query("SELECT * FROM pengeluaran_kas LEFT JOIN proyek ON pengelua
                   </div>
                 </div>
                 <div class="row mb-3">
-                  <label for="kodeBank" class="col-sm-2 col-form-label">Kode Bank/BANK</label>
+                  <label for="kodeBank" class="col-sm-2 col-form-label"> BANK</label>
                   <div class="col-sm-3">
-                    <input id="kodeBank" name="kodeBank" type="text" value="012" class="form-control" /> <!-- kalo disabled gak bisa di input valuenya -->
-                  </div>
-                  <div class="col-sm-7">
-                    <input type="text" value="BCA" class="form-control" />
+                    <input id="kodeBank" name="kodeBank" type="text" value="BCA" class="form-control" required /> <!-- kalo disabled gak bisa di input valuenya -->
                   </div>
                 </div>
                 <div class="row mb-3">
                   <label for="noRek" class="col-sm-2 col-form-label">No Rekening</label>
                   <div class="col-sm-10">
-                    <input id="noRekening" name="noRekening" type="text" value="" class="form-control" />
+                    <input id="noRekening" name="noRekening" type="text" value="" class="form-control" required />
                   </div>
                 </div>
                 <div class="row mb-3">
@@ -223,9 +220,11 @@ $pengeluaran = query("SELECT * FROM pengeluaran_kas LEFT JOIN proyek ON pengelua
                     <input id="noGiro" name="noGiro" type="text" value="" class="form-control" />
                   </div>
                   <div class="mt-2 d-flex justify-content-center col-sm-1">
-                    <input class="form-check-input" type="checkbox" id="giroChecked" />
+                    <input class="form-check-input" type="checkbox" id="giroChecked" checked />
                   </div>
                 </div>
+                <br><br><br>
+                <h6>* Jika tidak ada isi dengan 0 </h6>
               </div>
               <div class="col-6 mt-2">
                 <div class="row mb-3">
@@ -234,7 +233,7 @@ $pengeluaran = query("SELECT * FROM pengeluaran_kas LEFT JOIN proyek ON pengelua
                     <input name="idr" id="idr" value="IDR" class="text-center form-control" disabled readonly />
                   </div>
                   <div class="col-sm-8">
-                    <input name="nilaiPengeluaran" id="nilaiPengeluaran" class="text-end form-control" onkeypress="return restrictAlpha(event)" />
+                    <input name="nilaiPengeluaran" id="nilaiPengeluaran" class="text-end form-control" onkeypress="return restrictAlpha(event)" required />
                   </div>
                 </div>
                 <div class="row mb-3">
@@ -243,13 +242,13 @@ $pengeluaran = query("SELECT * FROM pengeluaran_kas LEFT JOIN proyek ON pengelua
                     <input name="" id="" value="IDR" class="text-center form-control" disabled readonly />
                   </div>
                   <div class="mt-2 d-flex justify-content-center col-sm-1">
-                    <input class="form-check-input" type="checkbox" value="" id="ppnChecked" />
+                    <input class="form-check-input" type="checkbox" value="" id="ppnChecked" checked />
                   </div>
                   <div class="col-sm-7">
                     <input name="ppn" id="ppn" class="text-end form-control" />
                   </div>
                 </div>
-                <div class="row mb-3">
+                <!-- <div class="row mb-3">
                   <label for="materai" class="col-sm-2 col-form-label">Materai</label>
                   <div class="col-sm-2">
                     <input name="idr" id="idr" value="IDR" class="text-center form-control" disabled readonly />
@@ -257,7 +256,7 @@ $pengeluaran = query("SELECT * FROM pengeluaran_kas LEFT JOIN proyek ON pengelua
                   <div class="col-sm-8">
                     <input name="materai" id="materai" class="text-end form-control" onkeypress="return restrictAlpha(event)" />
                   </div>
-                </div>
+                </div> -->
                 <div class="pembatas">
                   <hr />
                 </div>
@@ -267,10 +266,10 @@ $pengeluaran = query("SELECT * FROM pengeluaran_kas LEFT JOIN proyek ON pengelua
                     <input name="idr" id="idr" value="IDR" class="text-center form-control" disabled readonly />
                   </div>
                   <div class="col-sm-8">
-                    <input id="total_pengeluaran" name="total_pengeluaran" type="text" value="" class="text-end form-control" onkeypress="return restrictAlpha(event)" />
+                    <input id="total_pengeluaran" name="total_pengeluaran" type="text" value="" class="text-end form-control" onkeypress="return restrictAlpha(event)" disabled />
                   </div>
                 </div>
-                <div class="row mb-3">
+                <!-- <div class="row mb-3">
                   <label for="Potongan" class="col-sm-2 col-form-label">Potongan PPH</label>
                   <div class="col-sm-2">
                     <input name="idr" id="idr" value="IDR" class="text-center form-control" disabled readonly />
@@ -285,9 +284,9 @@ $pengeluaran = query("SELECT * FROM pengeluaran_kas LEFT JOIN proyek ON pengelua
                     <input class="form-check-input" type="checkbox" value="" id="potChacked" />
                     <label for="" class="ms-2">Pot. Y/N</label>
                   </div>
-                </div>
+                </div> -->
                 <div class="row mb-3">
-                  <label for="potlain" class="col-sm-2 col-form-label">Lain-Lain</label>
+                  <label for="potlain" class="col-sm-2 col-form-label"> Potongan Lain-Lain</label>
                   <div class="col-sm-2">
                     <input name="idr" id="idr" value="IDR" class="text-center form-control" disabled readonly />
                   </div>
@@ -305,7 +304,7 @@ $pengeluaran = query("SELECT * FROM pengeluaran_kas LEFT JOIN proyek ON pengelua
                     <input name="idr" id="idr" value="IDR" class="text-center form-control" disabled readonly />
                   </div>
                   <div class="col-sm-8">
-                    <input id="total_bayar" name="total_bayar" type="text" value="" class="text-end form-control" onkeypress="return restrictAlpha(event)" />
+                    <input id="total_bayar" name="total_bayar" type="text" value="" class="text-end form-control" onkeypress="return restrictAlpha(event)" disabled />
                   </div>
                 </div>
                 <div class="row mb-3">
@@ -313,7 +312,7 @@ $pengeluaran = query("SELECT * FROM pengeluaran_kas LEFT JOIN proyek ON pengelua
                   <div class="col-sm-8">
                     <div class="form-group">
                       <label for="exampleFormControlTextarea1"></label>
-                      <textarea class="form-control" id="uraian" name="uraian" rows="3"></textarea>
+                      <textarea class="form-control" id="uraian" name="uraian" rows="3" required></textarea>
                     </div>
                   </div>
                 </div>
@@ -334,10 +333,8 @@ $pengeluaran = query("SELECT * FROM pengeluaran_kas LEFT JOIN proyek ON pengelua
                       <thead>
                         <tr>
                           <th scope="col">No</th>
-                          <th scope="col">No. Referensi</th>
+                          <th scope="col">No. Invoice</th>
                           <th scope="col">Tanggal</th>
-                          <th scope="col">Account</th>
-                          <th scope="col">Sub Akun(Biaya)</th>
                           <th scope="col">Uraian</th>
                           <th scope="col">Nilai Pengeluaran</th>
                         </tr>
@@ -346,10 +343,8 @@ $pengeluaran = query("SELECT * FROM pengeluaran_kas LEFT JOIN proyek ON pengelua
                         <?php foreach ($pengeluaran as $i => $row) : ?>
                           <tr>
                             <th scope="row"><?php echo ++$i ?></th>
-                            <td>- -</td>
+                            <td><?php echo $row['no_invoice'] ?></td>
                             <td><?php echo $row['tanggal'] ?></td>
-                            <td><?php echo $row['nama_dibayar'] ?></td>
-                            <td>- - -</td>
                             <td><?php echo $row['uraian'] ?></td>
                             <td><?php echo $row['nilaiPengeluaran'] ?></td>
                           </tr>
@@ -365,19 +360,9 @@ $pengeluaran = query("SELECT * FROM pengeluaran_kas LEFT JOIN proyek ON pengelua
             <div class="row">
               <div class="col-9 offset-3">
                 <div class="row">
-                  <div class="col-sm-2 align-items-center">
-                    <button class="btn btn-danger">
-                      <span class="fa fa-file me-1"></span>Baru
-                    </button>
-                  </div>
-                  <div class="col-sm-2 align-items-center">
+                  <div class="col-sm-7 align-items-center">
                     <button class="btn btn-danger" type="submit" name="submit">
                       <span class="fa fa-floppy-disk me-1"></span>Simpan
-                    </button>
-                  </div>
-                  <div class="col-sm-2 align-items-center">
-                    <button class="btn btn-danger" type="reset">
-                      <span class="fa fa-xmark me-1"></span>Batal
                     </button>
                   </div>
                   <div class="col-sm-2 align-items-center">
@@ -443,6 +428,9 @@ $pengeluaran = query("SELECT * FROM pengeluaran_kas LEFT JOIN proyek ON pengelua
     var inputGiro = document.querySelector("#noGiro");
 
     var toogleInput = function(e) {
+      if (!e.target.checked) {
+        inputGiro.value = "";
+      }
       inputGiro.disabled = !e.target.checked;
     };
 
@@ -453,68 +441,127 @@ $pengeluaran = query("SELECT * FROM pengeluaran_kas LEFT JOIN proyek ON pengelua
     //no giro end
 
     //potpph start
-    var checkbox = document.querySelector("#potChacked");
-    var input = document.querySelector("#pot");
-    var input1 = document.querySelector("#pot1");
+    // var checkbox = document.querySelector("#potChacked");
+    // var input = document.querySelector("#pot");
+    // var input1 = document.querySelector("#pot1");
 
-    var toogleInput = function(e) {
-      input.disabled = !e.target.checked;
-      input1.disabled = !e.target.checked;
-    };
+    // var toogleInput = function(e) {
+    //   input.disabled = !e.target.checked;
+    //   input1.disabled = !e.target.checked;
+    // };
 
-    toogleInput({
-      target: checkbox
-    });
-    checkbox.addEventListener("change", toogleInput);
+    // toogleInput({
+    //   target: checkbox
+    // });
+    // checkbox.addEventListener("change", toogleInput);
     //potpph end
 
     //ppn check start
     var checkboxPpn = document.querySelector("#ppnChecked");
     var inputPpn = document.querySelector("#ppn");
 
-    var toogleInput = function(e) {
+    var toggleInput = function(e) {
+      if (!e.target.checked) {
+        inputPpn.value = "";
+      }
       inputPpn.disabled = !e.target.checked;
     };
 
-    toogleInput({
+    toggleInput({
       target: checkboxPpn
     });
-    checkboxPpn.addEventListener("change", toogleInput);
+    checkboxPpn.addEventListener("change", toggleInput);
+
     //ppn check end
 
 
+    ///// BARUU
     $("#nilaiPengeluaran").keyup(function() {
-      var nilai_pengeluaran = document.getElementById("nilaiPengeluaran").value;
-      document.getElementById("ppn").value = nilai_pengeluaran * 10 / 100;
+      var nilaiPengeluaran = parseFloat(document.getElementById("nilaiPengeluaran").value);
+      console.log(nilaiPengeluaran);
+      document.getElementById("ppn").value = nilaiPengeluaran * 10 / 100;
+      updateTotalPnrm();
     });
 
-    $("#materai").keyup(function() {
-      var nilai_pengeluaran = document.getElementById("nilaiPengeluaran").value;
-      var ppn = document.getElementById("ppn").value;
-      var materai = document.getElementById("materai").value;
-      if ($('#ppnChecked').prop('checked')) {
-        document.getElementById("total_pengeluaran").value = parseFloat(nilai_pengeluaran) + parseFloat(ppn) + parseFloat(materai);
+    $(document).ready(function() {
+      var nilaiPengeluaran = parseFloat(document.getElementById("nilaiPengeluaran").value);
+      var ppn = parseFloat(document.getElementById("ppn").value);
+      var checkboxChecked = $('#ppnChecked').prop('checked');
+
+      if (checkboxChecked) {
+        document.getElementById("total_pengeluaran").value = nilaiPengeluaran + ppn;
       } else {
-        document.getElementById("total_pengeluaran").value = parseFloat(nilai_pengeluaran) + parseFloat(materai);
+        document.getElementById("total_pengeluaran").value = nilaiPengeluaran;
       }
     });
 
-    $("#materai").keyup(function() {
-      // var pph = document.getElementById("pot1").value;
-      var total_pengeluaran = document.getElementById("total_pengeluaran").value;
-      console.log(total_pengeluaran)
-      document.getElementById("pot1").value = total_pengeluaran * 5 / 100;
-    });
+    $('#ppnChecked').change(function() {
+      var nilaiPengeluaran = parseFloat(document.getElementById("nilaiPengeluaran").value);
+      var ppn = parseFloat(document.getElementById("ppn").value);
+      var checkboxChecked = $('#ppnChecked').prop('checked');
 
-    $("#pot_lain").keyup(function() {
-      var total_pengeluaran = document.getElementById("total_pengeluaran").value;
-      var pph = document.getElementById("pot1").value;
-      var pot_lain = document.getElementById("pot_lain").value;
-      if ($('#potChacked').prop('checked')) {
-        document.getElementById("total_bayar").value = parseFloat(total_pengeluaran) - parseFloat(pph) - parseFloat(pot_lain);
+      if (checkboxChecked) {
+        document.getElementById("total_pengeluaran").value = nilaiPengeluaran + ppn;
       } else {
-        document.getElementById("total_bayar").value = parseFloat(total_pengeluaran) - parseFloat(pot_lain);
+        document.getElementById("total_pengeluaran").value = nilaiPengeluaran;
       }
+    });
+    $(document).ready(function() {
+      $('#ppnChecked').change(function() {
+        updatetotal_pengeluaran();
+      });
+
+      $('#nilaiPengeluaran').keyup(function() {
+        updatetotal_pengeluaran();
+      });
+
+      $('#pot_lain').keyup(function() {
+        updatetotal_pengeluaran();
+      });
+
+      function updatetotal_pengeluaran() {
+        var nilaiPengeluaran = parseFloat(document.getElementById("nilaiPengeluaran").value);
+        var ppn = parseFloat(document.getElementById("ppn").value);
+        var checkboxChecked = $('#ppnChecked').prop('checked');
+
+        if (isNaN(nilaiPengeluaran)) {
+          nilaiPengeluaran = 0;
+        }
+
+        if (isNaN(ppn)) {
+          ppn = 0;
+        }
+
+        var total_pengeluaran = 0;
+        if (checkboxChecked) {
+          total_pengeluaran = nilaiPengeluaran + ppn;
+        } else {
+          total_pengeluaran = nilaiPengeluaran;
+        }
+
+        document.getElementById("total_pengeluaran").value = total_pengeluaran;
+        updateTotalBayar();
+      }
+
+      function updateTotalBayar() {
+        var total_pengeluaran = parseFloat(document.getElementById("total_pengeluaran").value);
+        var pot_lain = parseFloat(document.getElementById("pot_lain").value);
+
+        if (isNaN(total_pengeluaran)) {
+          total_pengeluaran = 0;
+        }
+
+        if (isNaN(pot_lain)) {
+          pot_lain = 0;
+        }
+
+        var total_bayar = total_pengeluaran - pot_lain;
+
+        document.getElementById("total_bayar").value = total_bayar;
+      }
+
+      // Pembaruan awal saat nilaiPengeluaran pertama kali diinput
+      updatetotal_pengeluaran();
     });
   </script>
 </body>

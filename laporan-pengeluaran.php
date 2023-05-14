@@ -73,7 +73,7 @@ $pengeluaran = query("SELECT * FROM pengeluaran_kas LEFT JOIN proyek ON pengelua
                 <a class="dropdown-item" href="laporan-penerimaan.php">Penerimaan Kas</a>
               </li>
               <li>
-                <a class="dropdown-item active"  href="laporan-pengeluaran.php">Pengeluaran Kas</a>
+                <a class="dropdown-item active" href="laporan-pengeluaran.php">Pengeluaran Kas</a>
               </li>
             </ul>
           </li>
@@ -118,10 +118,10 @@ $pengeluaran = query("SELECT * FROM pengeluaran_kas LEFT JOIN proyek ON pengelua
                     </div>
                     <div class="col-2 ms-4">
                       <button class="btn btn-danger btn-sm" type="reset" onclick="location.reload()">
-                          <span class="fa fa-file me-1"></span>Baru
+                        <span class="fa fa-file me-1"></span>Baru
                       </button>
                       <button class="btn btn-danger btn-sm" id="cetak">
-                          <span class=" fa fa-print me-1"></span>Cetak
+                        <span class=" fa fa-print me-1"></span>Cetak
                       </button>
                     </div>
                   </div>
@@ -142,21 +142,16 @@ $pengeluaran = query("SELECT * FROM pengeluaran_kas LEFT JOIN proyek ON pengelua
                     <tr class="text-center">
                       <th scope="col" rowspan="2">No</th>
                       <th scope="col" colspan="2">Transaksi</th>
-
                       <th scope="col" rowspan="2">Proyek</th>
                       <th scope="col" rowspan="2"> Rekanan </th>
                       <th scope="col" rowspan="2">Sumber Dana</th>
-                      <th scope="col" colspan="2">Mata Uang</th>
                       <th scope="col" colspan="2">Nominal</th>
-                      <!-- <th scope="col" colspan="2">Ekuivalen</th> -->
                       <th scope="col" rowspan="2">Uraian</th>
                       <th scope="col" rowspan="2">Edit/Delete</th>
                     </tr>
                     <tr class="text-center">
                       <th> Tanggal </th>
-                      <th> No Invoice </th>
-                      <th> Kode </th>
-                      <th> rate </th>
+                      <th> No Invoice </th>>
                       <th>Debet (Masuk)</th>
                       <th>Kredit(Keluar)</th>
                     </tr>
@@ -169,9 +164,7 @@ $pengeluaran = query("SELECT * FROM pengeluaran_kas LEFT JOIN proyek ON pengelua
                       <td><?= $row['no_invoice'] ?></td>
                       <td><?= $row['nama'] ?></td>
                       <td><?= $row['nama_dibayar'] ?></td>
-                      <td><?= $row['no_rekening'] ?></td>
-                      <td> IDR </td>
-                      <td> 1.00 </td>
+                      <td> <?= $row['kode_bank'] ?> - <?= $row['no_rekening'] ?></td>
                       <td>0.00</td>
                       <td><?= $row['total_bayar'] ?></td>
                       <td><?= $row['uraian'] ?></td>
@@ -215,7 +208,7 @@ $pengeluaran = query("SELECT * FROM pengeluaran_kas LEFT JOIN proyek ON pengelua
                   </div>
                   <div class="form-group mb-3">
                     <label for="" class="form-label">No. Invoice</label>
-                    <input type="text" class="form-control" id="no_invoice" name="no_invoice" autocomplete="off">
+                    <input type="text" class="form-control" id="no_invoice" name="no_invoice" autocomplete="off" disabled>
                   </div>
                   <div class="form-group mb-3">
                     <label for=" class=" form-label">Proyek</label>

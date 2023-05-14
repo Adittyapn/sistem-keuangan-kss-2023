@@ -52,6 +52,10 @@ if (isset($_POST["edit"])) {
               <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Nama Pengguna" required name="nama_pengguna" />
             </div>
             <div class="input-group mb-3">
+              <span class="input-group-text"><i class="fa fa-user"></i></span>
+              <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Jabatan" required name="jabatan" />
+            </div>
+            <div class="input-group mb-3">
               <span class="input-group-text"><i class="fa fa-circle-user"></i></span>
               <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Username" required name="username" />
             </div>
@@ -59,7 +63,6 @@ if (isset($_POST["edit"])) {
               <span class="input-group-text"><i class="fa fa-lock"></i></span>
               <input type="password" class="form-control" id="exampleInputEmail1" placeholder="Password" required name="password" />
             </div>
-
             <div class="d-grid mb-3">
               <button type="submit" class="btn btn-danger" name="save" value="submit">Daftar</button>
               <p class="text-center mt-3">

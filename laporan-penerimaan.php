@@ -4,7 +4,7 @@ require "function.php";
 
 // cek apakah tombol submit sudah ditekan atau belum
 if (isset($_POST["edit"])) {
-  
+
   // cek apakah data berhasil di tambahkan atau tidak
   if (editData($_POST) > 0) {
     echo "<script> 
@@ -118,7 +118,7 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
                     </div>
                     <div class="col-2 ms-4">
                       <button class="btn btn-danger btn-sm" type="reset" onclick="location.reload()">
-                          <span class="fa fa-file me-1"></span>Baru
+                        <span class="fa fa-file me-1"></span>Baru
                       </button>
                       <button class="btn btn-danger btn-sm" type="submit" id="cetak" name="cetak"">
                           <span class=" fa fa-print me-1"></span>Cetak
@@ -145,7 +145,6 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
                       <th scope="col" rowspan="2">Proyek</th>
                       <th scope="col" rowspan="2"> Rekanan </th>
                       <th scope="col" rowspan="2">Sumber Dana</th>
-                      <th scope="col" colspan="2">Mata Uang</th>
                       <th scope="col" colspan="2">Nominal</th>
                       <!-- <th scope="col" colspan="2">Ekuivalen</th> -->
                       <th scope="col" rowspan="2">Uraian</th>
@@ -154,38 +153,34 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
                     <tr class="text-center">
                       <th> Tanggal </th>
                       <th> No Invoice </th>
-                      <th> Kode </th>
-                      <th> rate </th>
-                      <th>Kredit (Keluar)</th>
                       <th>Debet (Masuk)</th>
+                      <th>Kredit (Keluar)</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
-                    <?php $i = 1; ?>
-                    <?php foreach ($penerimaan as $row) : ?>
-                      <td><?= $i ?></td>
-                      <td><?= $row['tanggal'] ?></td>
-                      <td><?= $row['no_invoice'] ?></td>
-                      <td><?= $row['nama'] ?></td>
-                      <td><?= $row['nama_diterima'] ?></td>
-                      <td><?= $row['noRekening'] ?></td>
-                      <td> IDR  </td>
-                      <td> 1.00 </td>
-                      <td> 0.00 </td>
-                      <td><?= $row['total_bayar'] ?></td>
-                      <td><?= $row['uraian'] ?></td>
-                      <td class="text-center">
-                        <a type="button" id="tombolUbah" class="btn btn-outline-warning btn-sm" data-bs-toggle="modal" data-bs-target="#ubahModal" data-id_penerimaan="<?= $row['id_penerimaan'] ?>" data-tanggal="<?= $row['tanggal'] ?>" data-no_invoice="<?= $row['no_invoice'] ?>" data-nama="<?= $row['nama'] ?>" data-nama_diterima="<?= $row['nama_diterima'] ?>" data-no_rekening="<?= $row['noRekening'] ?>" data-total_bayar="<?= $row['total_bayar'] ?>" data-uraian="<?= $row['uraian'] ?>">
-                          Edit
-                        </a>
-                        <a href="delete.php?id_penerimaan=<?= $row['id_penerimaan'] ?>" onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')">
-                          <button class="btn btn-outline-danger mx-1 btn-sm">Delete</button>
-                        </a>
-                      </td>
-                      </tr>
-                      <?php $i++; ?>
-                    <?php endforeach; ?>
+                      <?php $i = 1; ?>
+                      <?php foreach ($penerimaan as $row) : ?>
+                        <td><?= $i ?></td>
+                        <td><?= $row['tanggal'] ?></td>
+                        <td><?= $row['no_invoice'] ?></td>
+                        <td><?= $row['nama'] ?></td>
+                        <td><?= $row['nama_diterima'] ?></td>
+                        <td> <?= $row['kodeBank'] ?>-<?= $row['noRekening'] ?></td>
+                        <td><?= $row['total_bayar'] ?></td>
+                        <td> 0.00 </td>
+                        <td><?= $row['uraian'] ?></td>
+                        <td class="text-center">
+                          <a type="button" id="tombolUbah" class="btn btn-outline-warning btn-sm" data-bs-toggle="modal" data-bs-target="#ubahModal" data-id_penerimaan="<?= $row['id_penerimaan'] ?>" data-tanggal="<?= $row['tanggal'] ?>" data-no_invoice="<?= $row['no_invoice'] ?>" data-nama="<?= $row['nama'] ?>" data-nama_diterima="<?= $row['nama_diterima'] ?>" data-no_rekening="<?= $row['noRekening'] ?>" data-total_bayar="<?= $row['total_bayar'] ?>" data-uraian="<?= $row['uraian'] ?>">
+                            Edit
+                          </a>
+                          <a href="delete.php?id_penerimaan=<?= $row['id_penerimaan'] ?>" onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')">
+                            <button class="btn btn-outline-danger mx-1 btn-sm">Delete</button>
+                          </a>
+                        </td>
+                    </tr>
+                    <?php $i++; ?>
+                  <?php endforeach; ?>
                   </tbody>
                 </table>
               </div>
@@ -214,7 +209,7 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
                   </div>
                   <div class="form-group mb-3">
                     <label for="no_invoice" class="form-label">No. Invoice</label>
-                    <input type="text" class="form-control" id="no_invoice" name="no_invoice" autocomplete="off">
+                    <input type="text" class="form-control" id="no_invoice" name="no_invoice" autocomplete="off" disabled>
                   </div>
                   <div class="form-group mb-3">
                     <label for="no_invoice" class="form-label">Proyek</label>
@@ -229,12 +224,12 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
                     <input type="text" class="form-control" id="noRekening" name="noRekening" autocomplete="off">
                   </div>
                   <div class="form-group mb-3">
-                    <label for="" class="form-label">Debet</label>
-                    <input type="text" class="form-control" id="" name="" value="0.00" disabled>
+                    <label for="no_invoice" class="form-label">Debet</label>
+                    <input type="text" class="form-control" id="total_bayar" name="total_bayar" autocomplete="off">
                   </div>
                   <div class="form-group mb-3">
-                    <label for="no_invoice" class="form-label">Kredit</label>
-                    <input type="text" class="form-control" id="total_bayar" name="total_bayar" autocomplete="off">
+                    <label for="" class="form-label">Kredit</label>
+                    <input type="text" class="form-control" id="" name="" value="0.00" disabled>
                   </div>
                   <div class="form-group mb-3">
                     <label for="no_invoice" class="form-label">Uraian</label>
@@ -257,7 +252,7 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
         <div class="row">
           <div class="col-7 offset-5">
             <div class="row">
-              
+
             </div>
           </div>
         </div>

@@ -25,13 +25,13 @@ function tambah($data)
     $kodeBank = $data["kodeBank"];
     $noRek = $data["noRekening"];
     $noGiro = $data["noGiro"];
-    $kode_diterima = $data["kode_diterima"];
+    // $kode_diterima = $data["kode_diterima"];
     $nama_diterima = $data["nama_diterima"];
-    $kode_proyek = $data["kode_proyek"];
+    // $kode_proyek = $data["kode_proyek"];
     $tambahProyek = $data["tambahProyek"];
     $nilai_pnrm = $data["nilaiPnrm"];
     $ppn = isset($data['ppn']) ? $data['ppn'] : 0;
-    $materai = $data['materai'];
+    // $materai = $data['materai'];
     $total_pnrm = $data['total_pnrm'];
     $potPPH = isset($data['pot1']) ? $data['pot1'] : 0;
     $potLain = $data['pot_lain'];
@@ -42,7 +42,7 @@ function tambah($data)
 
     $query = "INSERT INTO penerimaan_kas 
                 VALUES
-                (NULL, '$payment', '$invoice', '$tanggal', '$caraBayar', '$kodeBank', '$noRek', '$noGiro','$kode_diterima','$nama_diterima ','$tambahProyek', '$kode_proyek',$nilai_pnrm, $ppn, $materai,
+                (NULL, '$payment', '$invoice', '$tanggal', '$caraBayar', '$kodeBank', '$noRek', '$noGiro', '$nama_diterima ','$tambahProyek', $nilai_pnrm, $ppn,
                 $total_pnrm, $potPPH, $potLain, $total_bayar, '$uraian')";
     mysqli_query($conn, $query);
 
@@ -77,13 +77,10 @@ function tambahpengeluaran($data)
     $kodeBank = $data["kodeBank"];
     $noRek = $data["noRekening"];
     $noGiro = $data["noGiro"];
-    $kode_dibayar = $data["kode_dibayar"];
     $nama_dibayar = $data["nama_dibayar"];
-    $kode_proyek = $data["kode_proyek"];
     $tambahProyek = $data["tambahProyek"];
     $nilaiPengeluaran = $data["nilaiPengeluaran"];
     $ppn = isset($data['ppn']) ? $data['ppn'] : 0;
-    $materai = $data['materai'];
     $total_pengeluaran = $data['total_pengeluaran'];
     $potPPH = isset($data['pot1']) ? $data['pot1'] : 0;
     $potLain = $data['pot_lain'];
@@ -94,7 +91,7 @@ function tambahpengeluaran($data)
 
     $query = "INSERT INTO pengeluaran_kas 
                 VALUES
-                (null, '$payment', '$invoice', '$tanggal', '$caraBayar', '$kodeBank', '$noRek', '$noGiro', '$kode_dibayar','$nama_dibayar','$tambahProyek', '$kode_proyek',$nilaiPengeluaran, $ppn, $materai,
+                (null, '$payment', '$invoice', '$tanggal', '$caraBayar', '$kodeBank', '$noRek', '$noGiro', '$nama_dibayar','$tambahProyek', $nilaiPengeluaran, $ppn, 
                 $total_pengeluaran, $potPPH, $potLain, $total_bayar, '$uraian')";
 
     mysqli_query($conn, $query);
@@ -157,28 +154,3 @@ function editDataPengeluaran($data)
     return mysqli_affected_rows($conn);
 }
 //end pengeluaran kas
-// function ubahproduk($data)
-// {
-// global $conn;
-
-// $id = $data['id'];
-// $tanggal = $data['tanggal'];
-// $no_invoice = $data['no_invoice'];
-// $nama = $data['nama'];
-// $nama_dibayar = $data['nama_dibayar'];
-// $no_rekening = $data['no_rekening'];
-// $total_bayar = $data['total_bayar'];
-// $uraian = $data['uraian'];
-
-// mysqli_query($conn, "UPDATE penerimaan_kas SET
-// tanggal = '$tanggal',
-// no_invoice = '$no_invoice',
-// nama = '$nama',
-// nama_dibayar = '$nama_dibayar',
-// no_rekening = '$no_rekening',
-// total_bayar = '$total_bayar',
-// uraian = '$uraian'
-
-// WHERE id = $id
-// ");
-// }
