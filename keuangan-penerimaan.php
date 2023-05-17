@@ -162,18 +162,16 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
               </div>
               <div class="col-6 border mb-3 py-3">
                 <div class="row align-items-center">
-                  <label for="from" class="col-sm-2 col-form-label"><b>Diterima Dari</b></label>
+                  <label for="from" class="col-sm-4 col-form-label"><b>Diterima Dari</b></label>
                   <!-- <div class="col-sm-4">
                     <input class="form-control form-control-sm w-100" type="text" value="001" name="kode_diterima" aria-label="readonly input example" id="kode_diterima" autocomplete="off" />
                   </div> -->
                   <div class="col-sm-4">
                     <input class="form-control form-control-sm w-100" type="text" value="" name="nama_diterima" aria-label="readonly input example" id="nama_diterima" autocomplete="off" required />
                   </div>
-                  <div class="col-sm-2">
-                  </div>
                 </div>
                 <div class="row align-items-center">
-                  <label for="Proyek" class="col-sm-2 col-form-label"><b>Proyek</b></label>
+                  <label for="Proyek" class="col-sm-4 col-form-label"><b>Proyek</b></label>
                   <!-- <div class="col-sm-4">
                     <input class="form-control form-control-sm w-100" name="kode_proyek" type="text" value="BL-001" aria-label="readonly input example" autocomplete="off" />
                   </div> -->
@@ -208,7 +206,14 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
                 <div class="row mb-3">
                   <label for="kodeBank" class="col-sm-2 col-form-label">BANK</label>
                   <div class="col-sm-3">
-                    <input id="kodeBank" name="kodeBank" type="text" value="BCA" class="form-control" required /> <!-- kalo disabled gak bisa di input valuenya -->
+                    <input id="kodeBank" name="kodeBank" type="text" value="" class="form-control" required />
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2">
+                    </div>
+                      <div class="col-sm-6">
+                      <h6 class="p-2">* Jika tidak ada isi dengan "-" </h6>
+                      </div>
                   </div>
                   <!-- <div class="col-sm-7">
                     <input type="text" value="BRI" class="form-control" />
@@ -218,6 +223,7 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
                   <label for="noRek" class="col-sm-2 col-form-label">No Rekening</label>
                   <div class="col-sm-10">
                     <input id="noRekening" name="noRekening" type="text" value="" class="form-control" autocomplete="off" required />
+                    <h6 class="mt-3">* Jika tidak ada isi dengan "-" </h6>
                   </div>
                 </div>
                 <div class="row mb-3">
@@ -229,8 +235,6 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
                     <input class="form-check-input" type="checkbox" id="giroChecked" checked />
                   </div>
                 </div>
-                <br><br><br>
-                <h6>* Jika tidak ada isi dengan 0 </h6>
               </div>
               <div class="col-6 mt-2">
                 <div class="row mb-3">
@@ -298,6 +302,7 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
                   </div>
                   <div class="col-sm-8">
                     <input id="pot_lain" name="pot_lain" type="text" value="" class="text-end form-control" onkeypress="return restrictAlpha(event)" autocomplete="off" required />
+                    <h6 class="mt-3">* Jika tidak ada isi dengan "0" </h6>
                   </div>
                 </div>
                 <div class="pembatas">
@@ -318,7 +323,7 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
                   <div class="col-sm-8">
                     <div class="form-group">
                       <label for="exampleFormControlTextarea1"></label>
-                      <textarea class="form-control" id="uraian" name="uraian" rows="3" required></textarea>
+                      <textarea class="form-control" id="uraian" name="uraian" rows="3" required autocomplete="off"></textarea>
                     </div>
                   </div>
                 </div>
@@ -334,9 +339,9 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
                   <div class="card-header">
                     Input Detail
                   </div>
-                  <div class="card-body" style="height: 300px; overflow: scroll; ">
+                  <div class="card-body" style="height: 300px; overflow: scroll;">
                     <table class="table table-bordered">
-                      <thead>
+                      <thead class="text-center">
                         <tr>
                           <th scope="col">No</th>
                           <th scope="col">No. Invoice</th>
@@ -348,7 +353,7 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
                       <tbody>
                         <?php foreach ($penerimaan as $i => $row) : ?>
                           <tr>
-                            <th scope="row"><?php echo ++$i ?></th>
+                            <th class="text-center" scope="row"><?php echo ++$i ?></th>
                             <td><?php echo $row['no_invoice'] ?></td>
                             <td><?php echo $row['tanggal'] ?></td>
                             <td><?php echo $row['uraian'] ?></td>
@@ -364,16 +369,16 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
           </div>
           <div class="card-footer text-body-secondary">
             <div class="row">
-              <div class="col-9 offset-3">
+              <div class="col-7 offset-5">
                 <div class="row">
-                  <div class="col-sm-7 align-items-center">
-                    <button class="btn btn-danger" type="submit" name="submit">
-                      <span class="fa fa-floppy-disk me-1"></span>Simpan
-                    </button>
-                  </div>
                   <div class="col-sm-2 align-items-center">
                     <button class="btn btn-danger" type="reset">
                       <span class="fa fa-trash me-1"></span>Hapus
+                    </button>
+                  </div>
+                  <div class="col-sm-2 align-items-center">
+                    <button class="btn btn-danger" type="submit" name="submit">
+                      <span class="fa fa-floppy-disk me-1"></span>Simpan
                     </button>
                   </div>
                 </div>

@@ -170,7 +170,7 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
                         <td><?= $row['total_bayar'] ?></td>
                         <td> 0.00 </td>
                         <td><?= $row['uraian'] ?></td>
-                        <td class="text-center">
+                        <td class="text-center d-flex">
                           <a type="button" id="tombolUbah" class="btn btn-outline-warning btn-sm" data-bs-toggle="modal" data-bs-target="#ubahModal" data-id_penerimaan="<?= $row['id_penerimaan'] ?>" data-tanggal="<?= $row['tanggal'] ?>" data-no_invoice="<?= $row['no_invoice'] ?>" data-nama="<?= $row['nama'] ?>" data-nama_diterima="<?= $row['nama_diterima'] ?>" data-no_rekening="<?= $row['noRekening'] ?>" data-total_bayar="<?= $row['total_bayar'] ?>" data-uraian="<?= $row['uraian'] ?>">
                             Edit
                           </a>
@@ -209,7 +209,7 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
                   </div>
                   <div class="form-group mb-3">
                     <label for="no_invoice" class="form-label">No. Invoice</label>
-                    <input type="text" class="form-control" id="no_invoice" name="no_invoice" autocomplete="off" disabled>
+                    <input type="text" class="form-control" id="no_invoice" name="no_invoice" autocomplete="off" readonly>
                   </div>
                   <div class="form-group mb-3">
                     <label for="no_invoice" class="form-label">Proyek</label>

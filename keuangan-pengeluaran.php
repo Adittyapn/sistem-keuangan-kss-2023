@@ -57,6 +57,7 @@ $pengeluaran = query("SELECT * FROM pengeluaran_kas LEFT JOIN proyek ON pengelua
   <link rel="stylesheet" href="./src/style/global.css" />
   <link rel="stylesheet" href="./src/bootstrap/bootstrap.min.css" />
   <link rel="stylesheet" href="./src/style/all.min.css" />
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 </head>
 
 <body>
@@ -158,18 +159,16 @@ $pengeluaran = query("SELECT * FROM pengeluaran_kas LEFT JOIN proyek ON pengelua
               </div>
               <div class="col-6 border mb-3 py-3">
                 <div class="row align-items-center">
-                  <label for="from" class="col-sm-2 col-form-label"><b>Dibayarkan Kpd.</b></label>
+                  <label for="from" class="col-sm-4 col-form-label"><b>Dibayarkan Kpd.</b></label>
                   <!-- <div class="col-sm-4">
                     <input class="form-control form-control-sm w-100" type="text" value="001" aria-label="readonly input example" name="kode_bayar" id="kode_bayar" />
                   </div> -->
                   <div class="col-sm-4">
-                    <input class="form-control form-control-sm w-100" type="text" value="" aria-label="readonly input example" name="nama_dibayar" id="nama_dibayar" required />
-                  </div>
-                  <div class="col-sm-2">
+                    <input class="form-control form-control-sm w-100" type="text" value="" aria-label="readonly input example" name="nama_dibayar" id="nama_dibayar" autocomplete="off" required />
                   </div>
                 </div>
                 <div class="row align-items-center">
-                  <label for="Proyek" class="col-sm-2 col-form-label"><b>Proyek</b></label>
+                  <label for="Proyek" class="col-sm-4 col-form-label"><b>Proyek</b></label>
                   <!-- <div class="col-sm-4">
                     <input class="form-control form-control-sm w-100" name="kode_proyek" type="text" value="BL-001" aria-label="readonly input example" />
                   </div> -->
@@ -205,19 +204,27 @@ $pengeluaran = query("SELECT * FROM pengeluaran_kas LEFT JOIN proyek ON pengelua
                 <div class="row mb-3">
                   <label for="kodeBank" class="col-sm-2 col-form-label"> BANK</label>
                   <div class="col-sm-3">
-                    <input id="kodeBank" name="kodeBank" type="text" value="BCA" class="form-control" required /> <!-- kalo disabled gak bisa di input valuenya -->
+                    <input id="kodeBank" name="kodeBank" type="text" value="" class="form-control" autocomplete="off" required /> <!-- kalo disabled gak bisa di input valuenya -->
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2">
+                    </div>
+                      <div class="col-sm-6">
+                      <h6 class="p-2">* Jika tidak ada isi dengan "-" </h6>
+                      </div>
                   </div>
                 </div>
                 <div class="row mb-3">
                   <label for="noRek" class="col-sm-2 col-form-label">No Rekening</label>
                   <div class="col-sm-10">
-                    <input id="noRekening" name="noRekening" type="text" value="" class="form-control" required />
+                    <input id="noRekening" name="noRekening" type="text" value="" class="form-control" autocomplete="off" required />
+                    <h6 class="mt-3">* Jika tidak ada isi dengan "-" </h6>
                   </div>
                 </div>
                 <div class="row mb-3">
                   <label for="noGiro" class="col-sm-2 col-form-label">No Giro</label>
                   <div class="col-sm-8">
-                    <input id="noGiro" name="noGiro" type="text" value="" class="form-control" />
+                    <input id="noGiro" name="noGiro" type="text" value="" class="form-control" autocomplete="off" />
                   </div>
                   <div class="mt-2 d-flex justify-content-center col-sm-1">
                     <input class="form-check-input" type="checkbox" id="giroChecked" checked />
@@ -228,12 +235,12 @@ $pengeluaran = query("SELECT * FROM pengeluaran_kas LEFT JOIN proyek ON pengelua
               </div>
               <div class="col-6 mt-2">
                 <div class="row mb-3">
-                  <label for="nilaiPenerimaan" class="col-sm-2 col-form-label">Nilai Pengeluaran</label>
+                  <label for="nilaiPenerimaan" class="col-sm-2 col-form-label"><p style="font-size: 15px;">Nilai Pengeluaran</p></label>
                   <div class="col-sm-2">
                     <input name="idr" id="idr" value="IDR" class="text-center form-control" disabled readonly />
                   </div>
                   <div class="col-sm-8">
-                    <input name="nilaiPengeluaran" id="nilaiPengeluaran" class="text-end form-control" onkeypress="return restrictAlpha(event)" required />
+                    <input name="nilaiPengeluaran" id="nilaiPengeluaran" class="text-end form-control" onkeypress="return restrictAlpha(event)" required autocomplete="off" />
                   </div>
                 </div>
                 <div class="row mb-3">
@@ -242,10 +249,10 @@ $pengeluaran = query("SELECT * FROM pengeluaran_kas LEFT JOIN proyek ON pengelua
                     <input name="" id="" value="IDR" class="text-center form-control" disabled readonly />
                   </div>
                   <div class="mt-2 d-flex justify-content-center col-sm-1">
-                    <input class="form-check-input" type="checkbox" value="" id="ppnChecked" checked />
+                    <input class="form-check-input" type="checkbox" value="" id="ppnChecked" checked  />
                   </div>
                   <div class="col-sm-7">
-                    <input name="ppn" id="ppn" class="text-end form-control" />
+                    <input name="ppn" id="ppn" class="text-end form-control" autocomplete="off" />
                   </div>
                 </div>
                 <!-- <div class="row mb-3">
@@ -261,12 +268,12 @@ $pengeluaran = query("SELECT * FROM pengeluaran_kas LEFT JOIN proyek ON pengelua
                   <hr />
                 </div>
                 <div class="row mb-3">
-                  <label for="kodeBank" class="col-sm-2 col-form-label">Total Pengeluaran</label>
+                  <label for="totalPengeluaran" class="col-sm-2 col-form-label" style="font-size: 15px;">Total Pengeluaran</label>
                   <div class="col-sm-2">
                     <input name="idr" id="idr" value="IDR" class="text-center form-control" disabled readonly />
                   </div>
                   <div class="col-sm-8">
-                    <input id="total_pengeluaran" name="total_pengeluaran" type="text" value="" class="text-end form-control" onkeypress="return restrictAlpha(event)" />
+                    <input id="total_pengeluaran" name="total_pengeluaran" type="text" class="text-end form-control" readonly" />
                   </div>
                 </div>
                 <!-- <div class="row mb-3">
@@ -291,7 +298,8 @@ $pengeluaran = query("SELECT * FROM pengeluaran_kas LEFT JOIN proyek ON pengelua
                     <input name="idr" id="idr" value="IDR" class="text-center form-control" disabled readonly />
                   </div>
                   <div class="col-sm-8">
-                    <input id="pot_lain" name="pot_lain" type="text" value="" class="text-end form-control" onkeypress="return restrictAlpha(event)" />
+                    <input id="pot_lain" name="pot_lain" type="text" value="" class="text-end form-control" onkeypress="return  restrictAlpha(event)"  autocomplete="off"/>
+                    <h6 class="mt-3">* Jika tidak ada isi dengan "0" </h6>
                   </div>
                 </div>
                 <div class="pembatas">
@@ -304,7 +312,7 @@ $pengeluaran = query("SELECT * FROM pengeluaran_kas LEFT JOIN proyek ON pengelua
                     <input name="idr" id="idr" value="IDR" class="text-center form-control" disabled readonly />
                   </div>
                   <div class="col-sm-8">
-                    <input id="total_bayar" name="total_bayar" type="text" value="" class="text-end form-control" onkeypress="return restrictAlpha(event)" />
+                    <input id="total_bayar" name="total_bayar" type="text" value="" class="text-end form-control" onkeypress="return restrictAlpha(event)" autocomplete="off" />
                   </div>
                 </div>
                 <div class="row mb-3">
@@ -312,7 +320,7 @@ $pengeluaran = query("SELECT * FROM pengeluaran_kas LEFT JOIN proyek ON pengelua
                   <div class="col-sm-8">
                     <div class="form-group">
                       <label for="exampleFormControlTextarea1"></label>
-                      <textarea class="form-control" id="uraian" name="uraian" rows="3" required></textarea>
+                      <textarea class="form-control" id="uraian" name="uraian" rows="3" required autocomplete="off"></textarea>
                     </div>
                   </div>
                 </div>
@@ -328,9 +336,9 @@ $pengeluaran = query("SELECT * FROM pengeluaran_kas LEFT JOIN proyek ON pengelua
                   <div class="card-header">
                     Input Detail
                   </div>
-                  <div class="card-body">
+                  <div class="card-body" style="height: 300px; overflow: scroll;">
                     <table class="table table-bordered">
-                      <thead>
+                      <thead class="text-center">
                         <tr>
                           <th scope="col">No</th>
                           <th scope="col">No. Invoice</th>
@@ -342,7 +350,7 @@ $pengeluaran = query("SELECT * FROM pengeluaran_kas LEFT JOIN proyek ON pengelua
                       <tbody>
                         <?php foreach ($pengeluaran as $i => $row) : ?>
                           <tr>
-                            <th scope="row"><?php echo ++$i ?></th>
+                            <th class="text-center" scope="row"><?php echo ++$i ?></th>
                             <td><?php echo $row['no_invoice'] ?></td>
                             <td><?php echo $row['tanggal'] ?></td>
                             <td><?php echo $row['uraian'] ?></td>
@@ -358,16 +366,16 @@ $pengeluaran = query("SELECT * FROM pengeluaran_kas LEFT JOIN proyek ON pengelua
           </div>
           <div class="card-footer text-body-secondary">
             <div class="row">
-              <div class="col-9 offset-3">
+              <div class="col-7 offset-5">
                 <div class="row">
-                  <div class="col-sm-7 align-items-center">
-                    <button class="btn btn-danger" type="submit" name="submit">
-                      <span class="fa fa-floppy-disk me-1"></span>Simpan
-                    </button>
-                  </div>
                   <div class="col-sm-2 align-items-center">
                     <button class="btn btn-danger" type="reset">
                       <span class="fa fa-trash me-1"></span>Hapus
+                    </button>
+                  </div>
+                  <div class="col-sm-2 align-items-center">
+                    <button class="btn btn-danger" type="submit" name="submit">
+                      <span class="fa fa-floppy-disk me-1"></span>Simpan
                     </button>
                   </div>
                 </div>
@@ -406,7 +414,6 @@ $pengeluaran = query("SELECT * FROM pengeluaran_kas LEFT JOIN proyek ON pengelua
   <script src="https://code.jquery.com/jquery-3.6.4.slim.min.js" integrity="sha256-a2yjHM4jnF9f54xUQakjZGaqYs/V1CYvWpoqZzC2/Bw=" crossorigin="anonymous"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js" type="text/javascript"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js" type="text/javascript"></script>
-  <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="Stylesheet" type="text/css" />
   <script>
     //invoice format start
     $(document).ready(function() {

@@ -46,3 +46,12 @@ body {
 }
 
 /* Form Login and Register end */
+
+/* Start Image Halaman */
+.img-base{
+  width: 100%;
+  height: 100vh;
+  object-fit: cover; 
+  object-position: 0 -10%;
+}
+/* End Image Halaman */

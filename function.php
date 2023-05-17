@@ -24,7 +24,7 @@ function tambah($data)
     $caraBayar = $data["caraBayar"];
     $kodeBank = $data["kodeBank"];
     $noRek = $data["noRekening"];
-    $noGiro = $data["noGiro"];
+    $noGiro = isset($data["noGiro"]) ? $data["noGiro"] : "";
     // $kode_diterima = $data["kode_diterima"];
     $nama_diterima = $data["nama_diterima"];
     // $kode_proyek = $data["kode_proyek"];
@@ -76,7 +76,7 @@ function tambahpengeluaran($data)
     $caraBayar = $data["caraBayar"];
     $kodeBank = $data["kodeBank"];
     $noRek = $data["noRekening"];
-    $noGiro = $data["noGiro"];
+    $noGiro = isset($data["noGiro"]) ? ($data["noGiro"]) : " " ;
     $nama_dibayar = $data["nama_dibayar"];
     $tambahProyek = $data["tambahProyek"];
     $nilaiPengeluaran = $data["nilaiPengeluaran"];
