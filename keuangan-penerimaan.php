@@ -211,9 +211,9 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
                   <div class="row">
                     <div class="col-sm-2">
                     </div>
-                      <div class="col-sm-6">
+                    <div class="col-sm-6">
                       <h6 class="p-2">* Jika tidak ada isi dengan "-" </h6>
-                      </div>
+                    </div>
                   </div>
                   <!-- <div class="col-sm-7">
                     <input type="text" value="BRI" class="form-control" />
@@ -333,13 +333,24 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
               </div>
               <!-- main content end -->
             </div>
+            <?php
+
+            function compareDates($a, $b)
+            {
+              $dateA = strtotime($a['tanggal']);
+              $dateB = strtotime($b['tanggal']);
+              return $dateA - $dateB;
+            }
+
+            usort($penerimaan, 'compareDates');
+            ?>
             <div class="row mt-3">
               <div class="col-10 offset-1">
                 <div class="card">
                   <div class="card-header">
                     Input Detail
                   </div>
-                  <div class="card-body" style="height: 300px; overflow: scroll;">
+                  <div class="card-body" style="height: 250px; overflow: scroll;">
                     <table class="table table-bordered">
                       <thead class="text-center">
                         <tr>

@@ -133,6 +133,15 @@ $pengeluaran = query("SELECT * FROM pengeluaran_kas LEFT JOIN proyek ON pengelua
         <!-- header content end -->
 
         <!-- main content start -->
+        <?php
+        function sortdate($a, $b)
+        {
+          $dateA = strtotime($a['tanggal']);
+          $dateB = strtotime($b['tanggal']);
+          return $dateA - $dateB;
+        }
+        usort($pengeluaran, 'sortdate');
+        ?>
         <div class="col-12 mt-1">
           <div class="container-fluid p-2">
             <div class="container-fluid border border-1">
@@ -172,7 +181,7 @@ $pengeluaran = query("SELECT * FROM pengeluaran_kas LEFT JOIN proyek ON pengelua
                         <a type="button" id="edit_data" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#ubahModal" data-id_pengeluaran="<?= $row['id_pengeluaran'] ?>" data-tanggal="<?= $row['tanggal'] ?>" data-no_invoice="<?= $row['no_invoice'] ?>" data-nama="<?= $row['nama'] ?>" data-nama_dibayar="<?= $row['nama_dibayar'] ?>" data-no_rekening="<?= $row['no_rekening'] ?>" data-total_bayar="<?= $row['total_bayar'] ?>" data-uraian="<?= $row['uraian'] ?>">
                           Edit
                         </a>
-                        <a href="delete.php?id_pengeluaran=<?= $row['id_pengeluaran'] ?>" onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')">
+                        <a href="deletepengeluaran.php?id_pengeluaran=<?= $row['id_pengeluaran'] ?>" onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')">
                           <button class="btn btn-outline-danger mx-1">Delete</button>
                         </a>
                       </td>

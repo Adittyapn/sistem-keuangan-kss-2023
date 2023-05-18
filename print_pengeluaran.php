@@ -36,7 +36,7 @@ class FPDF_AutoWrapTable extends FPDF {
 		$this->Cell(0, 1, " ", "B");
 		$this->Ln(20);
 		$this->SetFont("", "B", 12);
-		$this->SetX(20); $this->Cell(0, 10, 'LAPORAN PENERIMAAN', 0, 1,'C');
+		$this->SetX(20); $this->Cell(0, 10, 'LAPORAN PENGELUARAN', 0, 1,'C');
 		$this->Ln(40);
         $this->SetFont("", "B", 10);
         $this->SetX (100); $this -> Cell (138,1,'Periode '. $_POST['from'].' s/d '.$_POST['to'],0,1,'R');
@@ -232,4 +232,3 @@ $options = array(
  
 $tabel = new FPDF_AutoWrapTable($data, $options);
 $tabel->printPDF();
-?>

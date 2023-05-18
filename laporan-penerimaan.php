@@ -132,6 +132,17 @@ $penerimaan = query("SELECT * FROM penerimaan_kas LEFT JOIN proyek ON penerimaan
         <!-- header content end -->
 
         <!-- main content start -->
+        <?php
+
+        function compareDates($a, $b)
+        {
+          $dateA = strtotime($a['tanggal']);
+          $dateB = strtotime($b['tanggal']);
+          return $dateA - $dateB;
+        }
+
+        usort($penerimaan, 'compareDates');
+        ?>
         <div class="col-12 mt-1">
           <div class="container-fluid p-2">
             <div class="container-fluid border border-1">

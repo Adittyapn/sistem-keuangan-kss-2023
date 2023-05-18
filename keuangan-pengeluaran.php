@@ -209,9 +209,9 @@ $pengeluaran = query("SELECT * FROM pengeluaran_kas LEFT JOIN proyek ON pengelua
                   <div class="row">
                     <div class="col-sm-2">
                     </div>
-                      <div class="col-sm-6">
+                    <div class="col-sm-6">
                       <h6 class="p-2">* Jika tidak ada isi dengan "-" </h6>
-                      </div>
+                    </div>
                   </div>
                 </div>
                 <div class="row mb-3">
@@ -230,12 +230,12 @@ $pengeluaran = query("SELECT * FROM pengeluaran_kas LEFT JOIN proyek ON pengelua
                     <input class="form-check-input" type="checkbox" id="giroChecked" checked />
                   </div>
                 </div>
-                <br><br><br>
-                <h6>* Jika tidak ada isi dengan 0 </h6>
               </div>
               <div class="col-6 mt-2">
                 <div class="row mb-3">
-                  <label for="nilaiPenerimaan" class="col-sm-2 col-form-label"><p style="font-size: 15px;">Nilai Pengeluaran</p></label>
+                  <label for="nilaiPenerimaan" class="col-sm-2 col-form-label">
+                    <p style="font-size: 15px;">Nilai Pengeluaran</p>
+                  </label>
                   <div class="col-sm-2">
                     <input name="idr" id="idr" value="IDR" class="text-center form-control" disabled readonly />
                   </div>
@@ -249,7 +249,7 @@ $pengeluaran = query("SELECT * FROM pengeluaran_kas LEFT JOIN proyek ON pengelua
                     <input name="" id="" value="IDR" class="text-center form-control" disabled readonly />
                   </div>
                   <div class="mt-2 d-flex justify-content-center col-sm-1">
-                    <input class="form-check-input" type="checkbox" value="" id="ppnChecked" checked  />
+                    <input class="form-check-input" type="checkbox" value="" id="ppnChecked" checked />
                   </div>
                   <div class="col-sm-7">
                     <input name="ppn" id="ppn" class="text-end form-control" autocomplete="off" />
@@ -298,7 +298,7 @@ $pengeluaran = query("SELECT * FROM pengeluaran_kas LEFT JOIN proyek ON pengelua
                     <input name="idr" id="idr" value="IDR" class="text-center form-control" disabled readonly />
                   </div>
                   <div class="col-sm-8">
-                    <input id="pot_lain" name="pot_lain" type="text" value="" class="text-end form-control" onkeypress="return  restrictAlpha(event)"  autocomplete="off"/>
+                    <input id="pot_lain" name="pot_lain" type="text" value="" class="text-end form-control" onkeypress="return  restrictAlpha(event)" autocomplete="off" />
                     <h6 class="mt-3">* Jika tidak ada isi dengan "0" </h6>
                   </div>
                 </div>
@@ -330,13 +330,22 @@ $pengeluaran = query("SELECT * FROM pengeluaran_kas LEFT JOIN proyek ON pengelua
               </div>
               <!-- main content end -->
             </div>
+            <?php
+            function sortdate($a, $b)
+            {
+              $dateA = strtotime($a['tanggal']);
+              $dateB = strtotime($b['tanggal']);
+              return $dateA - $dateB;
+            }
+            usort($pengeluaran, 'sortdate');
+            ?>
             <div class="row mt-3">
               <div class="col-10 offset-1">
                 <div class="card">
                   <div class="card-header">
                     Input Detail
                   </div>
-                  <div class="card-body" style="height: 300px; overflow: scroll;">
+                  <div class="card-body" style="height: 230px; overflow: scroll;">
                     <table class="table table-bordered">
                       <thead class="text-center">
                         <tr>
